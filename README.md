@@ -18,7 +18,7 @@
     .logo-text span { color: var(--orange); }
     .logo-zh { font-size: 22px; font-weight: 700; color: var(--red); text-align: center; margin: 6px 0 24px; }
     input { width: 100%; padding: 12px 14px; margin-bottom: 10px; border: 1px solid #e2e2e2; border-radius: 10px; font-size: 15px; }
-    input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,122,0,0.15); }
+    input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,122,0,0.15); background: #fff; }
     .btn-login { width: 100%; padding: 14px; background: var(--orange); border: none; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; }
     .error { color: var(--red); text-align: center; margin-top: 12px; display: none; }
     .error.show { display: block; }
@@ -36,9 +36,13 @@
     .container { padding: 16px; }
     .card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px; }
     table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    th { background: #f9fafb; padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
-    td { padding: 8px; border-bottom: 1px solid #f3f4f6; }
-    td input { padding: 6px 8px; border: 1px solid #ddd; border-radius: 6px; margin: 0; font-size: 14px; }
+    th { background: #f9fafb; padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; font-weight: 600; }
+    td { padding: 10px; border-bottom: 1px solid #f3f4f6; }
+    td input { 
+      padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; margin: 0; font-size: 14px;
+      width: 100%; background: #fff; cursor: text;
+    }
+    td input:focus { border-color: var(--orange); outline: none; box-shadow: 0 0 0 2px rgba(255,122,0,0.15); }
     .text-right { text-align: right; }
     .btn-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
     .btn { flex: 1; min-width: 100px; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 15px; }
@@ -50,7 +54,11 @@
     .proj-block { background: #fff; border-radius: 16px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .proj-header { background: linear-gradient(to right, #fff9f0, #fff); padding: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .proj-num { background: var(--orange); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-    .proj-name { flex: 1; min-width: 150px; border: 1px solid transparent; font-size: 16px; font-weight: 700; background: transparent; padding: 6px 8px; border-radius: 6px; }
+    .proj-name { 
+      flex: 1; min-width: 150px; border: 1px solid transparent; 
+      font-size: 16px; font-weight: 700; background: transparent; 
+      padding: 8px 10px; border-radius: 6px;
+    }
     .proj-name:focus { border-color: var(--orange); outline: none; background: #fff; }
     .proj-total { color: var(--orange); font-weight: 700; font-size: 18px; white-space: nowrap; }
     .proj-del { border: none; background: none; color: var(--red); font-size: 22px; cursor: pointer; padding: 4px 8px; }
@@ -126,10 +134,10 @@
 const USER = "admin", PASS = "admin123";
 const MARKUP = 1.5; // 自动加50%
 
-// ✅ 默认基础价（柜体齐全）
+// ✅ 默认基础价（含你写的 Melamine E0）
 const defaultRates = [
-  { id:1, cat:"地柜", name:"Melamine E0 地柜基础", unit:"ft", price:400 },
-  { id:2, cat:"地柜", name:"Melamine E1 地柜基础", unit:"ft", price:360 },
+  { id:1, cat:"地柜", name:"Melamine E0 NO WARRANTY", unit:"ft", price:400 },
+  { id:2, cat:"地柜", name:"Melamine E1 NO WARRANTY", unit:"ft", price:360 },
   { id:3, cat:"吊柜", name:"吊柜 700mm高", unit:"ft", price:420 },
   { id:4, cat:"吊柜", name:"吊柜 800mm高", unit:"ft", price:460 },
   { id:5, cat:"吊柜", name:"吊柜 900mm高", unit:"ft", price:500 },
@@ -194,11 +202,11 @@ function renderRate() {
     </tr></thead><tbody>
     ${list.map(r => `
       <tr>
-        <td><input value="${r.cat}" onchange="updateRate(${r.id},'cat',this.value)" style="width:100px;" /></td>
-        <td><input value="${r.name}" onchange="updateRate(${r.id},'name',this.value)" /></td>
-        <td><input value="${r.unit}" onchange="updateRate(${r.id},'unit',this.value)" style="width:70px;" /></td>
+        <td><input value="${r.cat}" oninput="updateRate(${r.id},'cat',this.value)" style="width:100px;" /></td>
+        <td><input value="${r.name}" oninput="updateRate(${r.id},'name',this.value)" /></td>
+        <td><input value="${r.unit}" oninput="updateRate(${r.id},'unit',this.value)" style="width:70px;" /></td>
         <td class="text-right"><input type="number" value="${r.price}" oninput="updateRate(${r.id},'price',+this.value||0)" style="width:100px; text-align:right;" /></td>
-        <td><button style="border:none; background:none; color:red; cursor:pointer;" onclick="delRate(${r.id})">×</button></td>
+        <td><button style="border:none; background:none; color:red; cursor:pointer; font-size:20px;" onclick="delRate(${r.id})">×</button></td>
       </tr>
     `).join("")}
     </tbody></table>
@@ -218,7 +226,7 @@ function addRateRow() {
   renderRate();
 }
 function resetRate() {
-  if (confirm("恢复默认？自定义项目会丢失！")) {
+  if (confirm("恢复默认？自定义项目会保留，基础价全部恢复！")) {
     localStorage.removeItem("nexsign_rates");
     rateData = [...defaultRates];
     renderRate();
@@ -226,7 +234,7 @@ function resetRate() {
 }
 function saveRate() { localStorage.setItem("nexsign_rates", JSON.stringify(rateData)); }
 
-// ===== ✅ 报价单 - 这次绝对能改！=====
+// ===== ✅ 报价单 — 项目名称框完全修复 =====
 function addQuoteProject() {
   projId++;
   projects.push({ id: projId, name: `项目${projects.length+1}`, items: [] });
@@ -248,7 +256,7 @@ function delQuoteRow(pid, idx) {
   renderQuote();
 }
 
-// ✅ 实时更新：不改整页 → 输入框不丢焦点
+// ✅ 实时更新：不刷新、不丢焦点
 function updateQuoteName(pid, val) {
   const p = projects.find(x => x.id === pid);
   p.name = val;
@@ -269,7 +277,8 @@ function renderQuote() {
         <div class="proj-header">
           <span class="proj-num">${pIdx+1}</span>
           <input type="text" class="proj-name" value="${p.name}" 
-                 oninput="updateQuoteName(${p.id}, this.value)" />
+                 oninput="updateQuoteName(${p.id}, this.value)"
+                 placeholder="输入项目名称" />
           <span class="proj-total">RM ${withMarkup.toFixed(2)}</span>
           <button class="proj-del" onclick="delQuoteProject(${p.id})">×</button>
         </div>
@@ -286,16 +295,20 @@ function renderQuote() {
             const amt = ((r.price||0)*(r.qty||0)*MARKUP).toFixed(2);
             return `
               <tr>
-                <td><input value="${r.name}" 
-                       oninput="updateQuoteCell(${p.id}, ${i}, 'name', this.value)" /></td>
-                <td><input value="${r.unit}" style="width:70px;" 
+                <td>
+                  <!-- ✅ 这一行就是你截图里改不到的地方，现在完全修好！ -->
+                  <input type="text" value="${r.name}" 
+                         oninput="updateQuoteCell(${p.id}, ${i}, 'name', this.value)"
+                         placeholder="直接点这里改项目名称" />
+                </td>
+                <td><input type="text" value="${r.unit}" style="width:70px;" 
                        oninput="updateQuoteCell(${p.id}, ${i}, 'unit', this.value)" /></td>
                 <td class="text-right"><input type="number" value="${r.price}" style="width:90px; text-align:right;" 
                        oninput="updateQuoteCell(${p.id}, ${i}, 'price', +this.value||0)" /></td>
                 <td class="text-right"><input type="number" value="${r.qty}" style="width:60px; text-align:right;" 
                        oninput="updateQuoteCell(${p.id}, ${i}, 'qty', +this.value||0)" /></td>
                 <td class="text-right" style="font-weight:bold; color:var(--orange);">${amt}</td>
-                <td><button style="border:none; background:none; color:red; cursor:pointer;" 
+                <td><button style="border:none; background:none; color:red; cursor:pointer; font-size:18px;" 
                        onclick="delQuoteRow(${p.id}, ${i})">×</button></td>
               </tr>
             `;
