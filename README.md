@@ -2,7 +2,12 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <!-- 📱 手机APP全屏模式 -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="NEXSIGN" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#FF7A00" />
   <title>NEXSIGN — 全屋报价系统</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
@@ -51,12 +56,26 @@
     .btn-o { background: var(--orange); color: #000; }
     .btn-b { background: var(--blue); color: #fff; }
     .btn-g { background: #f0f0f0; color: #333; }
+    
+    /* ✅ 修复：项目名称输入框样式 */
     .proj-block { background: #fff; border-radius: 16px; margin-bottom: 16px; overflow: hidden; }
-    .proj-header { background: linear-gradient(to right, #fff9f0, #fff); padding: 14px; display: flex; align-items: center; gap: 10px; }
-    .proj-num { background: var(--orange); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
-    .proj-name { flex: 1; border: none; font-size: 16px; font-weight: 700; background: transparent; }
-    .proj-total { color: var(--orange); font-weight: 700; font-size: 18px; }
-    .proj-del { border: none; background: none; color: var(--red); font-size: 20px; cursor: pointer; }
+    .proj-header { 
+      background: linear-gradient(to right, #fff9f0, #fff); padding: 14px; 
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap; 
+    }
+    .proj-num { 
+      background: var(--orange); width: 32px; height: 32px; border-radius: 50%; 
+      display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; 
+    }
+    .proj-name { 
+      flex: 1; min-width: 150px; border: 1px solid transparent; 
+      font-size: 16px; font-weight: 700; background: transparent; padding: 6px 8px; border-radius: 6px;
+      transition: border 0.2s;
+    }
+    .proj-name:focus { border-color: var(--orange); outline: none; background: #fff; }
+    .proj-total { color: var(--orange); font-weight: 700; font-size: 18px; white-space: nowrap; }
+    .proj-del { border: none; background: none; color: var(--red); font-size: 20px; cursor: pointer; padding: 4px 8px; }
+    
     .grand-total { background: linear-gradient(135deg, #0A2351, #16213e); color: #fff; border-radius: 16px; padding: 24px; margin-top: 16px; }
     .grand-value { font-size: 32px; font-weight: 800; margin-top: 8px; }
   </style>
@@ -121,7 +140,7 @@
         <button class="btn btn-b" onclick="goPage('ratelib')">📋 费率库</button>
       </div>
       <div class="grand-total">
-        <div>最终报价总额</div>
+        <div>最终报价总额（含+50%）</div>
         <div class="grand-value">RM <span id="finalTotal">0.00</span></div>
       </div>
     </div>
@@ -142,136 +161,229 @@ const categories = [
   {id:"other",name:"其他"}
 ];
 
-// ✅ 已包含你说的柜体基础价
+// ✅ 完整柜体基础价
 const defaultData = [
-  // 柜体基础
-  {cat:"base",code:"B001",name:"Melamine E0 地柜基础",unit:"ft",price:400,desc:"Supply & Install +50%"},
-  {cat:"base",code:"B002",name:"Melamine E1 地柜基础",unit:"ft",price:360,desc:"Supply & Install +50%"},
-  {cat:"wall",code:"W001",name:"吊柜 700mm高",unit:"ft",price:420,desc:"Supply & Install +50%"},
-  {cat:"wall",code:"W002",name:"吊柜 800mm高",unit:"ft",price:460,desc:"Supply & Install +50%"},
-  {cat:"wall",code:"W003",name:"吊柜 900mm高",unit:"ft",price:500,desc:"Supply & Install +50%"},
-  {cat:"cabinet",code:"C001",name:"标准柜体 melamine",unit:"sqft",price:95,desc:"E1级 不含保修"},
-  {cat:"cabinet",code:"C002",name:"加厚柜体 melamine E0",unit:"sqft",price:115,desc:"E0级 不含保修"},
-  // 水盆
-  {cat:"sink",code:"S001",name:"不锈钢洗菜盆 SUS304",unit:"个",price:850,desc:"含安装辅材"},
-  {cat:"sink",code:"S002",name:"SORENTO单槽套装",unit:"套",price:2300,desc:"含龙头安装"}
+  {uid:1,cat:"base",code:"B001",name:"Melamine E0 地柜基础",unit:"ft",price:400,desc:"Supply & Install +50%"},
+  {uid:2,cat:"base",code:"B002",name:"Melamine E1 地柜基础",unit:"ft",price:360,desc:"Supply & Install +50%"},
+  {uid:3,cat:"wall",code:"W001",name:"吊柜 700mm高",unit:"ft",price:420,desc:"Supply & Install +50%"},
+  {uid:4,cat:"wall",code:"W002",name:"吊柜 800mm高",unit:"ft",price:460,desc:"Supply & Install +50%"},
+  {uid:5,cat:"wall",code:"W003",name:"吊柜 900mm高",unit:"ft",price:500,desc:"Supply & Install +50%"},
+  {uid:6,cat:"cabinet",code:"C001",name:"标准柜体 melamine",unit:"sqft",price:95,desc:"E1级 不含保修"},
+  {uid:7,cat:"cabinet",code:"C002",name:"加厚柜体 melamine E0",unit:"sqft",price:115,desc:"E0级 不含保修"},
+  {uid:8,cat:"sink",code:"S001",name:"不锈钢洗菜盆 SUS304",unit:"个",price:850,desc:"含安装辅材"},
+  {uid:9,cat:"sink",code:"S002",name:"SORENTO单槽套装",unit:"套",price:2300,desc:"含龙头安装"}
 ];
 
-let items = [], activeCat = "all", projects = [], pid = 0;
+let items = [], activeCat = "all", projects = [], pidCounter = 0;
 
+// ===== 登录 =====
 function doLogin() {
-  if(document.getElementById("username").value.trim()===USER && document.getElementById("password").value===PASS) {
-    localStorage.setItem("nexsign_user",USER);
+  const u = document.getElementById("username").value.trim();
+  const p = document.getElementById("password").value;
+  if(u === USER && p === PASS) {
+    localStorage.setItem("nexsign_user", USER);
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("mainPage").classList.remove("hidden");
     init();
-  } else { document.getElementById("errorMsg").classList.add("show"); }
+  } else {
+    document.getElementById("errorMsg").classList.add("show");
+  }
 }
 function doLogout() { localStorage.removeItem("nexsign_user"); location.reload(); }
-window.onload = ()=>{ if(localStorage.getItem("nexsign_user")===USER) {document.getElementById("loginPage").classList.add("hidden");document.getElementById("mainPage").classList.remove("hidden");init();} };
+window.onload = () => {
+  if(localStorage.getItem("nexsign_user") === USER) {
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("mainPage").classList.remove("hidden");
+    init();
+  }
+  document.addEventListener("keydown", e => e.key === "Enter" && doLogin());
+};
 
+// ===== 初始化 =====
 function init() {
   const saved = localStorage.getItem("nexsign_items");
   items = saved ? JSON.parse(saved) : [...defaultData];
+  // 确保每个项目有uid（旧数据修复）
+  items = items.map((it, idx) => ({...it, uid: it.uid || idx+1}));
   document.getElementById("qdate").valueAsDate = new Date();
-  renderCats(); renderItems(); addProj();
+  renderCats();
+  renderItems();
+  if(projects.length === 0) addProj();
 }
 
-function goPage(p) {
-  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.page===p));
-  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("hidden",x.id!==`page-${p}`));
-  if(p==="ratelib") {renderCats(); renderItems();}
+// ===== 页面切换 =====
+function goPage(pageId) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.page === pageId));
+  document.querySelectorAll(".page").forEach(x => x.classList.toggle("hidden", x.id !== `page-${pageId}`));
+  if(pageId === "ratelib") { renderCats(); renderItems(); }
 }
 
+// ===== 费率库 =====
 function renderCats() {
-  document.getElementById("catGrid").innerHTML = categories.map(c=>`
-    <div class="cat-item ${activeCat===c.id?'active':''}" onclick="activeCat='${c.id}';renderItems();">
+  document.getElementById("catGrid").innerHTML = categories.map(c => `
+    <div class="cat-item ${activeCat === c.id ? 'active' : ''}" 
+         onclick="activeCat='${c.id}'; renderItems();">
       ${c.name}<br><small>${activeCat==='all'?items.length:items.filter(i=>i.cat===c.id).length}</small>
     </div>`).join("");
 }
 
 function renderItems() {
   let list = [...items];
-  if(activeCat!=="all") list = list.filter(i=>i.cat===activeCat);
-  const kw = document.getElementById("searchInput")?.value.toLowerCase()||"";
-  if(kw) list = list.filter(i=>i.name.toLowerCase().includes(kw)||i.code.toLowerCase().includes(kw));
+  if(activeCat !== "all") list = list.filter(i => i.cat === activeCat);
+  const kw = document.getElementById("searchInput")?.value.toLowerCase() || "";
+  if(kw) list = list.filter(i => 
+    i.name.toLowerCase().includes(kw) || i.code.toLowerCase().includes(kw)
+  );
   
-  document.getElementById("itemBody").innerHTML = list.map(it=>`
+  document.getElementById("itemBody").innerHTML = list.map(it => `
     <tr>
-      <td>${categories.find(c=>c.id===it.cat)?.name||it.cat}</td>
+      <td>${categories.find(c => c.id === it.cat)?.name || it.cat}</td>
       <td>${it.code}</td>
-      <td><input value="${it.name}" onchange="upd(${it.uid},'name',this.value)" /></td>
-      <td><input value="${it.unit}" style="width:70px;" onchange="upd(${it.uid},'unit',this.value)" /></td>
-      <td class="text-right"><input type="number" value="${it.price}" style="width:100px;" onchange="upd(${it.uid},'price',+this.value)" /></td>
-      <td><input value="${it.desc||''}" onchange="upd(${it.uid},'desc',this.value)" /></td>
-      <td><button style="border:none;background:none;color:red;" onclick="del(${it.uid})">×</button></td>
+      <td><input value="${it.name}" onchange="updateItem(${it.uid}, 'name', this.value)" /></td>
+      <td><input value="${it.unit}" style="width:70px;" onchange="updateItem(${it.uid}, 'unit', this.value)" /></td>
+      <td class="text-right"><input type="number" value="${it.price}" style="width:100px;" onchange="updateItem(${it.uid}, 'price', +this.value)" /></td>
+      <td><input value="${it.desc || ''}" onchange="updateItem(${it.uid}, 'desc', this.value)" /></td>
+      <td><button style="border:none;background:none;color:red;cursor:pointer;" onclick="deleteItem(${it.uid})">×</button></td>
     </tr>`).join("");
-  save();
+  saveItems();
 }
 
-function save() { localStorage.setItem("nexsign_items",JSON.stringify(items)); }
-function upd(uid,f,v) { const x=items.find(i=>i.uid===uid); if(x){x[f]=v;save();calc();} }
-function del(uid) { if(confirm("确定删除？")){items=items.filter(i=>i.uid!==uid);save();renderItems();} }
+function saveItems() { localStorage.setItem("nexsign_items", JSON.stringify(items)); }
+function updateItem(uid, field, val) {
+  const x = items.find(i => i.uid === uid);
+  if(x) { x[field] = val; saveItems(); calcTotal(); }
+}
+function deleteItem(uid) {
+  if(confirm("确定删除？")) {
+    items = items.filter(i => i.uid !== uid);
+    saveItems(); renderItems();
+  }
+}
 function addItem() {
-  const nid=items.length?Math.max(...items.map(i=>i.uid))+1:1;
-  items.unshift({uid:nid,cat:"base",code:`N${nid}`,name:"新项目",unit:"ft",price:0,desc:""});
-  save();renderItems();
+  const newUid = items.length ? Math.max(...items.map(i => i.uid)) + 1 : 1;
+  items.unshift({uid: newUid, cat: "base", code:`N${newUid}`, name:"新项目", unit:"ft", price:0, desc:""});
+  saveItems(); renderItems();
 }
 function resetLib() {
   if(confirm("恢复默认？自定义项目会保留，基础价全部恢复！")) {
     localStorage.removeItem("nexsign_items");
     items = [...defaultData];
-    save();renderItems();
+    saveItems(); renderItems();
   }
 }
 
+// ===== ✅ 报价单 - 修复项目名称修改 =====
 function addProj() {
-  pid++; projects.push({id:pid,name:`项目${projects.length+1}`,list:[]}); renderProj();
+  pidCounter++;
+  projects.push({
+    id: pidCounter,
+    name: `项目${projects.length + 1}`, // 默认名
+    list: []
+  });
+  renderProjects();
 }
-function delProj(id) { if(confirm("确定？")){projects=projects.filter(p=>p.id!==id);renderProj();} }
-function addRow(pid) { const p=projects.find(x=>x.id===pid);p.list.push({name:"",unit:"ft",price:0,qty:1});renderProj(); }
-function updRow(pid,idx,f,v) { const p=projects.find(x=>x.id===pid);p.list[idx][f]=v;renderProj(); }
-function delRow(pid,idx) { projects.find(x=>x.id===pid).list.splice(idx,1);renderProj(); }
 
-function renderProj() {
-  document.getElementById("projContainer").innerHTML = projects.map((p,pi)=>{
-    const sub = p.list.reduce((s,r)=>s+(r.price||0)*(r.qty||0),0);
-    return `<div class="proj-block">
-      <div class="proj-header">
-        <span class="proj-num">${pi+1}</span>
-        <input class="proj-name" value="${p.name}" onchange="p.name=this.value" />
-        <span class="proj-total">RM ${(sub*MARKUP).toFixed(2)}</span>
-        <button class="proj-del" onclick="delProj(${p.id})">×</button>
-      </div>
-      <div style="padding:14px;">
-        <table><thead><tr>
-          <th>项目</th><th>单位</th><th class="text-right">单价</th><th class="text-right">数量</th><th class="text-right">金额(含+50%)</th><th></th>
-        </tr></thead><tbody>
-        ${p.list.map((r,i)=>{
-          const amt = ((r.price||0)*(r.qty||0)*MARKUP).toFixed(2);
-          return `<tr>
-            <td><input value="${r.name}" onchange="updRow(${p.id},${i},'name',this.value)" /></td>
-            <td><input value="${r.unit}" style="width:60px;" onchange="updRow(${p.id},${i},'unit',this.value)" /></td>
-            <td class="text-right"><input type="number" value="${r.price}" style="width:80px;" oninput="updRow(${p.id},${i},'price',+this.value||0)" /></td>
-            <td class="text-right"><input type="number" value="${r.qty}" style="width:60px;" oninput="updRow(${p.id},${i},'qty',+this.value||0)" /></td>
-            <td class="text-right" style="color:var(--orange);font-weight:bold;">${amt}</td>
-            <td><button style="border:none;background:none;color:red;" onclick="delRow(${p.id},${i})">×</button></td>
-          </tr>`;
-        }).join("")}
-        </tbody></table>
-        <div class="btn-bar" style="margin-top:10px;">
-          <button class="btn btn-g" style="flex:none;padding:8px 12px;" onclick="addRow(${p.id})">➕ 加行</button>
-          <button class="btn btn-g" style="flex:none;padding:8px 12px;" onclick="goPage('ratelib')">📋 从费率库复制</button>
+function deleteProject(pid) {
+  if(confirm("确定删除此项目？")) {
+    projects = projects.filter(p => p.id !== pid);
+    renderProjects();
+  }
+}
+
+// ✅ 关键修复：专门处理项目名称更新
+function updateProjectName(pid, newName) {
+  const proj = projects.find(p => p.id === pid);
+  if(proj) {
+    proj.name = newName;
+    // 不重新render整页，避免输入框失去焦点
+    calcTotal();
+  }
+}
+
+function addRow(pid) {
+  const proj = projects.find(p => p.id === pid);
+  if(!proj) return;
+  proj.list.push({name:"", unit:"ft", price:0, qty:1});
+  renderProjects();
+}
+
+function updateRow(pid, idx, field, val) {
+  const proj = projects.find(p => p.id === pid);
+  if(!proj) return;
+  proj.list[idx][field] = val;
+  calcTotal();
+}
+
+function deleteRow(pid, idx) {
+  projects.find(p => p.id === pid)?.list.splice(idx, 1);
+  renderProjects();
+}
+
+function renderProjects() {
+  document.getElementById("projContainer").innerHTML = projects.map((proj, pIdx) => {
+    const subtotal = proj.list.reduce((s, r) => s + (r.price || 0) * (r.qty || 0), 0);
+    const totalWithMarkup = subtotal * MARKUP;
+    return `
+      <div class="proj-block">
+        <div class="proj-header">
+          <span class="proj-num">${pIdx + 1}</span>
+          <!-- ✅ 修复：oninput 实时保存，不会改不了 -->
+          <input type="text" class="proj-name" 
+                 value="${proj.name}" 
+                 oninput="updateProjectName(${proj.id}, this.value)"
+                 placeholder="输入项目名称" />
+          <span class="proj-total">RM ${totalWithMarkup.toFixed(2)}</span>
+          <button class="proj-del" onclick="deleteProject(${proj.id})">×</button>
         </div>
-      </div>
-    </div>`;
+        <div style="padding:14px;">
+          <table style="width:100%;">
+            <thead>
+              <tr>
+                <th style="width:35%;">项目名称</th>
+                <th style="width:15%;">单位</th>
+                <th style="width:15%;text-align:right;">单价(RM)</th>
+                <th style="width:10%;text-align:right;">数量</th>
+                <th style="width:20%;text-align:right;">金额(含+50%)</th>
+                <th style="width:5%;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              ${proj.list.map((row, rIdx) => {
+                const amount = ((row.price || 0) * (row.qty || 0) * MARKUP).toFixed(2);
+                return `
+                  <tr>
+                    <td><input value="${row.name}" 
+                           oninput="updateRow(${proj.id}, ${rIdx}, 'name', this.value)" /></td>
+                    <td><input value="${row.unit}" style="width:60px;" 
+                           oninput="updateRow(${proj.id}, ${rIdx}, 'unit', this.value)" /></td>
+                    <td class="text-right"><input type="number" value="${row.price}" style="width:80px;" 
+                           oninput="updateRow(${proj.id}, ${rIdx}, 'price', +this.value||0)" /></td>
+                    <td class="text-right"><input type="number" value="${row.qty}" style="width:60px;" 
+                           oninput="updateRow(${proj.id}, ${rIdx}, 'qty', +this.value||0)" /></td>
+                    <td class="text-right" style="color:var(--orange);font-weight:bold;">${amount}</td>
+                    <td><button style="border:none;background:none;color:red;cursor:pointer;" 
+                           onclick="deleteRow(${proj.id}, ${rIdx})">×</button></td>
+                  </tr>`;
+              }).join("")}
+            </tbody>
+          </table>
+          <div class="btn-bar" style="margin-top:10px;">
+            <button class="btn btn-g" style="flex:none;padding:8px 12px;" 
+                    onclick="addRow(${proj.id})">➕ 添加行</button>
+            <button class="btn btn-g" style="flex:none;padding:8px 12px;" 
+                    onclick="goPage('ratelib'); alert('去费率库复制项目名称和单价回来')">📋 从费率库选</button>
+          </div>
+        </div>
+      </div>`;
   }).join("");
-  calc();
+  calcTotal();
 }
 
-function calc() {
-  const total = projects.reduce((sum,p)=>sum+p.list.reduce((s,r)=>s+(r.price||0)*(r.qty||0),0),0)*MARKUP;
-  document.getElementById("finalTotal").textContent = total.toFixed(2);
+function calcTotal() {
+  const grandTotal = projects.reduce((sum, p) => 
+    sum + p.list.reduce((s, r) => s + (r.price || 0) * (r.qty || 0), 0), 0
+  ) * MARKUP;
+  document.getElementById("finalTotal").textContent = grandTotal.toFixed(2);
 }
 </script>
 </body>
