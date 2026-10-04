@@ -97,7 +97,6 @@
     .item-row { transition: background 0.2s; }
     .item-row:hover { background: #fafafa; }
 
-    /* ========== 全新升级：添加新项目区域 ========== */
     .add-box { 
       background: linear-gradient(135deg, #fff9f0 0%, #fff 100%); 
       border: 2px solid var(--orange); 
@@ -139,7 +138,6 @@
   </style>
 </head>
 <body>
-  <!-- 登录页 -->
   <div id="loginPage" class="login-wrap">
     <div class="login-card">
       <div class="logo-text"><span>NEX</span>SIGN</div>
@@ -153,7 +151,6 @@
     </div>
   </div>
 
-  <!-- 主系统 -->
   <div id="mainPage" class="hidden">
     <nav class="top-nav">
       <div class="nav-top">
@@ -168,7 +165,6 @@
     </nav>
 
     <div class="container">
-      <!-- 报价页 -->
       <div id="page-quote" class="page">
         <div class="card">
           <div class="title">客户信息</div>
@@ -236,7 +232,6 @@
         </div>
       </div>
 
-      <!-- 材料库 — 升级版添加区域 -->
       <div id="page-stock" class="page hidden">
         <div class="card">
           <div class="title">
@@ -244,7 +239,6 @@
             <span style="font-size:12px;color:#888;font-weight:normal;">Supply & Install 为基础价 × 倍率 = 报价</span>
           </div>
           
-          <!-- ✨ 全新升级：添加新项目区域 -->
           <div class="add-box">
             <div class="add-box__header">
               <div class="add-box__icon">+</div>
@@ -317,7 +311,6 @@
         </div>
       </div>
 
-      <!-- 设置页 -->
       <div id="page-settings" class="page hidden">
         <div class="card setup-box">
           <div class="title">⚙️ 系统设置</div>
@@ -365,15 +358,10 @@
   </div>
 
   <script>
-    // 登录账号
     const accounts = { admin: "admin123" };
-    
-    // 默认加价比例
     let markupPercent = parseInt(localStorage.getItem("markupPercent")) || 50;
     
-    // ========== NEXSIGN 完整报价清单 ==========
     const originalStock = [
-      // ===== 材质板材 =====
       { cat: "MATERIAL", name: "Melamine E0 NO WARRANTY", unit: "ft", original: 400 },
       { cat: "MATERIAL", name: "Melamine E1 NO WARRANTY", unit: "ft", original: 350 },
       { cat: "MATERIAL", name: "Melamine E0 WITH WARRANTY", unit: "ft", original: 450 },
@@ -381,8 +369,6 @@
       { cat: "MATERIAL", name: "Plywood E0", unit: "ft", original: 480 },
       { cat: "MATERIAL", name: "Plywood E1", unit: "ft", original: 420 },
       { cat: "MATERIAL", name: "PVC Foamboard", unit: "ft", original: 380 },
-      
-      // ===== 厨房 =====
       { cat: "KITCHEN", name: "Base Unit 700mm (Supply & Install)", unit: "ft", original: 400 },
       { cat: "KITCHEN", name: "Base Unit 800mm (Supply & Install)", unit: "ft", original: 420 },
       { cat: "KITCHEN", name: "Base Unit 900mm (Supply & Install)", unit: "ft", original: 450 },
@@ -399,8 +385,6 @@
       { cat: "KITCHEN", name: "Fridge Enclosure Cabinet", unit: "ft", original: 300 },
       { cat: "KITCHEN", name: "Sink Base Cabinet", unit: "ft", original: 280 },
       { cat: "KITCHEN", name: "Corner Base Cabinet L-Shape", unit: "pcs", original: 550 },
-      
-      // ===== 卧房 =====
       { cat: "BEDROOM", name: "Swing Door Wardrobe 8ft Height", unit: "ft", original: 450 },
       { cat: "BEDROOM", name: "Swing Door Wardrobe 9ft Height", unit: "ft", original: 480 },
       { cat: "BEDROOM", name: "Swing Door Wardrobe 10ft Height", unit: "ft", original: 525 },
@@ -416,8 +400,6 @@
       { cat: "BEDROOM", name: "Hanging Side Table w/ Drawer", unit: "pcs", original: 300 },
       { cat: "BEDROOM", name: "Wardrobe Internal Shelf", unit: "ft", original: 45 },
       { cat: "BEDROOM", name: "Wardrobe Hanging Rod", unit: "ft", original: 25 },
-      
-      // ===== 梳妆台/书房 =====
       { cat: "DRESSING", name: "Dressing Table Top 50mm", unit: "ft", original: 85 },
       { cat: "DRESSING", name: "Dressing Table Cabinet Set", unit: "ft", original: 233 },
       { cat: "DRESSING", name: "Study Desk Top 50mm", unit: "ft", original: 80 },
@@ -425,8 +407,6 @@
       { cat: "DRESSING", name: "Glass Door Upgrade M4", unit: "psf", original: 68 },
       { cat: "DRESSING", name: "Glass Door Upgrade M4 Meru", unit: "psf", original: 75 },
       { cat: "DRESSING", name: "Mirror Cabinet", unit: "ft", original: 260 },
-      
-      // ===== 客厅 =====
       { cat: "LIVING", name: "TV Console / TV Ledge", unit: "ft", original: 225 },
       { cat: "LIVING", name: "Display Cabinet 8ft Height", unit: "ft", original: 400 },
       { cat: "LIVING", name: "Display Cabinet 9ft Height", unit: "ft", original: 425 },
@@ -438,15 +418,11 @@
       { cat: "LIVING", name: "Partition Wall 100mm 2-Side Colour", unit: "psf", original: 55 },
       { cat: "LIVING", name: "Partition Wall 1-Side Colour", unit: "psf", original: 33 },
       { cat: "LIVING", name: "Fluted Panel Feature", unit: "psf", original: 41 },
-      
-      // ===== 玄关 =====
       { cat: "FOYER", name: "Shoe Cabinet 8ft Height", unit: "ft", original: 420 },
       { cat: "FOYER", name: "Shoe Cabinet 9ft Height", unit: "ft", original: 450 },
       { cat: "FOYER", name: "Shoe Cabinet 10ft Height", unit: "ft", original: 480 },
       { cat: "FOYER", name: "Shoe Bench / Sitting Area", unit: "ft", original: 240 },
       { cat: "FOYER", name: "Shoe Cabinet Sliding Door", unit: "ft", original: 520 },
-      
-      // ===== 配件 =====
       { cat: "ACCESSORY", name: "Floating Shelf 32mm Thick", unit: "ft", original: 60 },
       { cat: "ACCESSORY", name: "Floating Shelf 50mm Thick", unit: "ft", original: 75 },
       { cat: "ACCESSORY", name: "LED COB Strip Light + Driver + Housing", unit: "pcs", original: 150 },
@@ -464,21 +440,15 @@
       { cat: "ACCESSORY", name: "Delivery & Transportation", unit: "lot", original: 200 }
     ];
 
-    // 加载用户修改后的材料库
     let priceList = [];
     function loadStock() {
       const saved = localStorage.getItem("nexsignStock");
-      if (saved) {
-        priceList = JSON.parse(saved);
-      } else {
-        priceList = JSON.parse(JSON.stringify(originalStock));
-      }
+      if (saved) priceList = JSON.parse(saved);
+      else priceList = JSON.parse(JSON.stringify(originalStock));
     }
-    function saveStock() {
-      localStorage.setItem("nexsignStock", JSON.stringify(priceList));
-    }
+    function saveStock() { localStorage.setItem("nexsignStock", JSON.stringify(priceList)); }
     function resetStock() {
-      if (confirm("⚠️ 确定恢复原始清单？你添加的自定义项目会被清空！")) {
+      if (confirm("⚠️ 确定恢复原始清单？自定义项目会被清空！")) {
         localStorage.removeItem("nexsignStock");
         priceList = JSON.parse(JSON.stringify(originalStock));
         renderStock();
@@ -487,16 +457,9 @@
     }
 
     let rowId = 0;
-
-    // 获取当前倍率
     function getRate() { return 1 + markupPercent / 100; }
-    
-    // 更新提示里的倍率
-    function updateHintRate() {
-      document.getElementById("hintRate").textContent = getRate().toFixed(2);
-    }
+    function updateHintRate() { document.getElementById("hintRate").textContent = getRate().toFixed(2); }
 
-    // 登录
     function checkLogin() {
       const u = document.getElementById("u").value.trim();
       const p = document.getElementById("p").value;
@@ -513,51 +476,34 @@
       document.getElementById("mainPage").classList.remove("hidden");
       document.getElementById("sales").value = name;
       document.getElementById("qdate").valueAsDate = new Date();
-      
-      // 加载设置
       document.getElementById("markupPercent").value = markupPercent;
       updateRateDisplay();
       updateHintRate();
       loadFontSettings();
-      
       bindTab();
     }
-    function logout() {
-      localStorage.removeItem("user");
-      location.reload();
-    }
-
-    // 记住登录
+    function logout() { localStorage.removeItem("user"); location.reload(); }
     const savedUser = localStorage.getItem("user");
     if (savedUser) { loadStock(); enterMain(savedUser); }
 
-    // 页面切换
     function bindTab() {
       document.querySelectorAll(".tab").forEach(tab => {
         tab.addEventListener("click", () => {
           const pg = tab.dataset.page;
           document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.page === pg));
           document.querySelectorAll(".page").forEach(p => p.classList.toggle("hidden", p.id !== `page-${pg}`));
-          if (pg === "stock") {
-            renderStock();
-            updateHintRate();
-          }
+          if (pg === "stock") { renderStock(); updateHintRate(); }
         });
       });
     }
     function goPage(pg) {
       document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.page === pg));
       document.querySelectorAll(".page").forEach(p => p.classList.toggle("hidden", p.id !== `page-${pg}`));
-      if (pg === "stock") {
-        renderStock();
-        updateHintRate();
-      }
+      if (pg === "stock") { renderStock(); updateHintRate(); }
     }
 
-    // 加价设置
     function updateRateDisplay() {
-      const rate = getRate();
-      document.getElementById("rateDisplay").textContent = "×" + rate.toFixed(2);
+      document.getElementById("rateDisplay").textContent = "×" + getRate().toFixed(2);
     }
     function saveMarkup() {
       const val = parseInt(document.getElementById("markupPercent").value);
@@ -567,13 +513,10 @@
         updateRateDisplay();
         updateHintRate();
         renderStock();
-        alert("✅ 加价已保存：+" + val + "%\n⚠️ 只影响新项目，已添加到报价的可直接改单价");
-      } else {
-        alert("⚠️ 请输入 0–300 之间的数字");
-      }
+        alert("✅ 加价已保存：+" + val + "%");
+      } else alert("⚠️ 请输入 0–300 之间的数字");
     }
 
-    // 字体设置
     function applyFont() {
       const font = document.getElementById("fontFamily").value;
       const size = document.getElementById("fontSize").value;
@@ -593,14 +536,12 @@
       if (savedSize) { document.getElementById("fontSize").value = savedSize; applyFont(); }
     }
 
-    // 一键拨号
     function showTel() {
       const num = document.getElementById("cphone").value.replace(/\D/g, "");
       const box = document.getElementById("telLink");
       box.innerHTML = num.length >= 8 ? `<a href="tel:${num}" class="phone-link">📞 点击拨打</a>` : "";
     }
 
-    // 清空新增表单
     function clearNewForm() {
       document.getElementById("newName").value = "";
       document.getElementById("newUnit").value = "ft";
@@ -608,48 +549,39 @@
       document.getElementById("newCat").selectedIndex = 0;
     }
 
-    // 添加新项目到材料库
     function addStockItem() {
       const cat = document.getElementById("newCat").value;
       const name = document.getElementById("newName").value.trim();
       const unit = document.getElementById("newUnit").value.trim() || "ft";
       const price = parseFloat(document.getElementById("newPrice").value);
       
-      if (!name) { alert("⚠️ 请填写项目名称！"); document.getElementById("newName").focus(); return; }
-      if (!price || price <= 0) { alert("⚠️ 请填写正确的基础价！"); document.getElementById("newPrice").focus(); return; }
+      if (!name) { alert("⚠️ 请填写项目名称！"); return; }
+      if (!price || price <= 0) { alert("⚠️ 请填写正确的基础价！"); return; }
       
       priceList.push({ cat, name, unit, original: price });
       saveStock();
-      
-      // 清空表单
       clearNewForm();
-      
       renderStock();
-      alert("✅ 添加成功！已保存到材料库");
+      alert("✅ 添加成功！");
     }
 
-    // 删除材料库项目
     function deleteStockItem(idx) {
-      if (confirm("确定删除这个项目？")) {
+      if (confirm("确定删除？")) {
         priceList.splice(idx, 1);
         saveStock();
         renderStock();
       }
     }
 
-    // 材料库渲染
     function renderStock() {
       let list = priceList;
       const kw = document.getElementById("search")?.value.trim().toLowerCase() || "";
-      if (kw) {
-        list = priceList.filter(r => r.name.toLowerCase().includes(kw));
-      }
+      if (kw) list = priceList.filter(r => r.name.toLowerCase().includes(kw));
       
       let html = "";
-      list.forEach((r, displayIdx) => {
+      list.forEach((r) => {
         const realIdx = priceList.indexOf(r);
         const quotePrice = (r.original * getRate()).toFixed(2);
-        
         html += `
           <tr class="item-row">
             <td>
@@ -677,7 +609,6 @@
       document.getElementById("stockList").innerHTML = html;
     }
 
-    // 更新材料库字段并自动保存
     function updateStockField(idx, field, value) {
       if (priceList[idx]) {
         priceList[idx][field] = value;
@@ -686,7 +617,6 @@
       }
     }
 
-    // 选用项目到报价单
     function pick(i) {
       const r = priceList[i];
       const price = +(r.original * getRate()).toFixed(2);
@@ -694,7 +624,6 @@
       goPage('quote');
     }
 
-    // 报价行管理
     function addRowData(d) {
       rowId++;
       const tr = document.createElement("tr");
@@ -716,7 +645,6 @@
     function reNum() { document.querySelectorAll("#list tr").forEach((r,i)=>r.querySelector("td:first-child").textContent=i+1); }
     function clearAll() { if(confirm("确定清空所有项目？")){document.getElementById("list").innerHTML="";rowId=0;} }
 
-    // 自动计算
     function calc() {
       let sum = 0;
       document.querySelectorAll("#list tr").forEach(row => {
@@ -729,7 +657,6 @@
       document.getElementById("total").textContent = sum.toFixed(2);
     }
 
-    // 保存报价
     function saveQuote() {
       const no = "NX-" + new Date().toISOString().slice(0,10).replace(/-/g,"") + "-" + Math.floor(Math.random()*900+100);
       document.getElementById("qno").value = no;
