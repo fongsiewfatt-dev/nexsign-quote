@@ -17,14 +17,17 @@
     .logo-text { font-size: 32px; font-weight: 800; color: var(--blue); text-align: center; }
     .logo-text span { color: var(--orange); }
     .logo-zh { font-size: 22px; font-weight: 700; color: var(--red); text-align: center; margin: 6px 0 24px; }
-    input { width: 100%; padding: 12px 14px; margin-bottom: 10px; border: 1px solid #e2e2e2; border-radius: 10px; font-size: 15px; }
-    input:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,122,0,0.15); background: #fff; }
+    input { 
+      width: 100%; padding: 12px 14px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 10px; font-size: 16px;
+      background: #fff; color: #000; pointer-events: auto; user-select: text; -webkit-user-select: text;
+    }
+    input:focus { outline: 2px solid var(--orange); border-color: var(--orange); background: #fff; }
     .btn-login { width: 100%; padding: 14px; background: var(--orange); border: none; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; }
     .error { color: var(--red); text-align: center; margin-top: 12px; display: none; }
     .error.show { display: block; }
     .tip { text-align: center; margin-top: 16px; font-size: 13px; color: #999; }
 
-    .top-nav { background: #fff; border-bottom: 1px solid #eee; padding: 12px 16px; position: sticky; top: 0; }
+    .top-nav { background: #fff; border-bottom: 1px solid #eee; padding: 12px 16px; position: sticky; top: 0; z-index: 100; }
     .nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .brand { font-weight: 700; font-size: 16px; color: var(--blue); }
     .brand span { color: var(--orange); }
@@ -35,14 +38,14 @@
 
     .container { padding: 16px; }
     .card { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 16px; }
-    table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    th { background: #f9fafb; padding: 12px 10px; text-align: left; border-bottom: 1px solid #eee; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; }
+    th { background: #f9fafb; padding: 12px 10px; text-align: left; border-bottom: 2px solid #eee; font-weight: 600; }
     td { padding: 10px; border-bottom: 1px solid #f3f4f6; }
     td input { 
-      padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; margin: 0; font-size: 14px;
-      width: 100%; background: #fff; cursor: text;
+      padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin: 0; font-size: 16px;
+      width: 100%; background: #fff; color: #000; pointer-events: auto; user-select: text;
     }
-    td input:focus { border-color: var(--orange); outline: none; box-shadow: 0 0 0 2px rgba(255,122,0,0.15); }
+    td input:focus { border-color: var(--orange); outline: 2px solid rgba(255,122,0,0.2); background: #fff; }
     .text-right { text-align: right; }
     .btn-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
     .btn { flex: 1; min-width: 100px; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; font-size: 15px; }
@@ -55,11 +58,11 @@
     .proj-header { background: linear-gradient(to right, #fff9f0, #fff); padding: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .proj-num { background: var(--orange); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
     .proj-name { 
-      flex: 1; min-width: 150px; border: 1px solid transparent; 
-      font-size: 16px; font-weight: 700; background: transparent; 
-      padding: 8px 10px; border-radius: 6px;
+      flex: 1; min-width: 150px; border: 1px solid #ccc; 
+      font-size: 16px; font-weight: 700; background: #fff; color: #000;
+      padding: 10px; border-radius: 6px; pointer-events: auto;
     }
-    .proj-name:focus { border-color: var(--orange); outline: none; background: #fff; }
+    .proj-name:focus { border-color: var(--orange); outline: 2px solid rgba(255,122,0,0.2); }
     .proj-total { color: var(--orange); font-weight: 700; font-size: 18px; white-space: nowrap; }
     .proj-del { border: none; background: none; color: var(--red); font-size: 22px; cursor: pointer; padding: 4px 8px; }
 
@@ -132,9 +135,8 @@
 
 <script>
 const USER = "admin", PASS = "admin123";
-const MARKUP = 1.5; // 自动加50%
+const MARKUP = 1.5;
 
-// ✅ 默认基础价（含你写的 Melamine E0）
 const defaultRates = [
   { id:1, cat:"地柜", name:"Melamine E0 NO WARRANTY", unit:"ft", price:400 },
   { id:2, cat:"地柜", name:"Melamine E1 NO WARRANTY", unit:"ft", price:360 },
@@ -151,7 +153,6 @@ let rateData = [];
 let projects = [];
 let projId = 0;
 
-// ===== 登录 =====
 function doLogin() {
   const u = document.getElementById("username").value.trim();
   const p = document.getElementById("password").value;
@@ -171,10 +172,8 @@ window.onload = () => {
     document.getElementById("mainPage").classList.remove("hidden");
     init();
   }
-  document.addEventListener("keydown", e => e.key === "Enter" && doLogin());
 };
 
-// ===== 初始化 =====
 function init() {
   const saved = localStorage.getItem("nexsign_rates");
   rateData = saved ? JSON.parse(saved) : [...defaultRates];
@@ -183,14 +182,12 @@ function init() {
   if (projects.length === 0) addQuoteProject();
 }
 
-// ===== 页面切换 =====
 function goPage(page) {
   document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.page === page));
   document.querySelectorAll(".page").forEach(p => p.classList.toggle("hidden", p.id !== `page-${page}`));
   if (page === "quote") renderQuote();
 }
 
-// ===== 费率库 =====
 function renderRate() {
   let list = [...rateData];
   const kw = document.getElementById("searchInput")?.value.toLowerCase() || "";
@@ -202,9 +199,9 @@ function renderRate() {
     </tr></thead><tbody>
     ${list.map(r => `
       <tr>
-        <td><input value="${r.cat}" oninput="updateRate(${r.id},'cat',this.value)" style="width:100px;" /></td>
-        <td><input value="${r.name}" oninput="updateRate(${r.id},'name',this.value)" /></td>
-        <td><input value="${r.unit}" oninput="updateRate(${r.id},'unit',this.value)" style="width:70px;" /></td>
+        <td><input type="text" value="${r.cat}" oninput="updateRate(${r.id},'cat',this.value)" style="width:100px;" /></td>
+        <td><input type="text" value="${r.name}" oninput="updateRate(${r.id},'name',this.value)" /></td>
+        <td><input type="text" value="${r.unit}" oninput="updateRate(${r.id},'unit',this.value)" style="width:70px;" /></td>
         <td class="text-right"><input type="number" value="${r.price}" oninput="updateRate(${r.id},'price',+this.value||0)" style="width:100px; text-align:right;" /></td>
         <td><button style="border:none; background:none; color:red; cursor:pointer; font-size:20px;" onclick="delRate(${r.id})">×</button></td>
       </tr>
@@ -226,7 +223,7 @@ function addRateRow() {
   renderRate();
 }
 function resetRate() {
-  if (confirm("恢复默认？自定义项目会保留，基础价全部恢复！")) {
+  if (confirm("恢复默认？")) {
     localStorage.removeItem("nexsign_rates");
     rateData = [...defaultRates];
     renderRate();
@@ -234,7 +231,7 @@ function resetRate() {
 }
 function saveRate() { localStorage.setItem("nexsign_rates", JSON.stringify(rateData)); }
 
-// ===== ✅ 报价单 — 项目名称框完全修复 =====
+// ===== 报价单 =====
 function addQuoteProject() {
   projId++;
   projects.push({ id: projId, name: `项目${projects.length+1}`, items: [] });
@@ -256,7 +253,6 @@ function delQuoteRow(pid, idx) {
   renderQuote();
 }
 
-// ✅ 实时更新：不刷新、不丢焦点
 function updateQuoteName(pid, val) {
   const p = projects.find(x => x.id === pid);
   p.name = val;
@@ -277,8 +273,7 @@ function renderQuote() {
         <div class="proj-header">
           <span class="proj-num">${pIdx+1}</span>
           <input type="text" class="proj-name" value="${p.name}" 
-                 oninput="updateQuoteName(${p.id}, this.value)"
-                 placeholder="输入项目名称" />
+                 oninput="updateQuoteName(${p.id}, this.value)" />
           <span class="proj-total">RM ${withMarkup.toFixed(2)}</span>
           <button class="proj-del" onclick="delQuoteProject(${p.id})">×</button>
         </div>
@@ -296,10 +291,8 @@ function renderQuote() {
             return `
               <tr>
                 <td>
-                  <!-- ✅ 这一行就是你截图里改不到的地方，现在完全修好！ -->
                   <input type="text" value="${r.name}" 
-                         oninput="updateQuoteCell(${p.id}, ${i}, 'name', this.value)"
-                         placeholder="直接点这里改项目名称" />
+                         oninput="updateQuoteCell(${p.id}, ${i}, 'name', this.value)" />
                 </td>
                 <td><input type="text" value="${r.unit}" style="width:70px;" 
                        oninput="updateQuoteCell(${p.id}, ${i}, 'unit', this.value)" /></td>
