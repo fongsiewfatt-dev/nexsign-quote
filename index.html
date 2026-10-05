@@ -9,7 +9,7 @@
   <title>NEXSIGN — 全屋报价系统</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
-    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; }
+    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --light-gray: #f5f5f5; }
     .hidden { display: none !important; }
 
     .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0A2351, #16213e); padding: 20px; }
@@ -66,8 +66,18 @@
     .proj-total { color: var(--orange); font-weight: 700; font-size: 18px; white-space: nowrap; }
     .proj-del { border: none; background: none; color: var(--red); font-size: 22px; cursor: pointer; padding: 4px 8px; }
 
-    .grand-total { background: linear-gradient(135deg, #0A2351, #16213e); color: #fff; border-radius: 16px; padding: 24px; margin-top: 16px; }
-    .grand-value { font-size: 32px; font-weight: 800; margin-top: 8px; }
+    /* === 底部汇总区（和截图一样） === */
+    .summary-box { background: #fff; border-radius: 16px; padding: 20px; margin-top: 16px; border: 1px dashed #ddd; }
+    .options-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .check-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .check-item input { width: auto; margin: 0; padding: 0; }
+    .check-item label { font-size: 14px; color: #333; cursor: pointer; }
+    
+    .total-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 15px; }
+    .total-row.border-top { border-top: 1px solid #eee; margin-top: 8px; padding-top: 12px; }
+    .total-row.final { font-size: 20px; font-weight: 700; color: var(--orange); padding-top: 12px; border-top: 2px solid #f0f0f0; margin-top: 4px; }
+    .total-label { color: #333; }
+    .total-value { font-weight: 600; }
   </style>
 </head>
 <body>
@@ -97,6 +107,7 @@
   </nav>
 
   <div class="container">
+    <!-- 费率库 -->
     <div id="page-ratelib" class="page">
       <div class="card">
         <h2 style="margin-bottom:16px;">📋 费率库</h2>
@@ -110,6 +121,7 @@
       </div>
     </div>
 
+    <!-- 报价单 -->
     <div id="page-quote" class="page hidden">
       <div class="card">
         <h3>客户信息</h3>
@@ -123,20 +135,60 @@
         <button class="btn btn-o" onclick="addQuoteProject()">➕ 添加项目</button>
         <button class="btn btn-b" onclick="goPage('ratelib')">📋 费率库</button>
       </div>
-      <div class="grand-total">
-        <div>最终报价总额（含 +50%）</div>
-        <div class="grand-value">RM <span id="grandTotal">0.00</span></div>
+
+      <!-- ✅ 底部汇总区 — 和你截图完全一样 -->
+      <div class="summary-box">
+        <div class="options-row">
+          <label class="check-item">
+            <input type="checkbox" id="chkServiceFee" onchange="calcGrandTotal()" />
+            收综合服务费 (10%)
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="chkSST" onchange="calcGrandTotal()" />
+            收服务税 SST
+          </label>
+          <label class="check-item">
+            <input type="checkbox" id="chkDesignFee" onchange="calcGrandTotal()" />
+            收设计费
+          </label>
+        </div>
+
+        <div class="total-row">
+          <span class="total-label">工程直接费合计</span>
+          <span class="total-value">RM <span id="baseTotal">0.00</span></span>
+        </div>
+        <div class="total-row" id="rowServiceFee" style="display:none;">
+          <span class="total-label">+ 综合服务费 (10%)</span>
+          <span class="total-value">RM <span id="serviceFeeAmt">0.00</span></span>
+        </div>
+        <div class="total-row border-top">
+          <span class="total-label">总造价</span>
+          <span class="total-value">RM <span id="subTotal">0.00</span></span>
+        </div>
+        <div class="total-row" id="rowSST" style="display:none;">
+          <span class="total-label">+ SST</span>
+          <span class="total-value">RM <span id="sstAmt">0.00</span></span>
+        </div>
+        <div class="total-row" id="rowDesignFee" style="display:none;">
+          <span class="total-label">+ 设计费</span>
+          <span class="total-value">RM <span id="designFeeAmt">0.00</span></span>
+        </div>
+        <div class="total-row final">
+          <span class="total-label">总计 (含设计费)</span>
+          <span class="total-value">RM <span id="grandTotal">0.00</span></span>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// ✅ 强制清旧数据 — 解决 Chrome 卡住
+// ✅ 清旧数据避免卡住
 localStorage.removeItem("nexsign_rates");
 
 const USER = "admin", PASS = "admin123";
-const MARKUP = 1.5;
+const MARKUP = 1.5;        // 基础价 × 1.5
+const SST_RATE = 0.08;      // SST 8%
 
 const defaultRates = [
   { id:1, cat:"地柜", name:"Melamine E0 NO WARRANTY", unit:"ft", price:400 },
@@ -176,7 +228,6 @@ window.onload = () => {
 };
 
 function init() {
-  // ✅ 每次用最新默认数据，不读坏掉的旧数据
   rateData = [...defaultRates];
   document.getElementById("qdate").valueAsDate = new Date();
   renderRate();
@@ -232,6 +283,7 @@ function resetRate() {
 }
 function saveRate() { localStorage.setItem("nexsign_rates", JSON.stringify(rateData)); }
 
+// ===== 报价单 =====
 function addQuoteProject() {
   projId++;
   projects.push({ id: projId, name: `项目${projects.length+1}`, items: [] });
@@ -266,15 +318,12 @@ function updateQuoteCell(pid, idx, field, val) {
 
 function renderQuote() {
   document.getElementById("quoteContainer").innerHTML = projects.map((p, pIdx) => {
-    const subTotal = p.items.reduce((sum, r) => sum + (r.price||0)*(r.qty||0), 0);
-    const withMarkup = subTotal * MARKUP;
     return `
       <div class="proj-block">
         <div class="proj-header">
           <span class="proj-num">${pIdx+1}</span>
           <input type="text" class="proj-name" value="${p.name}" 
                  oninput="updateQuoteName(${p.id}, this.value)" />
-          <span class="proj-total">RM ${withMarkup.toFixed(2)}</span>
           <button class="proj-del" onclick="delQuoteProject(${p.id})">×</button>
         </div>
         <div style="padding:14px;">
@@ -318,11 +367,44 @@ function renderQuote() {
   calcGrandTotal();
 }
 
+// ✅ 完整计算逻辑 — 和截图完全一样
 function calcGrandTotal() {
-  const total = projects.reduce((sum, p) => 
+  // 1. 基础直接费（不含50%加价前的原始金额 × MARKUP）
+  const baseSum = projects.reduce((sum, p) => 
     sum + p.items.reduce((s, r) => s + (r.price||0)*(r.qty||0), 0), 0
-  ) * MARKUP;
-  document.getElementById("grandTotal").textContent = total.toFixed(2);
+  );
+  const directTotal = baseSum * MARKUP; // 工程直接费合计 = 已含+50%
+  
+  // 2. 综合服务费 10%
+  const serviceFeeEnabled = document.getElementById("chkServiceFee").checked;
+  const serviceFee = serviceFeeEnabled ? directTotal * 0.10 : 0;
+  
+  // 3. 总造价 = 直接费 + 服务费
+  const subTotal = directTotal + serviceFee;
+  
+  // 4. SST 8%（按总造价算）
+  const sstEnabled = document.getElementById("chkSST").checked;
+  const sstAmt = sstEnabled ? subTotal * SST_RATE : 0;
+  
+  // 5. 设计费（固定金额 1000，以后可改）
+  const designFeeEnabled = document.getElementById("chkDesignFee").checked;
+  const designFee = designFeeEnabled ? 1000 : 0;
+  
+  // 6. 最终总计
+  const grandTotal = subTotal + sstAmt + designFee;
+
+  // 显示/隐藏对应行
+  document.getElementById("rowServiceFee").style.display = serviceFeeEnabled ? "flex" : "none";
+  document.getElementById("rowSST").style.display = sstEnabled ? "flex" : "none";
+  document.getElementById("rowDesignFee").style.display = designFeeEnabled ? "flex" : "none";
+
+  // 填入数字
+  document.getElementById("baseTotal").textContent = directTotal.toFixed(2);
+  document.getElementById("serviceFeeAmt").textContent = serviceFee.toFixed(2);
+  document.getElementById("subTotal").textContent = subTotal.toFixed(2);
+  document.getElementById("sstAmt").textContent = sstAmt.toFixed(2);
+  document.getElementById("designFeeAmt").textContent = designFee.toFixed(2);
+  document.getElementById("grandTotal").textContent = grandTotal.toFixed(2);
 }
 </script>
 </body>
