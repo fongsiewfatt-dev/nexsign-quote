@@ -64,19 +64,9 @@
     }
     .lang-btn:hover { border-color: var(--orange); color: var(--orange); }
     .lang-btn.active { background: var(--orange); color: #fff; border-color: var(--orange); }
-    .user-name-input {
-      padding: 4px 8px; border: 1px solid transparent;
-      background: transparent; font-size: 14px; color: #333;
-      text-align: right; width: 160px; border-radius: 4px;
-    }
-    .user-name-input:focus { border-color: var(--orange); background: #fff; outline: none; }
     .nav-btn { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; background: #f5f5f5; color: #333; }
     .nav-btn:hover { background: #eee; }
     .btn-logout { background: var(--red); color: #fff; }
-    .lock-note {
-      width: 100%; padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid var(--border);
-      font-size: 13px; color: #888; text-align: right;
-    }
 
     .container { padding: 16px; max-width: 1400px; margin: 0 auto; }
     .card { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
@@ -110,9 +100,12 @@
     .plan-del:hover { background: var(--red); }
 
     table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 16px; }
-    th { background: #f9fafb; padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; }
-    td { padding: 10px 8px; border-bottom: 1px solid #f0f0f0; }
-    td input, td select { padding: 6px 8px; border-radius: 4px; margin: 0; font-size: 14px; border: 1px solid #ddd; width: 100%; }
+    th { background: #f9fafb; padding: 12px 10px; text-align: left; border-bottom: 2px solid var(--border); font-weight: 600; white-space: nowrap; }
+    td { padding: 10px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+    td input, td select { padding: 8px 10px; border-radius: 4px; margin: 0; font-size: 14px; border: 1px solid #ddd; width: 100%; }
+    td input:focus, td select:focus { border-color: var(--orange); outline: none; }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
     
     .block-card { background: #fff; border-radius: 8px; margin-bottom: 16px; border: 1px solid var(--border); overflow: hidden; }
     .block-head { padding: 12px 16px; background: #fafafa; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
@@ -134,6 +127,7 @@
     .btn-b { background: var(--blue); color: #fff; }
     .btn-g { background: #f0f0f0; color: #333; border: 1px solid #ddd; }
     .btn-sm { padding: 6px 12px; font-size: 13px; }
+    .btn-del { color: var(--red); border: none; background: none; cursor: pointer; font-size: 18px; }
     
     .actions { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
     .page { display: none; }
@@ -151,6 +145,7 @@
     @media (max-width: 768px) {
       .grid-3 { grid-template-columns: 1fr; }
       .container { padding: 10px; }
+      th, td { padding: 8px 4px; font-size: 13px; }
     }
   </style>
 </head>
@@ -178,10 +173,10 @@
   <nav class="top-nav">
     <div class="logo-text" style="margin-right:20px;">NEXSIGN<span>.</span></div>
     <div class="nav-left">
-      <div class="nav-tab active" data-page="quote" onclick="switchPage('quote')">
+      <div class="nav-tab" data-page="quote" onclick="switchPage('quote')">
         <span data-zh>新建报价</span><span data-en>New Quote</span>
       </div>
-      <div class="nav-tab" data-page="pricelist" onclick="switchPage('pricelist')">
+      <div class="nav-tab active" data-page="pricelist" onclick="switchPage('pricelist')">
         <span data-zh>价格库</span><span data-en>Price Library</span>
       </div>
     </div>
@@ -194,8 +189,8 @@
   </nav>
 
   <div class="container">
-    <!-- 报价页面 - 完全按你截图 -->
-    <div id="page-quote" class="page active">
+    <!-- 报价页面 -->
+    <div id="page-quote" class="page">
       <div class="card">
         <div class="grid-3">
           <div>
@@ -245,7 +240,7 @@
           </div>
           <div>
             <label><span data-zh>日期</span><span data-en>Date</span></label>
-            <input type="date" id="quoteDate" value="2026-10-04" />
+            <input type="date" id="quoteDate" />
           </div>
         </div>
         <div style="margin-top:12px;">
@@ -254,7 +249,6 @@
         </div>
       </div>
 
-      <!-- 上传平面图 -->
       <div class="plan-upload">
         <div class="plan-header">
           <span class="plan-title"><span data-zh>项目平面图</span><span data-en>Project Plans</span></span>
@@ -269,7 +263,6 @@
         <input type="file" id="planInput" accept="image/*" multiple onchange="handlePlanUpload(this.files)" class="plan-input" />
       </div>
 
-      <!-- 报价区块 - 全部保留 -->
       <div id="blocksContainer"></div>
 
       <div class="add-block" onclick="addBlock()">
@@ -303,14 +296,30 @@
     </div>
 
     <!-- 价格库页面 -->
-    <div id="page-pricelist" class="page hidden">
+    <div id="page-pricelist" class="page active">
       <div class="card">
-        <h3 style="margin-bottom:16px;"><span data-zh>材料价格库</span><span data-en>Price Library</span></h3>
+        <h3 style="margin-bottom:20px; font-size:18px; font-weight:700;">
+          <span data-zh>📋 价格库</span>
+          <span data-en>📋 PRICE LIBRARY</span>
+        </h3>
+        
+        <div style="margin-bottom:12px; color:#666; font-size:13px;">
+          <span data-zh>直接修改自动保存 · 点击「选用」加入报价单</span>
+          <span data-en>Edit directly — auto saved · Click Select to add to quote</span>
+        </div>
+
         <div id="rateTable"></div>
-        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
-          <button class="btn btn-o" onclick="addRateRow()">+ <span data-zh>添加材料</span><span data-en>Add Item</span></button>
-          <button class="btn btn-g" onclick="if(confirm('恢复默认？')){rateData=[...defaultRates];renderRate();}"><span data-zh>恢复默认</span><span data-en>Reset</span></button>
-          <button class="btn btn-b" onclick="switchPage('quote')">← <span data-zh>返回报价</span><span data-en>Back</span></button>
+
+        <div style="margin-top:20px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-o" onclick="addRateRow()">
+            + <span data-zh>添加新材料</span><span data-en>Add New Item</span>
+          </button>
+          <button class="btn btn-g" onclick="resetRates()">
+            <span data-zh>恢复默认</span><span data-en>Reset Defaults</span>
+          </button>
+          <button class="btn btn-b" onclick="switchPage('quote')">
+            ← <span data-zh>返回报价</span><span data-en>Back to Quote</span>
+          </button>
         </div>
       </div>
     </div>
@@ -326,16 +335,22 @@ let blockIdCounter = 0;
 let isEnglish = false;
 let uploadedPlans = [];
 
+// 默认价格库 — 永远保留作为基础
 const defaultRates = [
   { id:1, name:"Melamine E0", note:"Supply & Install", unitMode:"ft", price:400 },
-  { id:2, name:"Melamine E1", note:"Supply & Install", unitMode:"ft", price:360 },
-  { id:3, name:"Wall Cabinet 700mm", note:"Supply & Install", unitMode:"ft", price:420 },
-  { id:4, name:"Wall Cabinet 800mm", note:"Supply & Install", unitMode:"ft", price:460 },
-  { id:5, name:"Wall Cabinet 900mm", note:"Supply & Install", unitMode:"ft", price:500 },
-  { id:6, name:"Quartz Stone", note:"Supply & Install", unitMode:"sqft", price:280 },
-  { id:7, name:"Granite", note:"Supply & Install", unitMode:"sqft", price:320 }
+  { id:2, name:"Melamine E1", note:"Supply & Install — NO WARRANTY", unitMode:"ft", price:360 },
+  { id:3, name:"Base Unit", note:"Supply & Install — Melamine E1", unitMode:"ft", price:400 },
+  { id:4, name:"Wall Cabinet 700mm", note:"Supply & Install", unitMode:"ft", price:420 },
+  { id:5, name:"Wall Cabinet 800mm", note:"Supply & Install", unitMode:"ft", price:460 },
+  { id:6, name:"Wall Cabinet 900mm", note:"Supply & Install", unitMode:"ft", price:500 },
+  { id:7, name:"Quartz Stone", note:"Supply & Install", unitMode:"sqft", price:280 },
+  { id:8, name:"Granite", note:"Supply & Install", unitMode:"sqft", price:320 },
+  { id:9, name:"Solid Wood Door", note:"Supply & Install", unitMode:"sqft", price:380 },
+  { id:10, name:"Glass Door", note:"Supply & Install", unitMode:"pcs", price:250 }
 ];
-let rateData = [...defaultRates];
+
+// 优先用已保存数据，没有就用默认
+let rateData = [];
 
 function doLogin() {
   const u = document.getElementById("username").value.trim();
@@ -364,13 +379,30 @@ function initSystem() {
   const today = new Date();
   document.getElementById("quoteDate").value = today.toISOString().split('T')[0];
   
-  const saved = localStorage.getItem("nexsign_blocks");
-  if (saved) {
-    blocks = JSON.parse(saved);
+  // 加载报价区块
+  const savedBlocks = localStorage.getItem("nexsign_blocks");
+  if (savedBlocks) {
+    blocks = JSON.parse(savedBlocks);
     blockIdCounter = blocks.reduce((max, b) => Math.max(max, b.id), 0);
   }
   if (!blocks.length) addBlock();
   
+  // 关键：加载价格库 — 空就用默认
+  const savedRates = localStorage.getItem("nexsign_rates");
+  if (savedRates) {
+    try {
+      rateData = JSON.parse(savedRates);
+      if (!Array.isArray(rateData) || rateData.length === 0) {
+        rateData = [...defaultRates];
+      }
+    } catch(e) {
+      rateData = [...defaultRates];
+    }
+  } else {
+    rateData = [...defaultRates];
+  }
+  
+  // 语言
   const savedLang = localStorage.getItem("nexsign_lang");
   if (savedLang === "en") { isEnglish = true; applyLang(); }
   
@@ -482,11 +514,24 @@ function selectRate(rid) {
     name: r.name, note: r.note, price: r.price, unitMode: r.unitMode, qty: 1, dimension: ""
   });
   renderQuote();
+  switchPage('quote');
 }
 
 function upd(bid, idx, field, val) {
   blocks.find(b => b.id === bid).items[idx][field] = val;
   renderQuote();
+}
+
+function saveRates() {
+  localStorage.setItem("nexsign_rates", JSON.stringify(rateData));
+}
+
+function resetRates() {
+  if(confirm(isEnglish?"Reset all to default prices? This cannot be undone!":"确定恢复默认价格？您修改过的会全部变回默认！")) {
+    rateData = [...defaultRates];
+    saveRates();
+    renderRate();
+  }
 }
 
 function renderQuote() {
@@ -507,7 +552,7 @@ function renderQuote() {
                 <th class="text-center">#</th>
                 <th><span data-zh>项目名称</span><span data-en>Item</span></th>
                 <th><span data-zh>说明</span><span data-en>Note</span></th>
-                <th><span data-zh>单位</span><span data-en>Unit</span></th>
+                <th class="text-center"><span data-zh>单位</span><span data-en>Unit</span></th>
                 <th class="text-right"><span data-zh>单价(RM)</span><span data-en>Price</span></th>
                 <th class="text-center"><span data-zh>数量</span><span data-en>Qty</span></th>
                 <th><span data-zh>尺寸</span><span data-en>Size</span></th>
@@ -525,7 +570,7 @@ function renderQuote() {
                       oninput="upd(${b.id},${i},'name',this.value)" /></td>
                     <td><input type="text" value="${r.note}" 
                       oninput="upd(${b.id},${i},'note',this.value)" /></td>
-                    <td>
+                    <td class="text-center">
                       <select oninput="upd(${b.id},${i},'unitMode',this.value)">
                         <option value="ft" ${r.unitMode==='ft'?'selected':''}>ft</option>
                         <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>sqft</option>
@@ -542,13 +587,13 @@ function renderQuote() {
                       oninput="upd(${b.id},${i},'dimension',this.value)" 
                       placeholder="如: 10x8" /></td>
                     <td class="text-right" style="font-weight:600;">${amt.toFixed(2)}</td>
-                    <td><button class="btn-del" style="color:var(--red);border:none;background:none;cursor:pointer;" onclick="delItemRow(${b.id},${i})">×</button></td>
+                    <td><button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button></td>
                   </tr>
                 `;
               }).join("")}
             </tbody>
           </table>
-          <div style="margin-top:12px; display:flex; gap:10px; align-items:center; justify-content:space-between;">
+          <div style="margin-top:12px; display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;">
             <div>
               <button class="btn btn-sm btn-g" onclick="addItemRow(${b.id})">+ <span data-zh>加项目</span><span data-en>Add Item</span></button>
               <button class="btn btn-sm btn-o" onclick="switchPage('pricelist')"><span data-zh>从价格库选</span><span data-en>From Library</span></button>
@@ -586,37 +631,50 @@ function saveQuote() {
   alert((isEnglish ? "Saved ✅ Quote No: " : "保存成功 ✅ 报价编号: ") + no);
 }
 
+// 渲染价格库
 function renderRate() {
+  saveRates(); // 自动保存
+  
+  if (!rateData || rateData.length === 0) {
+    rateData = [...defaultRates];
+  }
+  
   document.getElementById("rateTable").innerHTML = `
     <table>
       <thead>
         <tr>
-          <th><span data-zh>材料名称</span><span data-en>Item</span></th>
-          <th><span data-zh>说明</span><span data-en>Note</span></th>
-          <th class="text-center"><span data-zh>单位</span><span data-en>Unit</span></th>
-          <th class="text-right"><span data-zh>单价(RM)</span><span data-en>Price</span></th>
-          <th class="text-center"><span data-zh>操作</span><span data-en>Action</span></th>
+          <th style="width:28%;"><span data-zh>材料名称</span><span data-en>Item Name</span></th>
+          <th style="width:25%;"><span data-zh>说明 / 备注</span><span data-en>Note</span></th>
+          <th style="width:12%;" class="text-center"><span data-zh>单位</span><span data-en>Unit</span></th>
+          <th style="width:20%;" class="text-right"><span data-zh>单价 (RM)</span><span data-en>Price (RM)</span></th>
+          <th style="width:15%;" class="text-center"><span data-zh>操作</span><span data-en>Action</span></th>
         </tr>
       </thead>
       <tbody>
         ${rateData.map(r => `
           <tr>
-            <td><input type="text" value="${r.name}" 
-              oninput="rateData.find(x=>x.id===${r.id}).name=this.value" /></td>
-            <td><input type="text" value="${r.note}" 
-              oninput="rateData.find(x=>x.id===${r.id}).note=this.value" /></td>
+            <td>
+              <input type="text" value="${r.name}" 
+                oninput="rateData.find(x=>x.id===${r.id}).name=this.value; saveRates();" />
+            </td>
+            <td>
+              <input type="text" value="${r.note}" 
+                oninput="rateData.find(x=>x.id===${r.id}).note=this.value; saveRates();" />
+            </td>
             <td class="text-center">
-              <select oninput="rateData.find(x=>x.id===${r.id}).unitMode=this.value">
+              <select oninput="rateData.find(x=>x.id===${r.id}).unitMode=this.value; saveRates();">
                 <option value="ft" ${r.unitMode==='ft'?'selected':''}>ft</option>
                 <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>sqft</option>
                 <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>pcs</option>
               </select>
             </td>
-            <td class="text-right"><input type="number" value="${r.price}" 
-              oninput="rateData.find(x=>x.id===${r.id}).price=+this.value||0" 
-              style="width:90px; text-align:right;" /></td>
+            <td class="text-right">
+              <input type="number" value="${r.price}" 
+                oninput="rateData.find(x=>x.id===${r.id}).price=+this.value||0; saveRates();" 
+                style="width:100%; text-align:right;" />
+            </td>
             <td class="text-center">
-              <button class="btn btn-sm btn-o" onclick="selectRate(${r.id});switchPage('quote');">
+              <button class="btn btn-sm btn-o" onclick="selectRate(${r.id});">
                 <span data-zh>选用</span><span data-en>Select</span>
               </button>
             </td>
@@ -631,11 +689,12 @@ function addRateRow() {
   const newId = rateData.length ? Math.max(...rateData.map(r=>r.id)) + 1 : 1;
   rateData.push({
     id: newId,
-    name: isEnglish ? "New Item" : "新材料",
+    name: isEnglish ? "New Material" : "新材料",
     note: "Supply & Install",
     unitMode: "ft",
     price: 400
   });
+  saveRates();
   renderRate();
 }
 </script>
