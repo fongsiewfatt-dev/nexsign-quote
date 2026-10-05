@@ -128,64 +128,78 @@
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
+    .history-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
 
-    /* ========== PDF打印样式 — 完全匹配参考 ========== */
+    /* ========== 专业PDF打印模板 — 界面完全不动 ========== */
     @media print {
-      @page { size: A4; margin: 15mm 12mm; }
+      @page { size: A4; margin: 16mm 14mm; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      
       .top-nav, .lock-note, .add-block-area, .block-actions, .block-close,
-      .bottom-actions, .btn-del, .no-print, .card > h3, .summary-box, .terms-box, .block-footer {
+      .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions {
         display: none !important;
       }
-      
-      body { background: #fff; color: #000; font-size: 13px; line-height: 1.5; }
+      body { background: #fff; color: #1a1a1a; font-size: 11pt; line-height: 1.6; }
       .container { padding: 0; max-width: 100%; }
-      
-      .print-header { display: block !important; width: 100%; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #333; }
-      .print-header-left { float: left; }
-      .print-header-right { float: right; text-align: right; }
-      .print-company { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
-      .print-slogan { font-size: 13px; color: #666; margin-top: 2px; }
-      .print-title { font-size: 16px; font-weight: 700; }
-      .print-meta { font-size: 12px; color: #444; margin-top: 4px; }
-      .clearfix { clear: both; }
-      
-      .print-meta-row { display: flex; justify-content: space-between; font-size: 12px; margin: 8px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
-      .print-meta-row span { margin-right: 12px; }
-      
-      .print-table { display: table !important; width: 100%; border-collapse: collapse; margin: 10px 0; }
-      .print-table th {
-        background: var(--dark) !important; color: #fff !important; padding: 10px 6px;
-        text-align: center; font-weight: 600; border: 1px solid #444; font-size: 12px;
+      .card { border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+      .print-header { 
+        display: block !important; width: 100%; padding-bottom: 12px; 
+        border-bottom: 3px solid var(--blue); margin-bottom: 16px;
       }
-      .print-table td {
-        padding: 10px 6px; border: 1px solid #ddd; font-size: 12px;
+      .print-header-left { float: left; width: 60%; }
+      .print-header-right { float: right; width: 38%; text-align: right; }
+      .clearfix { clear: both; height: 0; }
+      .print-company { font-size: 26pt; font-weight: 900; letter-spacing: 1px; color: var(--blue); line-height: 1.1; }
+      .print-company span { color: var(--orange); }
+      .print-slogan { font-size: 10pt; color: #666; margin-top: 4px; letter-spacing: 0.5px; }
+      .print-doc-title { font-size: 20pt; font-weight: 800; color: var(--orange); margin-top: 8px; letter-spacing: 2px; }
+      .print-ref { font-size: 9.5pt; color: #555; margin-top: 6px; line-height: 1.6; }
+      .print-ref b { color: var(--blue); }
+      .print-meta-row { 
+        display: grid !important; grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 6px 16px; font-size: 9.5pt; padding: 10px 12px; 
+        background: #f8f9fb; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 18px;
       }
-      .print-table tr:nth-child(even) td { background: #f9f6f0; }
-      .print-table .text-right { text-align: right; }
-      .print-table .text-center { text-align: center; }
-      
-      .print-subtotal-row { background: #f9f6f0; font-weight: 600; }
-      
-      .print-summary { margin-top: 15px; margin-left: auto; width: 320px; }
-      .print-summary-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
-      .print-summary-row.total { font-weight: 700; margin-top: 6px; padding-top: 8px; border-top: 1px solid #ddd; }
-      .print-summary-row.final { font-size: 15px; font-weight: 800; color: var(--orange); padding-top: 8px; border-top: 2px solid #ddd; margin-top: 4px; }
-      
-      .print-terms { margin-top: 25px; font-size: 11px; line-height: 1.8; color: #333; }
-      .print-terms-title { font-weight: 700; margin-bottom: 6px; font-size: 12px; }
-      
-      .print-sign { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc; }
-      .print-sign-col { width: 45%; }
-      .print-sign-line { border-bottom: 1px solid #333; margin-top: 40px; margin-bottom: 6px; }
-      .print-sign-label { font-size: 12px; }
-      
-      input, select, textarea { border: none !important; box-shadow: none !important; background: transparent !important; padding: 0 !important; outline: none !important; -webkit-appearance: none; }
-      
-      .block-card { border: none !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; }
-      
-      .print-table, .print-summary, .print-terms { page-break-inside: avoid; }
+      .print-meta-row b { color: var(--blue); font-weight: 600; }
+      .block-card { border: none !important; box-shadow: none !important; margin: 0 0 18px 0 !important; padding: 0 !important; page-break-inside: avoid; }
+      .block-header { background: var(--blue) !important; border: none !important; padding: 8px 12px !important; margin-top: 14px; }
+      .block-header > span { display: none !important; }
+      .block-name { color: #fff !important; font-size: 12pt !important; font-weight: 700 !important; padding: 0 !important; width: 100% !important; }
+      .block-body { padding: 0 !important; overflow: visible !important; }
+      .block-body table { width: 100%; border-collapse: collapse; margin: 0; font-size: 9.5pt; }
+      .block-body thead { display: table-header-group; }
+      .block-body th {
+        background: #f0f2f5 !important; color: #1a1a1a !important; padding: 8px 6px !important; 
+        text-align: center; font-weight: 700; border: 1px solid #d0d0d0 !important; font-size: 9pt;
+      }
+      .block-body td { padding: 8px 6px !important; border: 1px solid #e0e0e0 !important; vertical-align: top; }
+      .block-body tr:nth-child(even) td { background: #fafbfc !important; }
+      .block-body td input, .block-body td select { font-size: 9.5pt !important; padding: 0 !important; width: 100% !important; min-width: 0 !important; }
+      .final-amount { color: #1a1a1a !important; font-weight: 600 !important; }
+      .block-footer { display: flex !important; justify-content: flex-end !important; border: none !important; padding: 6px 0 0 0 !important; }
+      .block-subtotal { font-size: 10.5pt; font-weight: 700; color: var(--blue); background: #f0f2f5; padding: 6px 14px; border-radius: 3px; }
+      .summary-box { border: none !important; padding: 0 !important; margin: 20px 0 0 0 !important; page-break-inside: avoid; }
+      .summary-grid { display: block !important; }
+      .summary-left { display: none !important; }
+      .summary-right { width: 340px; margin-left: auto; border: 1px solid #d0d0d0; border-radius: 4px; overflow: hidden; }
+      .amount-row { padding: 7px 14px !important; font-size: 10pt !important; border-bottom: 1px solid #eee !important; margin: 0 !important; }
+      .amount-row.print-only-row { background: #fafbfc; }
+      .amount-row.total { background: var(--orange) !important; color: #fff !important; font-size: 13pt !important; padding: 10px 14px !important; border: none !important; margin: 0 !important; }
+      .amount-row.total .amount-val { color: #fff !important; }
+      .amount-val { font-weight: 600; }
+      .terms-box { border: none !important; background: transparent !important; padding: 0 !important; margin: 25px 0 0 0 !important; page-break-inside: avoid; }
+      .terms-title { font-size: 11pt; font-weight: 700; color: var(--blue); border-bottom: 2px solid var(--blue); padding-bottom: 4px; margin-bottom: 8px !important; }
+      .terms-text { font-size: 9pt !important; line-height: 1.9 !important; padding: 0 !important; color: #333 !important; white-space: pre-wrap; }
+      .print-sign { display: flex !important; justify-content: space-between; margin-top: 45px; page-break-inside: avoid; }
+      .print-sign-col { width: 42%; text-align: center; }
+      .print-sign-line { border-bottom: 1px solid #333; margin-top: 55px; margin-bottom: 6px; }
+      .print-sign-label { font-size: 10pt; color: #333; font-weight: 600; }
+      .print-sign-date { font-size: 8.5pt; color: #888; margin-top: 2px; }
+      .print-footer { display: block !important; text-align: center; margin-top: 30px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 8.5pt; color: #999; }
+      input, select, textarea { 
+        border: none !important; box-shadow: none !important; background: transparent !important; 
+        padding: 0 !important; outline: none !important; -webkit-appearance: none; font: inherit !important; color: inherit !important;
+      }
+      select { -webkit-appearance: none; appearance: none; }
     }
     
     @media (max-width: 768px) {
@@ -258,29 +272,31 @@
     <span data-en>🔒 Read-only — Admin only</span>
   </div>
   <div class="container">
-    <!-- PDF抬头 -->
+    <!-- PDF专业抬头 -->
     <div class="print-header" style="display:none;">
       <div class="print-header-left">
-        <div class="print-company">NEXSIGN SDN BHD</div>
-        <div class="print-slogan" data-zh>全屋定制 · 匠心品质</div>
-        <div class="print-slogan" data-en>Custom Cabinet · Quality First</div>
+        <div class="print-company">NEXSIGN<span>.</span> SDN BHD</div>
+        <div class="print-slogan" data-zh>全屋定制 · 匠心品质 · 一站式服务</div>
+        <div class="print-slogan" data-en>Custom Cabinetry · Quality Craftsmanship · One-Stop Solution</div>
       </div>
       <div class="print-header-right">
-        <div class="print-title" data-zh>定制工程预算</div>
-        <div class="print-title" data-en>Quotation</div>
-        <div class="print-meta">
-          <span data-zh>报价编号</span><span data-en>No.</span>: — &nbsp;|&nbsp;
-          <span data-zh>日期</span><span data-en>Date</span>: <span id="printDate"></span>
+        <div class="print-doc-title" data-zh>报 价 单</div>
+        <div class="print-doc-title" data-en>QUOTATION</div>
+        <div class="print-ref">
+          <b data-zh>报价编号</b><b data-en>Ref No.</b>: <span id="printRefNo">—</span><br/>
+          <b data-zh>日期</b><b data-en>Date</b>: <span id="printDate"></span>
         </div>
       </div>
       <div class="clearfix"></div>
     </div>
     
     <div class="print-meta-row" style="display:none;">
-      <span><b data-zh>客户</b><span data-en>Client</span>: <span id="pClient">—</span></span>
-      <span><b data-zh>销售</b><span data-en>Sales</span>: <span id="pSales">—</span></span>
-      <span><b data-zh>设计师</b><span data-en>Designer</span>: <span id="pDesigner">—</span></span>
-      <span><b data-zh>面积(sqft)</b><span data-en>Area</span>: <span id="pArea">—</span> sqft</span>
+      <span><b data-zh>客户</b><b data-en>Client</b>: <span id="pClient">—</span></span>
+      <span><b data-zh>电话</b><b data-en>Phone</b>: <span id="pPhone">—</span></span>
+      <span><b data-zh>销售</b><b data-en>Sales</b>: <span id="pSales">—</span></span>
+      <span><b data-zh>设计师</b><b data-en>Designer</b>: <span id="pDesigner">—</span></span>
+      <span><b data-zh>面积</b><b data-en>Area</b>: <span id="pArea">—</span> sqft</span>
+      <span><b data-zh>地址</b><b data-en>Address</b>: <span id="pAddr">—</span></span>
     </div>
 
     <div id="page-newquote" class="page">
@@ -296,7 +312,7 @@
           </div>
           <div>
             <label><span data-zh>联系电话</span><span data-en>Phone Number</span></label>
-            <input type="tel" id="cphone" placeholder="012-345 6789" />
+            <input type="tel" id="cphone" placeholder="012-345 6789" oninput="updatePrintMeta()" />
           </div>
           <div>
             <label><span data-zh>电子邮箱</span><span data-en>Email</span></label>
@@ -306,7 +322,7 @@
         <div class="grid-2" style="margin-top:12px;">
           <div>
             <label><span data-zh>项目地址</span><span data-en>Project Address</span></label>
-            <textarea id="projAddress" placeholder="完整地址 / Full address"></textarea>
+            <textarea id="projAddress" placeholder="完整地址 / Full address" oninput="updatePrintMeta()"></textarea>
           </div>
           <div>
             <label><span data-zh>备注信息</span><span data-en>Remarks</span></label>
@@ -363,7 +379,7 @@
           </div>
           <div class="summary-right">
             <div class="amount-row">
-              <span data-zh>直接费用</span><span data-en>Subtotal</span>
+              <span data-zh>直接费用</span><span data-en>Direct Cost</span>
               <span class="amount-val">RM <span id="baseTotal">0.00</span></span>
             </div>
             <div class="amount-row">
@@ -374,13 +390,17 @@
               <span data-zh>小计</span><span data-en>Subtotal</span>
               <span class="amount-val">RM <span id="subTotal">0.00</span></span>
             </div>
+            <div class="amount-row print-only-row" style="display:none;">
+              <span data-zh>SST 消费税</span><span data-en>SST Tax</span>
+              <span class="amount-val">RM <span id="sstAmtPrint">0.00</span></span>
+            </div>
             <div class="amount-row">
               <span data-zh>设计费</span><span data-en>Design Fee</span>
               <span class="amount-val">RM <span id="designFeeAmt">0.00</span></span>
             </div>
             <div class="amount-row total">
-              <span data-zh>总额</span><span data-en>GRAND TOTAL</span>
-              <span class="amount-val orange">RM <span id="grandTotal">0.00</span></span>
+              <span data-zh>总额 GRAND TOTAL</span><span data-en>GRAND TOTAL</span>
+              <span class="amount-val">RM <span id="grandTotal">0.00</span></span>
             </div>
           </div>
         </div>
@@ -406,11 +426,52 @@
         <button class="btn btn-b" onclick="window.print()">
           <span data-zh>导出PDF</span><span data-en>PDF</span>
         </button>
-        <button class="btn btn-g" onclick="if(confirm('确定清空？不可恢复！')){blocks=[];localStorage.removeItem('nexsign_blocks');addBlock();}">
+        <button class="btn btn-g" onclick="if(confirm('确定清空？不可恢复！')){blocks=[];localStorage.removeItem('nexsign_blocks');currentHistoryId=null;addBlock();}">
           <span data-zh>清空</span><span data-en>Clear</span>
         </button>
       </div>
+      
+      <div class="print-sign" style="display:none;">
+        <div class="print-sign-col">
+          <div class="print-sign-line"></div>
+          <div class="print-sign-label" data-zh>客户签名 / Client Signature</div>
+          <div class="print-sign-label" data-en>Client Signature</div>
+          <div class="print-sign-date" data-zh>日期：____________</div>
+          <div class="print-sign-date" data-en>Date: ____________</div>
+        </div>
+        <div class="print-sign-col">
+          <div class="print-sign-line"></div>
+          <div class="print-sign-label" data-zh>NEXSIGN 授权签名</div>
+          <div class="print-sign-label" data-en>Authorized Signature</div>
+          <div class="print-sign-date" data-zh>日期：____________</div>
+          <div class="print-sign-date" data-en>Date: ____________</div>
+        </div>
+      </div>
+      
+      <div class="print-footer" style="display:none;">
+        <span data-zh>感谢您选择 NEXSIGN · 本报价单有效期30天 · 如有疑问请联系销售</span>
+        <span data-en>Thank you for choosing NEXSIGN · This quotation is valid for 30 days</span>
+      </div>
     </div>
+    
+    <!-- ========== 历史报价页 ========== -->
+    <div id="page-history" class="page hidden">
+      <div class="card">
+        <h3 style="margin-bottom:16px;">
+          <span data-zh>历史报价记录</span><span data-en>Quotation History</span>
+        </h3>
+        <div id="historyList"></div>
+        <div class="history-actions">
+          <button class="btn btn-o" onclick="goPage('newquote')">
+            <span data-zh>+ 新建报价</span><span data-en>+ New Quote</span>
+          </button>
+          <button class="btn btn-g" onclick="if(confirm('确定清空所有历史记录？不可恢复！')){historyList=[];saveHistoryStorage();renderHistory();}">
+            <span data-zh>清空历史</span><span data-en>Clear All</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
     <div id="page-ratelib" class="page hidden">
       <div class="card">
         <h3 style="margin-bottom:16px;">
@@ -426,7 +487,6 @@
         </div>
       </div>
     </div>
-    <div id="page-history" class="page hidden"><div class="card"><h3><span data-zh>历史报价</span><span data-en>History</span></h3><p style="margin-top:16px; color:#666;"><span data-zh>暂无记录</span><span data-en>No records yet</span></p></div></div>
     <div id="page-progress" class="page hidden"><div class="card"><h3><span data-zh>项目进度</span><span data-en>Progress</span></h3><p style="margin-top:16px; color:#666;"><span data-zh>暂无项目</span><span data-en>No projects</span></p></div></div>
     <div id="page-expense" class="page hidden"><div class="card"><h3><span data-zh>我的报销</span><span data-en>Expenses</span></h3><p style="margin-top:16px; color:#666;"><span data-zh>暂无记录</span><span data-en>No records</span></p></div></div>
   </div>
@@ -435,6 +495,9 @@
 const USER = "admin", PASS = "admin123";
 let blocks = [], blockIdCounter = 0;
 let isLangEN = false;
+let currentHistoryId = null; // 当前编辑的历史记录ID
+let historyList = []; // 历史报价记录
+
 const defaultRates = [
   { id:1, nameZh:"Melamine E0 不保修", nameEn:"Melamine E0 — No Warranty", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 },
   { id:2, nameZh:"Melamine E1 不保修", nameEn:"Melamine E1 — No Warranty", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:360 },
@@ -448,14 +511,13 @@ const defaultRates = [
 ];
 let rateData = [...defaultRates];
 
-// ========== 登录 — 修复：只在页面打开时检查一次，改东西永远不掉 ==========
 function doLogin() {
   const u = document.getElementById("username").value.trim();
   const p = document.getElementById("password").value;
   const err = document.getElementById("errorMsg");
   err.classList.remove("show");
   if (u === USER && p === PASS) {
-    localStorage.setItem("nexsign_auth", "ok"); // 长期有效
+    localStorage.setItem("nexsign_auth", "ok");
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("mainPage").classList.remove("hidden");
     init();
@@ -463,13 +525,11 @@ function doLogin() {
     err.classList.add("show");
   }
 }
-
 function doLogout() {
   localStorage.removeItem("nexsign_auth");
   location.reload();
 }
 
-// 页面加载时只检查一次登录状态
 window.onload = function() {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById("qdate").value = today;
@@ -487,7 +547,7 @@ function toggleLang() {
   document.body.lang = isLangEN ? "en" : "zh";
   document.getElementById("langToggle").textContent = isLangEN ? "中文" : "EN";
   localStorage.setItem("nexsign_lang", isLangEN ? "en" : "zh");
-  renderQuote(); renderRate();
+  renderQuote(); renderRate(); renderHistory();
 }
 
 function goPage(page) {
@@ -495,6 +555,7 @@ function goPage(page) {
   document.querySelectorAll(".page").forEach(p => p.classList.toggle("hidden", p.id !== `page-${page}`));
   if (page === "newquote") renderQuote();
   if (page === "ratelib") renderRate();
+  if (page === "history") renderHistory();
 }
 
 function parseDimension(text, unitMode) {
@@ -515,30 +576,40 @@ function calcAll() {
   const baseSum = blocks.reduce((sum, b) => sum + b.items.reduce((s, r) => s + calcAmount(r.qty, r.dimension, r.unitMode, r.price), 0), 0);
   const svc = document.getElementById("chkServiceFee").checked ? baseSum * 0.1 : 0;
   const sub = baseSum + svc;
-  const sst = document.getElementById("chkSST").checked ? sub * ((+document.getElementById("sstRate").value || 6) / 100) : 0;
+  const sstRate = (+document.getElementById("sstRate").value || 6) / 100;
+  const sst = document.getElementById("chkSST").checked ? sub * sstRate : 0;
   const design = document.getElementById("chkDesignFee").checked ? ((+document.getElementById("designPrice").value || 0) * (+document.getElementById("designArea").value || 0)) : 0;
   const grand = sub + sst + design;
   
   document.getElementById("baseTotal").textContent = baseSum.toFixed(2);
   document.getElementById("serviceFeeAmt").textContent = svc.toFixed(2);
   document.getElementById("subTotal").textContent = sub.toFixed(2);
+  document.getElementById("sstAmtPrint").textContent = sst.toFixed(2);
   document.getElementById("designFeeAmt").textContent = design.toFixed(2);
   document.getElementById("grandTotal").textContent = grand.toFixed(2);
+  return grand;
 }
 
 function updatePrintMeta() {
   document.getElementById("pClient").textContent = document.getElementById("cname").value || "—";
+  document.getElementById("pPhone").textContent = document.getElementById("cphone").value || "—";
   document.getElementById("pSales").textContent = document.getElementById("salesPerson").value || "—";
   document.getElementById("pDesigner").textContent = document.getElementById("designerName").value || "—";
   document.getElementById("pArea").textContent = document.getElementById("designArea").value || "—";
+  const addr = document.getElementById("projAddress").value || "—";
+  document.getElementById("pAddr").textContent = addr.length > 40 ? addr.substring(0,40) + "..." : addr;
   const d = document.getElementById("qdate").value;
-  document.getElementById("printDate").textContent = d || new Date().toISOString().split('T')[0];
+  const dateStr = d || new Date().toISOString().split('T')[0];
+  document.getElementById("printDate").textContent = dateStr;
+  const refNo = "NS-" + dateStr.replace(/-/g,"") + "-" + Math.floor(1000 + Math.random() * 9000);
+  document.getElementById("printRefNo").textContent = refNo;
 }
 
 function addBlock() { blockIdCounter++; blocks.push({ id:blockIdCounter, name:"定制项目", items:[] }); renderQuote(); }
 function delBlock(bid) { if(confirm(isLangEN?"Delete this section?":"确定删除此区块？")){blocks=blocks.filter(b=>b.id!==bid);renderQuote();} }
 function addItemRow(bid) { blocks.find(b=>b.id===bid).items.push({name:"",note:"",price:0,unitMode:"ft",qty:1,dimension:""}); renderQuote(); }
 function delItemRow(bid,idx) { blocks.find(b=>b.id===bid).items.splice(idx,1); renderQuote(); }
+
 function selectRate(rid) {
   const r = rateData.find(x=>x.id===rid); if(!r)return;
   if(!blocks.length)addBlock();
@@ -670,7 +741,138 @@ function addRateRow() {
   renderRate();
 }
 
+/* ========== 历史报价功能 ========== */
+function saveHistoryStorage() {
+  localStorage.setItem("nexsign_history", JSON.stringify(historyList));
+}
+
+function saveQuote() {
+  // 保存当前编辑数据
+  localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
+  
+  // 计算总额
+  const grand = calcAll();
+  
+  // 组装完整记录
+  const record = {
+    id: currentHistoryId || Date.now(),
+    savedAt: new Date().toLocaleString('zh-CN', {hour12:false}),
+    client: document.getElementById("cname").value || (isLangEN?"Unnamed":"未命名"),
+    phone: document.getElementById("cphone").value || "",
+    address: document.getElementById("projAddress").value || "",
+    sales: document.getElementById("salesPerson").value || "",
+    designer: document.getElementById("designerName").value || "",
+    area: document.getElementById("designArea").value || "",
+    grandTotal: grand.toFixed(2),
+    blocks: JSON.parse(JSON.stringify(blocks)),
+    designPrice: document.getElementById("designPrice").value,
+    sstRate: document.getElementById("sstRate").value,
+    chkServiceFee: document.getElementById("chkServiceFee").checked,
+    chkSST: document.getElementById("chkSST").checked,
+    chkDesignFee: document.getElementById("chkDesignFee").checked,
+    qdate: document.getElementById("qdate").value,
+    termsText: document.getElementById("termsText").value,
+    cRemark: document.getElementById("cRemark").value,
+    cemail: document.getElementById("cemail").value
+  };
+  
+  // 更新或新增
+  const idx = historyList.findIndex(h => h.id === record.id);
+  if (idx >= 0) historyList[idx] = record;
+  else historyList.unshift(record);
+  
+  currentHistoryId = record.id;
+  saveHistoryStorage();
+  alert(isLangEN ? "Saved to History ✅" : "已保存到历史报价 ✅");
+}
+
+function renderHistory() {
+  const container = document.getElementById("historyList");
+  if (!historyList.length) {
+    container.innerHTML = `<p style="margin-top:16px; color:#666;">
+      <span data-zh>暂无记录，保存报价后自动出现在这里</span>
+      <span data-en>No records yet. Saved quotes will appear here.</span>
+    </p>`;
+    return;
+  }
+  container.innerHTML = `
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>${isLangEN?"Saved Time":"保存时间"}</th>
+          <th>${isLangEN?"Client":"客户"}</th>
+          <th class="text-right">${isLangEN?"Total":"总额(RM)"}</th>
+          <th width="200">${isLangEN?"Action":"操作"}</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${historyList.map((h, i) => `
+          <tr>
+            <td>${i+1}</td>
+            <td>${h.savedAt}</td>
+            <td>${h.client} ${h.phone?'<br><small style="color:#999;">'+h.phone+'</small>':''}</td>
+            <td class="text-right" style="font-weight:700; color:#FF7A00;">${h.grandTotal}</td>
+            <td>
+              <button class="btn btn-sm btn-b" onclick="loadHistory(${h.id})" style="margin-right:6px;">
+                ${isLangEN?"Load":"加载编辑"}
+              </button>
+              <button class="btn btn-sm btn-g" onclick="delHistory(${h.id})">
+                ${isLangEN?"Delete":"删除"}
+              </button>
+            </td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function loadHistory(id) {
+  const h = historyList.find(x => x.id === id);
+  if (!h) return;
+  currentHistoryId = h.id;
+  blocks = JSON.parse(JSON.stringify(h.blocks));
+  blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
+  
+  document.getElementById("cname").value = h.client === (isLangEN?"Unnamed":"未命名") ? "" : h.client;
+  document.getElementById("cphone").value = h.phone || "";
+  document.getElementById("projAddress").value = h.address || "";
+  document.getElementById("cRemark").value = h.cRemark || "";
+  document.getElementById("cemail").value = h.cemail || "";
+  document.getElementById("salesPerson").value = h.sales || "Jasper Fong";
+  document.getElementById("designerName").value = h.designer || "";
+  document.getElementById("designArea").value = h.area || "";
+  document.getElementById("designPrice").value = h.designPrice || 55;
+  document.getElementById("sstRate").value = h.sstRate || 6;
+  document.getElementById("chkServiceFee").checked = h.chkServiceFee !== false;
+  document.getElementById("chkSST").checked = h.chkSST !== false;
+  document.getElementById("chkDesignFee").checked = h.chkDesignFee !== false;
+  document.getElementById("qdate").value = h.qdate || new Date().toISOString().split('T')[0];
+  document.getElementById("termsText").value = h.termsText || document.getElementById("termsText").value;
+  
+  localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
+  goPage("newquote");
+  updatePrintMeta();
+  alert(isLangEN ? "Loaded ✅" : "已加载，可继续编辑 ✅");
+}
+
+function delHistory(id) {
+  if (!confirm(isLangEN ? "Delete this record?" : "确定删除这条历史记录？")) return;
+  historyList = historyList.filter(h => h.id !== id);
+  if (currentHistoryId === id) currentHistoryId = null;
+  saveHistoryStorage();
+  renderHistory();
+}
+
 function init() {
+  // 加载历史记录
+  try {
+    const h = localStorage.getItem("nexsign_history");
+    if (h) historyList = JSON.parse(h);
+  } catch(e) { historyList = []; }
+  
+  // 加载当前编辑
   try {
     const saved = localStorage.getItem("nexsign_blocks");
     if (saved) {
@@ -678,15 +880,11 @@ function init() {
       blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
     }
   } catch(e) { blocks = []; }
+  
   if (!blocks.length) addBlock();
   renderQuote();
   renderRate();
   updatePrintMeta();
-}
-
-function saveQuote() {
-  localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
-  alert(isLangEN?"Saved ✅":"保存成功 ✅");
 }
 </script>
 </body>
