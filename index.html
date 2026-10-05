@@ -9,7 +9,7 @@
   <title>NEXSIGN — Quotation System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --border: #e5e5e5; }
+    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --border: #e5e5e5; --dark: #2c2c2c; --row-odd: #fff; --row-even: #f9f6f0; }
     .hidden { display: none !important; }
     [data-en] { display: none; }
     [lang="zh"] [data-zh] { display: inline; }
@@ -61,7 +61,6 @@
       background: #fff; cursor: pointer; font-size: 13px; color: #555; transition: all 0.2s;
     }
     .lang-btn:hover { border-color: var(--orange); color: var(--orange); }
-    .lang-btn.active { background: var(--orange); color: #fff; border-color: var(--orange); }
     .user-name { font-size: 14px; color: #333; }
     .nav-btn { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; background: #f5f5f5; color: #333; }
     .nav-btn:hover { background: #eee; }
@@ -129,9 +128,66 @@
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
+
+    /* ========== PDF打印样式 — 完全匹配参考 ========== */
     @media print {
-      .top-nav, .lock-note, .add-block-area, .block-actions, .bottom-actions, .btn-del { display: none !important; }
+      @page { size: A4; margin: 15mm 12mm; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      
+      .top-nav, .lock-note, .add-block-area, .block-actions, .block-close,
+      .bottom-actions, .btn-del, .no-print, .card > h3, .summary-box, .terms-box, .block-footer {
+        display: none !important;
+      }
+      
+      body { background: #fff; color: #000; font-size: 13px; line-height: 1.5; }
+      .container { padding: 0; max-width: 100%; }
+      
+      .print-header { display: block !important; width: 100%; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid #333; }
+      .print-header-left { float: left; }
+      .print-header-right { float: right; text-align: right; }
+      .print-company { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
+      .print-slogan { font-size: 13px; color: #666; margin-top: 2px; }
+      .print-title { font-size: 16px; font-weight: 700; }
+      .print-meta { font-size: 12px; color: #444; margin-top: 4px; }
+      .clearfix { clear: both; }
+      
+      .print-meta-row { display: flex; justify-content: space-between; font-size: 12px; margin: 8px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
+      .print-meta-row span { margin-right: 12px; }
+      
+      .print-table { display: table !important; width: 100%; border-collapse: collapse; margin: 10px 0; }
+      .print-table th {
+        background: var(--dark) !important; color: #fff !important; padding: 10px 6px;
+        text-align: center; font-weight: 600; border: 1px solid #444; font-size: 12px;
+      }
+      .print-table td {
+        padding: 10px 6px; border: 1px solid #ddd; font-size: 12px;
+      }
+      .print-table tr:nth-child(even) td { background: #f9f6f0; }
+      .print-table .text-right { text-align: right; }
+      .print-table .text-center { text-align: center; }
+      
+      .print-subtotal-row { background: #f9f6f0; font-weight: 600; }
+      
+      .print-summary { margin-top: 15px; margin-left: auto; width: 320px; }
+      .print-summary-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
+      .print-summary-row.total { font-weight: 700; margin-top: 6px; padding-top: 8px; border-top: 1px solid #ddd; }
+      .print-summary-row.final { font-size: 15px; font-weight: 800; color: var(--orange); padding-top: 8px; border-top: 2px solid #ddd; margin-top: 4px; }
+      
+      .print-terms { margin-top: 25px; font-size: 11px; line-height: 1.8; color: #333; }
+      .print-terms-title { font-weight: 700; margin-bottom: 6px; font-size: 12px; }
+      
+      .print-sign { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 10px; border-top: 1px solid #ccc; }
+      .print-sign-col { width: 45%; }
+      .print-sign-line { border-bottom: 1px solid #333; margin-top: 40px; margin-bottom: 6px; }
+      .print-sign-label { font-size: 12px; }
+      
+      input, select, textarea { border: none !important; box-shadow: none !important; background: transparent !important; padding: 0 !important; outline: none !important; -webkit-appearance: none; }
+      
+      .block-card { border: none !important; box-shadow: none !important; margin: 0 !important; padding: 0 !important; }
+      
+      .print-table, .print-summary, .print-terms { page-break-inside: avoid; }
     }
+    
     @media (max-width: 768px) {
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
@@ -202,6 +258,31 @@
     <span data-en>🔒 Read-only — Admin only</span>
   </div>
   <div class="container">
+    <!-- PDF抬头 -->
+    <div class="print-header" style="display:none;">
+      <div class="print-header-left">
+        <div class="print-company">NEXSIGN SDN BHD</div>
+        <div class="print-slogan" data-zh>全屋定制 · 匠心品质</div>
+        <div class="print-slogan" data-en>Custom Cabinet · Quality First</div>
+      </div>
+      <div class="print-header-right">
+        <div class="print-title" data-zh>定制工程预算</div>
+        <div class="print-title" data-en>Quotation</div>
+        <div class="print-meta">
+          <span data-zh>报价编号</span><span data-en>No.</span>: — &nbsp;|&nbsp;
+          <span data-zh>日期</span><span data-en>Date</span>: <span id="printDate"></span>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    
+    <div class="print-meta-row" style="display:none;">
+      <span><b data-zh>客户</b><span data-en>Client</span>: <span id="pClient">—</span></span>
+      <span><b data-zh>销售</b><span data-en>Sales</span>: <span id="pSales">—</span></span>
+      <span><b data-zh>设计师</b><span data-en>Designer</span>: <span id="pDesigner">—</span></span>
+      <span><b data-zh>面积(sqft)</b><span data-en>Area</span>: <span id="pArea">—</span> sqft</span>
+    </div>
+
     <div id="page-newquote" class="page">
       <div class="card">
         <h3 style="margin-bottom:16px;">
@@ -211,7 +292,7 @@
         <div class="grid-3">
           <div>
             <label><span data-zh>客户姓名</span><span data-en>Client Name</span></label>
-            <input type="text" id="cname" placeholder="客户姓名 / Client Name" />
+            <input type="text" id="cname" placeholder="客户姓名 / Client Name" oninput="updatePrintMeta()" />
           </div>
           <div>
             <label><span data-zh>联系电话</span><span data-en>Phone Number</span></label>
@@ -235,15 +316,15 @@
         <div class="grid-3" style="margin-top:12px;">
           <div>
             <label><span data-zh>报价日期</span><span data-en>Quote Date</span></label>
-            <input type="date" id="qdate" />
+            <input type="date" id="qdate" oninput="updatePrintMeta()" />
           </div>
           <div>
             <label><span data-zh>负责人 / 销售</span><span data-en>Prepared By / Sales</span></label>
-            <input type="text" id="salesPerson" value="Jasper Fong" />
+            <input type="text" id="salesPerson" value="Jasper Fong" oninput="updatePrintMeta()" />
           </div>
           <div>
             <label><span data-zh>设计师</span><span data-en>Designer</span></label>
-            <input type="text" id="designerName" placeholder="姓名 / Name" />
+            <input type="text" id="designerName" placeholder="姓名 / Name" oninput="updatePrintMeta()" />
           </div>
         </div>
       </div>
@@ -256,7 +337,7 @@
         <div class="summary-grid">
           <div class="summary-left">
             <div class="check-row">
-              <input type="checkbox" id="chkServiceFee" oninput="calcAll()" />
+              <input type="checkbox" id="chkServiceFee" oninput="calcAll()" checked />
               <label for="chkServiceFee"><span data-zh>综合服务费</span><span data-en>Service Fee</span> (10%)</label>
             </div>
             <div class="check-row">
@@ -277,7 +358,7 @@
             </div>
             <div class="input-wrap">
               <span data-zh>面积 sqft</span><span data-en>Area sqft</span>
-              <input type="number" id="designArea" value="" oninput="calcAll()" placeholder="填写面积" />
+              <input type="number" id="designArea" value="" oninput="calcAll(); updatePrintMeta();" placeholder="填写面积" />
             </div>
           </div>
           <div class="summary-right">
@@ -309,11 +390,14 @@
           <span data-zh>付款与约定条款</span>
           <span data-en>Terms & Conditions</span>
         </div>
-        <textarea class="terms-text" id="termsText">1. 本报价有效期为30天
-2. 确认方案时支付50%定金，安排生产
-3. 安装验收合格当日结清尾款
-4. Melamine E0 / E1 不提供保修
-5. 修改方案另行核算费用</textarea>
+        <textarea class="terms-text" id="termsText">1. 本报价并非最终报价单，一切以双方合约内的报价单为标准价格。
+2. 此报价不含物业管理处所收任何费用或押金，敬请甲方承担。
+3. 不含空调，不含空调主线，打孔。
+4. 不含电器。
+5. 不含软装。(如窗帘，装饰画，装饰品等)
+6. 不含移动家具。(床，床垫，餐桌，餐椅，沙发等)
+7. 此预算在施工图出图前仅供参考，乙方保留依据施工图纸订单价的权力。
+8. 此预算及备注作为合同附件，与合同具有同等法律效力。</textarea>
       </div>
       <div class="bottom-actions">
         <button class="btn btn-o" onclick="saveQuote()">
@@ -364,28 +448,14 @@ const defaultRates = [
 ];
 let rateData = [...defaultRates];
 
-function clearOldBadData() {
-  try {
-    localStorage.removeItem("nexsign_user");
-    localStorage.removeItem("nexsign_current_user");
-  } catch(e) {}
-}
-
-function toggleLang() {
-  isLangEN = !isLangEN;
-  document.body.lang = isLangEN ? "en" : "zh";
-  document.getElementById("langToggle").textContent = isLangEN ? "中文" : "EN";
-  localStorage.setItem("nexsign_lang", isLangEN ? "en" : "zh");
-  renderQuote(); renderRate();
-}
-
+// ========== 登录 — 修复：只在页面打开时检查一次，改东西永远不掉 ==========
 function doLogin() {
   const u = document.getElementById("username").value.trim();
   const p = document.getElementById("password").value;
   const err = document.getElementById("errorMsg");
   err.classList.remove("show");
   if (u === USER && p === PASS) {
-    localStorage.setItem("nexsign_user", USER);
+    localStorage.setItem("nexsign_auth", "ok"); // 长期有效
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("mainPage").classList.remove("hidden");
     init();
@@ -395,8 +465,29 @@ function doLogin() {
 }
 
 function doLogout() {
-  localStorage.removeItem("nexsign_user");
+  localStorage.removeItem("nexsign_auth");
   location.reload();
+}
+
+// 页面加载时只检查一次登录状态
+window.onload = function() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById("qdate").value = today;
+  document.getElementById("printDate").textContent = today;
+  
+  if (localStorage.getItem("nexsign_auth") === "ok") {
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("mainPage").classList.remove("hidden");
+    init();
+  }
+};
+
+function toggleLang() {
+  isLangEN = !isLangEN;
+  document.body.lang = isLangEN ? "en" : "zh";
+  document.getElementById("langToggle").textContent = isLangEN ? "中文" : "EN";
+  localStorage.setItem("nexsign_lang", isLangEN ? "en" : "zh");
+  renderQuote(); renderRate();
 }
 
 function goPage(page) {
@@ -427,6 +518,7 @@ function calcAll() {
   const sst = document.getElementById("chkSST").checked ? sub * ((+document.getElementById("sstRate").value || 6) / 100) : 0;
   const design = document.getElementById("chkDesignFee").checked ? ((+document.getElementById("designPrice").value || 0) * (+document.getElementById("designArea").value || 0)) : 0;
   const grand = sub + sst + design;
+  
   document.getElementById("baseTotal").textContent = baseSum.toFixed(2);
   document.getElementById("serviceFeeAmt").textContent = svc.toFixed(2);
   document.getElementById("subTotal").textContent = sub.toFixed(2);
@@ -434,8 +526,17 @@ function calcAll() {
   document.getElementById("grandTotal").textContent = grand.toFixed(2);
 }
 
+function updatePrintMeta() {
+  document.getElementById("pClient").textContent = document.getElementById("cname").value || "—";
+  document.getElementById("pSales").textContent = document.getElementById("salesPerson").value || "—";
+  document.getElementById("pDesigner").textContent = document.getElementById("designerName").value || "—";
+  document.getElementById("pArea").textContent = document.getElementById("designArea").value || "—";
+  const d = document.getElementById("qdate").value;
+  document.getElementById("printDate").textContent = d || new Date().toISOString().split('T')[0];
+}
+
 function addBlock() { blockIdCounter++; blocks.push({ id:blockIdCounter, name:"定制项目", items:[] }); renderQuote(); }
-function delBlock(bid) { if(confirm(isLangEN?"Delete?":"确定删除？")){blocks=blocks.filter(b=>b.id!==bid);renderQuote();} }
+function delBlock(bid) { if(confirm(isLangEN?"Delete this section?":"确定删除此区块？")){blocks=blocks.filter(b=>b.id!==bid);renderQuote();} }
 function addItemRow(bid) { blocks.find(b=>b.id===bid).items.push({name:"",note:"",price:0,unitMode:"ft",qty:1,dimension:""}); renderQuote(); }
 function delItemRow(bid,idx) { blocks.find(b=>b.id===bid).items.splice(idx,1); renderQuote(); }
 function selectRate(rid) {
@@ -449,16 +550,11 @@ function selectRate(rid) {
   renderQuote(); goPage("newquote");
 }
 
-// 只在失去焦点时更新数据，打字时不刷新整个页面
 function upd(bid, idx, field, value) {
   const block = blocks.find(b => b.id === bid);
   if (!block) return;
-  if (idx === -1) {
-    block[field] = value;
-  } else {
-    if (!block.items[idx]) return;
-    block.items[idx][field] = value;
-  }
+  if (idx === -1) block[field] = value;
+  else if (block.items[idx]) block.items[idx][field] = value;
   calcAll();
 }
 
@@ -481,10 +577,9 @@ function renderQuote() {
               <th>${isLangEN?"Item Name":"项目名称"}</th>
               <th>${isLangEN?"Note":"说明"}</th>
               <th>${isLangEN?"Unit":"单位"}</th>
-              <th>${isLangEN?"Price":"单价"}</th>
+              <th>${isLangEN?"Price":"单价(RM)"}</th>
               <th>${isLangEN?"Qty":"数量"}</th>
-              <th>${isLangEN?"Size":"尺寸"}</th>
-              <th>${isLangEN?"Amount":"金额"}</th>
+              <th>${isLangEN?"Amount":"金额(RM)"}</th>
               <th></th>
             </tr></thead>
             <tbody>
@@ -503,26 +598,23 @@ function renderQuote() {
                   </select></td>
                   <td><input type="number" value="${r.price}" 
                     onblur="upd(${b.id},${i},'price',+this.value||0)" 
-                    style="width:80px; text-align:right;" /></td>
+                    style="width:90px; text-align:right;" /></td>
                   <td><input type="number" value="${r.qty}" min="1" 
                     onblur="upd(${b.id},${i},'qty',+this.value||1)" 
                     style="width:60px; text-align:center;" /></td>
-                  <td><input type="text" value="${r.dimension}" 
-                    onblur="upd(${b.id},${i},'dimension',this.value)" 
-                    style="width:80px;" /></td>
                   <td class="text-right final-amount">${amt.toFixed(2)}</td>
                   <td><button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button></td>
                 </tr>`;
               }).join("")}
             </tbody>
           </table>
-          <div class="block-footer">
-            <div class="block-actions">
-              <button class="btn btn-sm btn-g" onclick="addItemRow(${b.id})">+ ${isLangEN?"Add Item":"添加项目"}</button>
-              <button class="btn btn-sm btn-o" onclick="goPage('ratelib')">${isLangEN?"From Library":"从费率库选择"}</button>
-            </div>
-            <div class="block-subtotal">${isLangEN?"Subtotal":"区块小计"}: RM ${subtotal.toFixed(2)}</div>
+        </div>
+        <div class="block-footer">
+          <div class="block-actions">
+            <button class="btn btn-sm btn-g" onclick="addItemRow(${b.id})">+ ${isLangEN?"Add Item":"添加项目"}</button>
+            <button class="btn btn-sm btn-o" onclick="goPage('ratelib')">${isLangEN?"From Library":"从费率库选择"}</button>
           </div>
+          <div class="block-subtotal">${isLangEN?"Subtotal":"小计"}: RM ${subtotal.toFixed(2)}</div>
         </div>
       </div>
     `;
@@ -534,29 +626,32 @@ function renderRate() {
   const unitLabel = { ft:isLangEN?"ft":"英尺", sqft:isLangEN?"sqft":"平方英尺", pcs:isLangEN?"pcs":"件" };
   document.getElementById("rateTable").innerHTML = `
     <table>
-      <thead><tr>
-        <th>${isLangEN?"Item Name":"项目名称"}</th>
-        <th>${isLangEN?"Note":"说明"}</th>
-        <th>${isLangEN?"Unit":"单位"}</th>
-        <th>${isLangEN?"Price":"单价(RM)"}</th>
-        <th>${isLangEN?"Action":"操作"}</th>
-      </tr></thead>
+      <thead>
+        <tr>
+          <th>${isLangEN?"Item Name":"项目名称"}</th>
+          <th>${isLangEN?"Unit":"单位"}</th>
+          <th class="text-right">${isLangEN?"Price":"单价"} (RM)</th>
+          <th>${isLangEN?"Note":"说明"}</th>
+          <th width="100">${isLangEN?"Action":"操作"}</th>
+        </tr>
+      </thead>
       <tbody>
-        ${rateData.map(r=>`
+        ${rateData.map(r => `
           <tr>
-            <td><input type="text" value="${isLangEN?r.nameEn:r.nameZh}" 
-              onblur="rateData.find(x=>x.id===${r.id}).name${isLangEN?'En':'Zh'}=this.value" /></td>
-            <td><input type="text" value="${isLangEN?r.noteEn:r.noteZh}" 
-              onblur="rateData.find(x=>x.id===${r.id}).note${isLangEN?'En':'Zh'}=this.value" /></td>
-            <td><select onchange="rateData.find(x=>x.id===${r.id}).unitMode=this.value">
-              <option value="ft" ${r.unitMode==='ft'?'selected':''}>${unitLabel.ft}</option>
-              <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>${unitLabel.sqft}</option>
-              <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>${unitLabel.pcs}</option>
-            </select></td>
+            <td><input type="text" value="${isLangEN ? r.nameEn : r.nameZh}" 
+              onblur="r.name${isLangEN?'En':'Zh'}=this.value" /></td>
+            <td>
+              <select onchange="r.unitMode=this.value">
+                <option value="ft" ${r.unitMode==='ft'?'selected':''}>${unitLabel.ft}</option>
+                <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>${unitLabel.sqft}</option>
+                <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>${unitLabel.pcs}</option>
+              </select>
+            </td>
             <td class="text-right"><input type="number" value="${r.price}" 
-              onblur="rateData.find(x=>x.id===${r.id}).price=+this.value||0" 
-              style="width:80px; text-align:right;" /></td>
-            <td class="text-center"><button class="btn btn-sm btn-o" onclick="selectRate(${r.id})">${isLangEN?"Select":"选用"}</button></td>
+              onblur="r.price=+this.value||0" style="width:90px; text-align:right;" /></td>
+            <td><input type="text" value="${isLangEN ? r.noteEn : r.noteZh}" 
+              onblur="r.note${isLangEN?'En':'Zh'}=this.value" /></td>
+            <td class="text-center"><button class="btn btn-sm btn-o" onclick="selectRate(${r.id})">${isLangEN?"Use":"选用"}</button></td>
           </tr>
         `).join("")}
       </tbody>
@@ -565,39 +660,34 @@ function renderRate() {
 }
 
 function addRateRow() {
-  const newId = rateData.length ? Math.max(...rateData.map(r=>r.id))+1 : 1;
-  rateData.push({ id:newId, nameZh:"新项目", nameEn:"New Item", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 });
+  const newId = rateData.length ? Math.max(...rateData.map(r => r.id)) + 1 : 1;
+  rateData.push({ 
+    id:newId, 
+    nameZh:"新项目", nameEn:"New Item", 
+    noteZh:"供应与安装", noteEn:"Supply & Install", 
+    unitMode:"ft", price:400 
+  });
   renderRate();
+}
+
+function init() {
+  try {
+    const saved = localStorage.getItem("nexsign_blocks");
+    if (saved) {
+      blocks = JSON.parse(saved);
+      blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
+    }
+  } catch(e) { blocks = []; }
+  if (!blocks.length) addBlock();
+  renderQuote();
+  renderRate();
+  updatePrintMeta();
 }
 
 function saveQuote() {
   localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
-  alert(isLangEN?"✅ Saved!":"✅ 保存成功！");
+  alert(isLangEN?"Saved ✅":"保存成功 ✅");
 }
-
-function init() {
-  document.getElementById("qdate").valueAsDate = new Date();
-  try { 
-    const s = localStorage.getItem("nexsign_blocks"); 
-    if(s) { 
-      blocks = JSON.parse(s); 
-      blockIdCounter = blocks.reduce((m,b)=>Math.max(m,b.id),0); 
-    } 
-  } catch(e) { blocks = []; }
-  if(!blocks.length) addBlock();
-  renderQuote(); renderRate();
-}
-
-window.onload = function() {
-  clearOldBadData();
-  const savedLang = localStorage.getItem("nexsign_lang");
-  if(savedLang === "en") { isLangEN = true; document.body.lang = "en"; document.getElementById("langToggle").textContent = "中文"; }
-  if(localStorage.getItem("nexsign_user") === USER) {
-    document.getElementById("loginPage").classList.add("hidden");
-    document.getElementById("mainPage").classList.remove("hidden");
-    init();
-  }
-};
 </script>
 </body>
 </html>
