@@ -12,7 +12,6 @@
     :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --light-gray: #f5f5f5; --border: #e5e5e5; }
     .hidden { display: none !important; }
 
-    /* 登录页 */
     .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0A2351, #16213e); padding: 20px; }
     .login-card { background: #fff; border-radius: 20px; padding: 36px 24px; width: 100%; max-width: 420px; }
     .logo-text { font-size: 32px; font-weight: 800; color: var(--blue); text-align: center; }
@@ -29,7 +28,6 @@
     .error.show { display: block; }
     .tip { text-align: center; margin-top: 16px; font-size: 13px; color: #999; }
 
-    /* 顶部导航栏 */
     .top-nav { 
       background: #fff; border-bottom: 1px solid var(--border); 
       padding: 0 16px; height: 56px; line-height: 56px;
@@ -51,9 +49,7 @@
       color: var(--orange); font-weight: 600;
     }
     .nav-tab.locked { position: relative; }
-    .nav-tab.locked::after {
-      content: "🔒"; position: absolute; right: 4px; top: 4px; font-size: 11px;
-    }
+    .nav-tab.locked::after { content: "🔒"; position: absolute; right: 4px; top: 4px; font-size: 11px; }
     
     .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .lang-btn { 
@@ -71,7 +67,6 @@
       padding: 6px 10px; border: none; border-radius: 4px; cursor: pointer;
       font-size: 12px; font-weight: 500;
     }
-    .btn-pwd { background: #f0f0f0; color: #333; }
     .btn-logout { background: var(--red); color: #fff; }
 
     .container { padding: 16px; max-width: 1280px; margin: 0 auto; }
@@ -83,7 +78,6 @@
     td input:focus, td select:focus { border-color: var(--orange); outline: 2px solid rgba(255,122,0,0.2); }
     .text-right { text-align: right; }
     .text-center { text-align: center; }
-    .btn-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
     .btn { padding: 10px 16px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px; }
     .btn-o { background: var(--orange); color: #000; }
     .btn-b { background: var(--blue); color: #fff; }
@@ -95,59 +89,45 @@
     .block-header { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; background: #fafafa; flex-wrap: wrap; }
     .block-name { flex: 1; min-width: 150px; font-size: 15px; font-weight: 600; border: 1px solid transparent; background: transparent; padding: 4px 8px; border-radius: 4px; margin: 0; }
     .block-name:focus { border-color: var(--orange); background: #fff; outline: none; }
-    .block-del { margin-left: auto; }
     .block-body { padding: 14px; overflow-x: auto; }
     .block-actions { margin: 10px 0; display: flex; gap: 8px; flex-wrap: wrap; }
     .add-block-area { border: 2px dashed #ddd; border-radius: 8px; padding: 18px; text-align: center; cursor: pointer; color: #999; margin: 10px 0; }
     .add-block-area:hover { border-color: var(--orange); color: var(--orange); }
     .subtotal-row { text-align: right; padding: 8px 14px; font-weight: 600; border-top: 1px solid #f0f0f0; }
 
-    .terms-box { 
-      background: #fafafa; border-radius: 8px; padding: 16px; margin-top: 20px; 
-      border: 1px solid var(--border);
-    }
-    .terms-title { font-weight: 700; margin-bottom: 8px; font-size: 14px; color: #333; }
-    .terms-text { 
-      width: 100%; min-height: 140px; border: 1px solid transparent; 
-      background: transparent; padding: 8px; font-size: 13px; line-height: 1.8; resize: vertical;
-    }
+    .terms-box { background: #fafafa; border-radius: 8px; padding: 16px; margin-top: 20px; border: 1px solid var(--border); }
+    .terms-text { width: 100%; min-height: 140px; border: 1px solid transparent; padding: 8px; font-size: 13px; line-height: 1.8; resize: vertical; }
     .terms-text:focus { border-color: var(--orange); background: #fff; outline: none; }
 
     .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 10px; margin-bottom: 20px; }
-    .icon-item { 
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 4px; padding: 10px 6px; border-radius: 8px; background: #fafafa;
-      cursor: pointer; transition: 0.2s; border: 1px solid transparent;
-    }
+    .icon-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 6px; border-radius: 8px; background: #fafafa; cursor: pointer; border: 1px solid transparent; }
     .icon-item:hover { background: #fff; border-color: var(--orange); }
     .icon-item.active { background: #fff; border-color: var(--orange); box-shadow: 0 2px 8px rgba(255,122,0,0.15); }
-    .icon-circle { 
-      width: 44px; height: 44px; border-radius: 10px; background: #f5f5f5;
-      display: flex; align-items: center; justify-content: center; font-size: 22px;
-    }
+    .icon-circle { width: 44px; height: 44px; border-radius: 10px; background: #f5f5f5; display: flex; align-items: center; justify-content: center; font-size: 22px; }
     .icon-item.active .icon-circle { background: var(--orange); color: #fff; }
     .icon-label { font-size: 11px; color: #555; text-align: center; }
     .icon-item.active .icon-label { color: var(--orange); font-weight: 600; }
 
+    /* ✅ 修复汇总区排版 */
     .summary-box { background: #fff; border-radius: 8px; padding: 20px; margin-top: 16px; border: 1px solid var(--border); }
-    .summary-inner { display: flex; flex-wrap: wrap; gap: 20px; }
-    .summary-left { flex: 1; min-width: 250px; }
-    .summary-right { flex: 1; min-width: 250px; }
-    .check-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+    .summary-inner { display: flex; flex-wrap: wrap; gap: 24px; }
+    .summary-left { flex: 1; min-width: 260px; }
+    .summary-right { flex: 1; min-width: 260px; }
+    .check-row { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
     .check-row input[type="checkbox"] { width: auto; margin: 0; cursor: pointer; }
-    .check-row label { font-size: 14px; cursor: pointer; }
-    .input-inline { display: flex; align-items: center; gap: 6px; margin: 4px 0 4px 24px; flex-wrap: wrap; }
-    .input-inline input { width: 80px; padding: 6px; margin: 0; }
-    .total-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
-    .total-row.border-top { border-top: 1px solid #eee; margin-top: 8px; padding-top: 10px; }
-    .total-row.final { font-size: 17px; font-weight: 700; color: var(--orange); padding-top: 10px; border-top: 2px solid #f0f0f0; margin-top: 4px; }
+    .check-row label { font-size: 14px; cursor: pointer; flex: 1; }
+    .input-inline { display: flex; align-items: center; gap: 8px; margin: 6px 0 6px 24px; flex-wrap: wrap; }
+    .input-inline span { font-size: 13px; color: #555; white-space: nowrap; }
+    .input-inline input { width: 90px; padding: 8px 10px; margin: 0; text-align: right; }
+    .total-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; align-items: center; }
+    .total-row.border-top { border-top: 1px solid #eee; margin-top: 8px; padding-top: 12px; }
+    .total-row.final { font-size: 18px; font-weight: 700; color: var(--orange); padding-top: 12px; border-top: 2px solid #f0f0f0; margin-top: 8px; }
     .total-label { color: #333; }
     .total-value { font-weight: 600; }
     .bottom-actions { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
 
     @media print {
       .top-nav, .add-block-area, .block-actions, .bottom-actions, .btn-del, .nav-btn, .lang-btn { display: none !important; }
-      .terms-box { border: none; background: transparent; }
       .terms-text { border: none; background: transparent; min-height: auto; }
     }
   </style>
@@ -169,7 +149,7 @@
 <div id="mainPage" class="hidden">
   <nav class="top-nav">
     <div class="nav-left">
-      <div class="nav-logo"><span>NEX<span>SIGN</span></span></div>
+      <div class="nav-logo"><span>NEX<span style="color:var(--orange)">SIGN</span></span></div>
       <div class="nav-tab active" data-page="newquote" onclick="goPage('newquote')" data-zh="新建报价" data-en="New Quote">新建报价</div>
       <div class="nav-tab" data-page="history" onclick="goPage('history')" data-zh="历史报价" data-en="History">历史报价</div>
       <div class="nav-tab locked" data-page="ratelib" onclick="goPage('ratelib')" data-zh="费率库" data-en="Price Library">费率库</div>
@@ -223,7 +203,7 @@
             </div>
             <div class="input-inline">
               <span data-zh="面积 (sqft)" data-en="Area (sqft)">面积 (sqft)</span>
-              <input type="number" id="designArea" value="" oninput="calcAll()" />
+              <input type="number" id="designArea" value="" oninput="calcAll()" placeholder="填面积" />
             </div>
           </div>
           <div class="summary-right">
@@ -265,8 +245,8 @@
       </div>
 
       <div class="bottom-actions">
-        <button class="btn btn-save" onclick="saveQuote()">保存 / Save</button>
-        <button class="btn btn-pdf" onclick="exportPDF()">导出PDF / Print</button>
+        <button class="btn btn-o" onclick="saveQuote()">保存 / Save</button>
+        <button class="btn btn-b" onclick="exportPDF()">导出PDF / Print</button>
         <button class="btn btn-g" onclick="clearAll()">清空 / Clear</button>
       </div>
     </div>
@@ -311,15 +291,15 @@ const categories = [
 let activeCategory = "all";
 
 const defaultRates = [
-  { id:1, cat:"cabinet", name:"Melamine E0 不保修", unitMode:"ft", price:400, code:"", desc:"Supply and install" },
-  { id:2, cat:"cabinet", name:"Melamine E1 不保修", unitMode:"ft", price:360, code:"", desc:"Supply and install" },
-  { id:3, cat:"cabinet", name:"吊柜 700mm高", unitMode:"ft", price:420, code:"", desc:"Supply and install" },
-  { id:4, cat:"cabinet", name:"吊柜 800mm高", unitMode:"ft", price:460, code:"", desc:"Supply and install" },
-  { id:5, cat:"cabinet", name:"吊柜 900mm高", unitMode:"ft", price:500, code:"", desc:"Supply and install" },
-  { id:6, cat:"stone", name:"石英石台面", unitMode:"sqft", price:280, code:"", desc:"Standard quartz — RM280/sqft" },
-  { id:7, cat:"stone", name:"花岗岩", unitMode:"sqft", price:320, code:"", desc:"Granite — RM320/sqft" },
-  { id:8, cat:"sink", name:"不锈钢洗菜盆", unitMode:"pcs", price:850, code:"XCP-001", desc:"SUS304, 安装" },
-  { id:9, cat:"sink", name:"水龙头", unitMode:"pcs", price:250, code:"XCP-003", desc:"SUS304, 安装" }
+  { id:1, cat:"cabinet", name:"Melamine E0 不保修", note:"Supply and install", unitMode:"ft", price:400, code:"", desc:"" },
+  { id:2, cat:"cabinet", name:"Melamine E1 不保修", note:"Supply and install", unitMode:"ft", price:360, code:"", desc:"" },
+  { id:3, cat:"cabinet", name:"吊柜 700mm高", note:"Supply and install", unitMode:"ft", price:420, code:"", desc:"" },
+  { id:4, cat:"cabinet", name:"吊柜 800mm高", note:"Supply and install", unitMode:"ft", price:460, code:"", desc:"" },
+  { id:5, cat:"cabinet", name:"吊柜 900mm高", note:"Supply and install", unitMode:"ft", price:500, code:"", desc:"" },
+  { id:6, cat:"stone", name:"石英石台面", note:"Supply and install", unitMode:"sqft", price:280, code:"", desc:"Standard quartz" },
+  { id:7, cat:"stone", name:"花岗岩", note:"Supply and install", unitMode:"sqft", price:320, code:"", desc:"" },
+  { id:8, cat:"sink", name:"不锈钢洗菜盆", note:"Supply and install", unitMode:"pcs", price:850, code:"", desc:"SUS304" },
+  { id:9, cat:"sink", name:"水龙头", note:"Supply and install", unitMode:"pcs", price:250, code:"", desc:"" }
 ];
 
 let rateData = [...defaultRates];
@@ -405,50 +385,38 @@ function setCategory(catId) {
   renderRate();
 }
 
-// ✅ 修复：sqft 正确计算面积
 function parseQuantity(text, unitMode) {
   if (!text) return 0;
   const s = String(text).trim().toLowerCase();
-  
   if (unitMode === "sqft") {
-    // 格式: 10x8 → 宽×高 = 总面积
     const match = s.match(/^([\d.]+)\s*[x×*]\s*([\d.]+)$/);
-    if (match) {
-      return parseFloat(match[1]) * parseFloat(match[2]);
-    }
-    // 直接填总面积数字
+    if (match) return parseFloat(match[1]) * parseFloat(match[2]);
     return parseFloat(s) || 0;
   }
-  
-  if (unitMode === "pcs") {
-    return parseFloat(s) || 1;
-  }
-  
-  // ft 模式 — 直接长度
+  if (unitMode === "pcs") return parseFloat(s) || 1;
   return parseFloat(s) || 0;
 }
 
 function renderRate() {
   let list = [...rateData];
   if (activeCategory !== "all") list = list.filter(r => r.cat === activeCategory);
-  
   document.getElementById("rateTable").innerHTML = `
     <table><thead><tr>
-      <th>编号</th><th>项目名称</th><th>单位模式</th><th>单价(RM)</th><th>工艺说明</th><th class="text-center">操作</th>
+      <th>编号</th><th>项目名称</th><th>备注说明</th><th>单位</th><th>单价(RM)</th><th class="text-center">操作</th>
     </tr></thead><tbody>
     ${list.map(r => `
       <tr>
         <td>${r.code || "-"}</td>
         <td><input type="text" value="${r.name}" oninput="updateRate(${r.id},'name',this.value)" /></td>
+        <td><input type="text" value="${r.note||""}" placeholder="Supply and install..." oninput="updateRate(${r.id},'note',this.value)" /></td>
         <td>
           <select onchange="updateRate(${r.id},'unitMode',this.value)">
-            <option value="ft" ${r.unitMode==='ft'?'selected':''}>ft 长度</option>
-            <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>sqft 面积</option>
-            <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>pcs 个</option>
+            <option value="ft" ${r.unitMode==='ft'?'selected':''}>ft</option>
+            <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>sqft</option>
+            <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>pcs</option>
           </select>
         </td>
         <td class="text-right"><input type="number" value="${r.price}" oninput="updateRate(${r.id},'price',+this.value||0)" style="width:90px; text-align:right;" /></td>
-        <td><input type="text" value="${r.desc||""}" oninput="updateRate(${r.id},'desc',this.value)" /></td>
         <td class="text-center"><button class="btn btn-sm btn-o" onclick="selectRate(${r.id})">选择</button></td>
       </tr>
     `).join("")}
@@ -463,7 +431,7 @@ function updateRate(id, f, v) {
 
 function addRateRow() {
   const newId = rateData.length ? Math.max(...rateData.map(r => r.id)) + 1 : 1;
-  rateData.push({ id: newId, cat: activeCategory === "all" ? "cabinet" : activeCategory, name: "新项目", unitMode:"ft", price: 0, code: "", desc: "" });
+  rateData.push({ id: newId, cat: activeCategory === "all" ? "cabinet" : activeCategory, name: "新项目", note:"Supply and install", unitMode:"ft", price: 0, code: "", desc: "" });
   renderRate();
 }
 
@@ -481,12 +449,9 @@ function selectRate(rid) {
   if (!r) return;
   if (blocks.length === 0) addBlock();
   const lastBlock = blocks[blocks.length - 1];
-  lastBlock.items.push({ 
-    name: r.name, price: r.price, unitMode: r.unitMode, lengthText: "", 
-    unitMult: 1, code: r.code, desc: r.desc 
-  });
+  lastBlock.items.push({ name: r.name, note: r.note || "", price: r.price, unitMode: r.unitMode, lengthText: "", unitMult: 1, code: r.code });
   renderQuote();
-  alert("已添加: " + r.name + " (" + r.unitMode + ")");
+  alert("已添加: " + r.name);
 }
 
 function addBlock() {
@@ -503,8 +468,7 @@ function delBlock(bid) {
 }
 
 function addItemRow(bid) {
-  const b = blocks.find(x => x.id === bid);
-  b.items.push({ name: "", price: 0, unitMode: "ft", lengthText: "", unitMult: 1, code: "", desc: "" });
+  blocks.find(x => x.id === bid).items.push({ name: "", note: "", price: 0, unitMode: "ft", lengthText: "", unitMult: 1 });
   renderQuote();
 }
 
@@ -523,7 +487,7 @@ function renderQuote() {
       <div class="block-card">
         <div class="block-header">
           <span style="color:#999; font-size:13px;">区块</span>
-          <input type="text" class="block-name" value="${b.name}" oninput="updateBlockName(${b.id}, this.value)" />
+          <input type="text" class="block-name" value="${b.name}" oninput="blocks.find(x=>x.id===${b.id}).name=this.value" />
           <button class="btn-del" onclick="delBlock(${b.id})">×</button>
         </div>
         <div class="block-body">
@@ -531,12 +495,11 @@ function renderQuote() {
             <thead>
               <tr>
                 <th class="text-center">#</th>
-                <th>编号</th>
                 <th>项目名称</th>
+                <th>备注/位置</th>
                 <th>单位</th>
                 <th>数量/尺寸</th>
                 <th class="text-right">单价(RM)</th>
-                <th class="text-right">倍数</th>
                 <th class="text-right">金额(RM)</th>
                 <th></th>
               </tr>
@@ -545,12 +508,11 @@ function renderQuote() {
               ${b.items.map((r, i) => {
                 const qty = parseQuantity(r.lengthText, r.unitMode);
                 const amt = ((r.price || 0) * qty * (r.unitMult || 1)).toFixed(2);
-                const autoCode = `${bi+1}-${String(i+1).padStart(3,'0')}`;
                 return `
                   <tr>
                     <td class="text-center">${i+1}</td>
-                    <td style="color:#888;">${r.code || autoCode}</td>
                     <td><input type="text" value="${r.name}" oninput="upd(${b.id},${i},'name',this.value)" /></td>
+                    <td><input type="text" value="${r.note}" placeholder="Dining area..." oninput="upd(${b.id},${i},'note',this.value)" style="min-width:140px;" /></td>
                     <td>
                       <select onchange="upd(${b.id},${i},'unitMode',this.value)">
                         <option value="ft" ${r.unitMode==='ft'?'selected':''}>ft</option>
@@ -560,13 +522,11 @@ function renderQuote() {
                     </td>
                     <td>
                       <input type="text" value="${r.lengthText}" 
-                        placeholder="${r.unitMode==='sqft'?'如: 10x8 或 80':'填数量/长度'}" 
-                        oninput="updLen(${b.id},${i},this.value)" 
-                        style="width:120px;" />
-                      ${r.unitMode==='sqft'?'<small style="color:#888;">面积='+qty+' sqft</small>':''}
+                        placeholder="${r.unitMode==='sqft'?'如: 10x8':'填数量'}" 
+                        oninput="updLen(${b.id},${i},this.value)" style="width:110px;" />
+                      ${r.unitMode==='sqft'?'<small style="color:#888;">='+qty+' sqft</small>':''}
                     </td>
-                    <td class="text-right"><input type="number" value="${r.price}" oninput="upd(${b.id},${i},'price',+this.value||0)" style="width:90px; text-align:right;" /></td>
-                    <td class="text-right"><input type="number" value="${r.unitMult}" min="1" oninput="updMult(${b.id},${i},+this.value||1)" style="width:60px; text-align:right;" /></td>
+                    <td class="text-right"><input type="number" value="${r.price}" oninput="upd(${b.id},${i},'price',+this.value||0)" style="width:80px; text-align:right;" /></td>
                     <td class="text-right" style="font-weight:600; color:var(--orange);">${amt}</td>
                     <td><button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button></td>
                   </tr>
@@ -586,10 +546,6 @@ function renderQuote() {
   calcAll();
 }
 
-function updateBlockName(bid, val) {
-  blocks.find(b => b.id === bid).name = val;
-}
-
 function upd(bid, idx, f, v) {
   blocks.find(b => b.id === bid).items[idx][f] = v;
   renderQuote();
@@ -597,11 +553,6 @@ function upd(bid, idx, f, v) {
 
 function updLen(bid, idx, v) {
   blocks.find(b => b.id === bid).items[idx].lengthText = v;
-  renderQuote();
-}
-
-function updMult(bid, idx, v) {
-  blocks.find(b => b.id === bid).items[idx].unitMult = Math.max(1, v);
   renderQuote();
 }
 
