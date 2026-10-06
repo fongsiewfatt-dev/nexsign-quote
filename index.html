@@ -89,6 +89,14 @@
     .btn-sm { padding: 6px 12px; font-size: 13px; cursor: pointer; border-radius: 4px; }
     .btn-del { background: none; border: none; color: var(--red); cursor: pointer; font-size: 18px; padding: 0 6px; }
     .btn-del:hover { opacity: 0.7; }
+    .img-upload-btn {
+      display: inline-block; padding: 4px 8px; background: #f0f0f0; border: 1px solid #ddd;
+      border-radius: 4px; font-size: 12px; cursor: pointer; margin-right: 4px; color: #555;
+    }
+    .img-upload-btn:hover { border-color: var(--orange); color: var(--orange); }
+    .item-thumb { max-width: 80px; max-height: 60px; border-radius: 4px; border: 1px solid #ddd; margin-top: 4px; }
+    .del-img-btn { font-size: 11px; color: #999; cursor: pointer; background: none; border: none; padding: 2px; }
+    .del-img-btn:hover { color: var(--red); }
     .block-card { background: #fff; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border); overflow: hidden; }
     .block-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; background: #fafafa; }
     .block-name { 
@@ -130,21 +138,16 @@
     label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
     .history-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
 
-    /* ========== 专业PDF打印模板 — 界面完全不动 ========== */
     @media print {
       @page { size: A4; margin: 16mm 14mm; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       .top-nav, .lock-note, .add-block-area, .block-actions, .block-close,
-      .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions {
-        display: none !important;
-      }
+      .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions,
+      .img-upload-btn, .del-img-btn { display: none !important; }
       body { background: #fff; color: #1a1a1a; font-size: 11pt; line-height: 1.6; }
       .container { padding: 0; max-width: 100%; }
       .card { border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
-      .print-header { 
-        display: block !important; width: 100%; padding-bottom: 12px; 
-        border-bottom: 3px solid var(--blue); margin-bottom: 16px;
-      }
+      .print-header { display: block !important; width: 100%; padding-bottom: 12px; border-bottom: 3px solid var(--blue); margin-bottom: 16px; }
       .print-header-left { float: left; width: 60%; }
       .print-header-right { float: right; width: 38%; text-align: right; }
       .clearfix { clear: both; height: 0; }
@@ -154,11 +157,7 @@
       .print-doc-title { font-size: 20pt; font-weight: 800; color: var(--orange); margin-top: 8px; letter-spacing: 2px; }
       .print-ref { font-size: 9.5pt; color: #555; margin-top: 6px; line-height: 1.6; }
       .print-ref b { color: var(--blue); }
-      .print-meta-row { 
-        display: grid !important; grid-template-columns: repeat(3, 1fr) !important; 
-        gap: 6px 16px; font-size: 9.5pt; padding: 10px 12px; 
-        background: #f8f9fb; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 18px;
-      }
+      .print-meta-row { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 6px 16px; font-size: 9.5pt; padding: 10px 12px; background: #f8f9fb; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 18px; }
       .print-meta-row b { color: var(--blue); font-weight: 600; }
       .block-card { border: none !important; box-shadow: none !important; margin: 0 0 18px 0 !important; padding: 0 !important; page-break-inside: avoid; }
       .block-header { background: var(--blue) !important; border: none !important; padding: 8px 12px !important; margin-top: 14px; }
@@ -167,13 +166,11 @@
       .block-body { padding: 0 !important; overflow: visible !important; }
       .block-body table { width: 100%; border-collapse: collapse; margin: 0; font-size: 9.5pt; }
       .block-body thead { display: table-header-group; }
-      .block-body th {
-        background: #f0f2f5 !important; color: #1a1a1a !important; padding: 8px 6px !important; 
-        text-align: center; font-weight: 700; border: 1px solid #d0d0d0 !important; font-size: 9pt;
-      }
+      .block-body th { background: #f0f2f5 !important; color: #1a1a1a !important; padding: 8px 6px !important; text-align: center; font-weight: 700; border: 1px solid #d0d0d0 !important; font-size: 9pt; }
       .block-body td { padding: 8px 6px !important; border: 1px solid #e0e0e0 !important; vertical-align: top; }
       .block-body tr:nth-child(even) td { background: #fafbfc !important; }
       .block-body td input, .block-body td select { font-size: 9.5pt !important; padding: 0 !important; width: 100% !important; min-width: 0 !important; }
+      .item-thumb { max-width: 70px !important; max-height: 60px !important; border: 1px solid #ccc !important; margin-top: 4px !important; display: block !important; }
       .final-amount { color: #1a1a1a !important; font-weight: 600 !important; }
       .block-footer { display: flex !important; justify-content: flex-end !important; border: none !important; padding: 6px 0 0 0 !important; }
       .block-subtotal { font-size: 10.5pt; font-weight: 700; color: var(--blue); background: #f0f2f5; padding: 6px 14px; border-radius: 3px; }
@@ -195,10 +192,7 @@
       .print-sign-label { font-size: 10pt; color: #333; font-weight: 600; }
       .print-sign-date { font-size: 8.5pt; color: #888; margin-top: 2px; }
       .print-footer { display: block !important; text-align: center; margin-top: 30px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 8.5pt; color: #999; }
-      input, select, textarea { 
-        border: none !important; box-shadow: none !important; background: transparent !important; 
-        padding: 0 !important; outline: none !important; -webkit-appearance: none; font: inherit !important; color: inherit !important;
-      }
+      input, select, textarea { border: none !important; box-shadow: none !important; background: transparent !important; padding: 0 !important; outline: none !important; -webkit-appearance: none; font: inherit !important; color: inherit !important; }
       select { -webkit-appearance: none; appearance: none; }
     }
     
@@ -218,16 +212,13 @@
     <input type="text" id="username" placeholder="账号 / Username" />
     <input type="password" id="password" placeholder="密码 / Password" />
     <button class="btn-login" onclick="doLogin()">
-      <span data-zh>登录</span>
-      <span data-en>Login</span>
+      <span data-zh>登录</span><span data-en>Login</span>
     </button>
     <div class="error" id="errorMsg">
-      <span data-zh>❌ 账号或密码错误</span>
-      <span data-en>❌ Invalid username or password</span>
+      <span data-zh>❌ 账号或密码错误</span><span data-en>❌ Invalid username or password</span>
     </div>
     <div class="tip">
-      <span data-zh>默认：admin / admin123</span>
-      <span data-en>Default: admin / admin123</span>
+      <span data-zh>默认：admin / admin123</span><span data-en>Default: admin / admin123</span>
     </div>
   </div>
 </div>
@@ -235,44 +226,35 @@
   <nav class="top-nav">
     <div class="nav-left">
       <div class="nav-tab active" data-page="newquote" onclick="goPage('newquote')">
-        <span data-zh>新建报价</span>
-        <span data-en>New Quote</span>
+        <span data-zh>新建报价</span><span data-en>New Quote</span>
       </div>
       <div class="nav-tab" data-page="history" onclick="goPage('history')">
-        <span data-zh>历史报价</span>
-        <span data-en>History</span>
+        <span data-zh>历史报价</span><span data-en>History</span>
       </div>
       <div class="nav-tab" data-page="ratelib" onclick="goPage('ratelib')">
-        <span data-zh>费率库</span>
-        <span data-en>Price Library</span>
+        <span data-zh>费率库</span><span data-en>Price Library</span>
       </div>
       <div class="nav-tab" data-page="progress" onclick="goPage('progress')">
-        <span data-zh>项目进度</span>
-        <span data-en>Progress</span>
+        <span data-zh>项目进度</span><span data-en>Progress</span>
       </div>
       <div class="nav-tab" data-page="expense" onclick="goPage('expense')">
-        <span data-zh>我的报销</span>
-        <span data-en>Expenses</span>
+        <span data-zh>我的报销</span><span data-en>Expenses</span>
       </div>
     </div>
     <div class="nav-right">
       <button class="lang-btn" id="langToggle" onclick="toggleLang()">EN</button>
       <span class="user-name">
-        <span data-zh>销售 · Jasper Fong</span>
-        <span data-en>Sales · Jasper Fong</span>
+        <span data-zh>销售 · Jasper Fong</span><span data-en>Sales · Jasper Fong</span>
       </span>
       <button class="nav-btn btn-logout" onclick="doLogout()">
-        <span data-zh>退出</span>
-        <span data-en>Logout</span>
+        <span data-zh>退出</span><span data-en>Logout</span>
       </button>
     </div>
   </nav>
   <div class="lock-note" id="lockNote" style="display:none;">
-    <span data-zh>🔒 只读 — 仅管理员可修改费率库</span>
-    <span data-en>🔒 Read-only — Admin only</span>
+    <span data-zh>🔒 只读 — 仅管理员可修改费率库</span><span data-en>🔒 Read-only — Admin only</span>
   </div>
   <div class="container">
-    <!-- PDF专业抬头 -->
     <div class="print-header" style="display:none;">
       <div class="print-header-left">
         <div class="print-company">NEXSIGN<span>.</span> SDN BHD</div>
@@ -302,8 +284,7 @@
     <div id="page-newquote" class="page">
       <div class="card">
         <h3 style="margin-bottom:16px;">
-          <span data-zh>客户信息</span>
-          <span data-en>Client Information</span>
+          <span data-zh>客户信息</span><span data-en>Client Information</span>
         </h3>
         <div class="grid-3">
           <div>
@@ -346,8 +327,7 @@
       </div>
       <div id="blocksContainer"></div>
       <div class="add-block-area" onclick="addBlock()">
-        <span data-zh>+ 添加区块</span>
-        <span data-en>+ Add Section</span>
+        <span data-zh>+ 添加区块</span><span data-en>+ Add Section</span>
       </div>
       <div class="summary-box">
         <div class="summary-grid">
@@ -407,8 +387,7 @@
       </div>
       <div class="terms-box">
         <div class="terms-title">
-          <span data-zh>付款与约定条款</span>
-          <span data-en>Terms & Conditions</span>
+          <span data-zh>付款与约定条款</span><span data-en>Terms & Conditions</span>
         </div>
         <textarea class="terms-text" id="termsText">1. 本报价并非最终报价单，一切以双方合约内的报价单为标准价格。
 2. 此报价不含物业管理处所收任何费用或押金，敬请甲方承担。
@@ -454,7 +433,6 @@
       </div>
     </div>
     
-    <!-- ========== 历史报价页 ========== -->
     <div id="page-history" class="page hidden">
       <div class="card">
         <h3 style="margin-bottom:16px;">
@@ -495,8 +473,8 @@
 const USER = "admin", PASS = "admin123";
 let blocks = [], blockIdCounter = 0;
 let isLangEN = false;
-let currentHistoryId = null; // 当前编辑的历史记录ID
-let historyList = []; // 历史报价记录
+let currentHistoryId = null;
+let historyList = [];
 
 const defaultRates = [
   { id:1, nameZh:"Melamine E0 不保修", nameEn:"Melamine E0 — No Warranty", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 },
@@ -525,16 +503,12 @@ function doLogin() {
     err.classList.add("show");
   }
 }
-function doLogout() {
-  localStorage.removeItem("nexsign_auth");
-  location.reload();
-}
+function doLogout() { localStorage.removeItem("nexsign_auth"); location.reload(); }
 
 window.onload = function() {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById("qdate").value = today;
   document.getElementById("printDate").textContent = today;
-  
   if (localStorage.getItem("nexsign_auth") === "ok") {
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("mainPage").classList.remove("hidden");
@@ -558,10 +532,12 @@ function goPage(page) {
   if (page === "history") renderHistory();
 }
 
+/* ===== 单位：ft / mm / sqft / m² / pcs ===== */
 function parseDimension(text, unitMode) {
   if (!text || !text.trim()) return 1;
   const s = String(text).toLowerCase().trim();
-  if (unitMode === "sqft") {
+  // 面积单位支持 3x4 乘法
+  if (unitMode === "sqft" || unitMode === "sqmeter") {
     const m = s.match(/^([\d.]+)\s*[x×*]\s*([\d.]+)$/);
     if (m) return parseFloat(m[1]) * parseFloat(m[2]);
   }
@@ -580,7 +556,6 @@ function calcAll() {
   const sst = document.getElementById("chkSST").checked ? sub * sstRate : 0;
   const design = document.getElementById("chkDesignFee").checked ? ((+document.getElementById("designPrice").value || 0) * (+document.getElementById("designArea").value || 0)) : 0;
   const grand = sub + sst + design;
-  
   document.getElementById("baseTotal").textContent = baseSum.toFixed(2);
   document.getElementById("serviceFeeAmt").textContent = svc.toFixed(2);
   document.getElementById("subTotal").textContent = sub.toFixed(2);
@@ -601,13 +576,12 @@ function updatePrintMeta() {
   const d = document.getElementById("qdate").value;
   const dateStr = d || new Date().toISOString().split('T')[0];
   document.getElementById("printDate").textContent = dateStr;
-  const refNo = "NS-" + dateStr.replace(/-/g,"") + "-" + Math.floor(1000 + Math.random() * 9000);
-  document.getElementById("printRefNo").textContent = refNo;
+  document.getElementById("printRefNo").textContent = "NS-" + dateStr.replace(/-/g,"") + "-" + Math.floor(1000 + Math.random() * 9000);
 }
 
 function addBlock() { blockIdCounter++; blocks.push({ id:blockIdCounter, name:"定制项目", items:[] }); renderQuote(); }
 function delBlock(bid) { if(confirm(isLangEN?"Delete this section?":"确定删除此区块？")){blocks=blocks.filter(b=>b.id!==bid);renderQuote();} }
-function addItemRow(bid) { blocks.find(b=>b.id===bid).items.push({name:"",note:"",price:0,unitMode:"ft",qty:1,dimension:""}); renderQuote(); }
+function addItemRow(bid) { blocks.find(b=>b.id===bid).items.push({name:"",note:"",price:0,unitMode:"ft",qty:1,dimension:"",img:""}); renderQuote(); }
 function delItemRow(bid,idx) { blocks.find(b=>b.id===bid).items.splice(idx,1); renderQuote(); }
 
 function selectRate(rid) {
@@ -616,7 +590,7 @@ function selectRate(rid) {
   blocks[blocks.length-1].items.push({
     name: isLangEN ? r.nameEn : r.nameZh,
     note: isLangEN ? r.noteEn : r.noteZh,
-    price: r.price, unitMode: r.unitMode, qty:1, dimension:""
+    price: r.price, unitMode: r.unitMode, qty:1, dimension:"", img:""
   });
   renderQuote(); goPage("newquote");
 }
@@ -629,8 +603,50 @@ function upd(bid, idx, field, value) {
   calcAll();
 }
 
+/* ===== 图片上传 ===== */
+function compressImage(file, callback) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const maxW = 400;
+      let w = img.width, h = img.height;
+      if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL('image/jpeg', 0.7));
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function uploadItemImg(bid, idx, input) {
+  const file = input.files[0];
+  if (!file) return;
+  compressImage(file, function(base64) {
+    blocks.find(b=>b.id===bid).items[idx].img = base64;
+    renderQuote();
+  });
+}
+function delItemImg(bid, idx) {
+  blocks.find(b=>b.id===bid).items[idx].img = "";
+  renderQuote();
+}
+
+/* ===== 单位选项（5种） ===== */
+function unitOptions(selected) {
+  const opts = [
+    {v:"ft", l:"ft"},
+    {v:"mm", l:"mm"},
+    {v:"sqft", l:"sqft"},
+    {v:"sqmeter", l:"m²"},
+    {v:"pcs", l: isLangEN ? "pcs" : "件"}
+  ];
+  return opts.map(o => `<option value="${o.v}" ${selected===o.v?'selected':''}>${o.l}</option>`).join("");
+}
+
 function renderQuote() {
-  const unitLabel = { ft:isLangEN?"ft":"英尺", sqft:isLangEN?"sqft":"平方英尺", pcs:isLangEN?"pcs":"件" };
   document.getElementById("blocksContainer").innerHTML = blocks.map((b, bi) => {
     const subtotal = b.items.reduce((sum, r) => sum + calcAmount(r.qty, r.dimension, r.unitMode, r.price), 0);
     return `
@@ -645,7 +661,7 @@ function renderQuote() {
           <table>
             <thead><tr>
               <th>#</th>
-              <th>${isLangEN?"Item Name":"项目名称"}</th>
+              <th>${isLangEN?"Item Name / Photo":"项目名称 / 图片"}</th>
               <th>${isLangEN?"Note":"说明"}</th>
               <th>${isLangEN?"Unit":"单位"}</th>
               <th>${isLangEN?"Price":"单价(RM)"}</th>
@@ -658,14 +674,18 @@ function renderQuote() {
                 const amt = calcAmount(r.qty, r.dimension, r.unitMode, r.price);
                 return `<tr>
                   <td>${i+1}</td>
-                  <td><input type="text" value="${r.name}" 
-                    onblur="upd(${b.id},${i},'name',this.value)" /></td>
+                  <td>
+                    <input type="text" value="${r.name}" 
+                      onblur="upd(${b.id},${i},'name',this.value)" />
+                    ${r.img ? `<div>
+                      <img src="${r.img}" class="item-thumb" /><br/>
+                      <button class="del-img-btn" onclick="delItemImg(${b.id},${i})">${isLangEN?"Remove photo":"删除图片"}</button>
+                    </div>` : ''}
+                  </td>
                   <td><input type="text" value="${r.note}" 
                     onblur="upd(${b.id},${i},'note',this.value)" /></td>
                   <td><select onchange="upd(${b.id},${i},'unitMode',this.value)">
-                    <option value="ft" ${r.unitMode==='ft'?'selected':''}>${unitLabel.ft}</option>
-                    <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>${unitLabel.sqft}</option>
-                    <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>${unitLabel.pcs}</option>
+                    ${unitOptions(r.unitMode)}
                   </select></td>
                   <td><input type="number" value="${r.price}" 
                     onblur="upd(${b.id},${i},'price',+this.value||0)" 
@@ -674,7 +694,13 @@ function renderQuote() {
                     onblur="upd(${b.id},${i},'qty',+this.value||1)" 
                     style="width:60px; text-align:center;" /></td>
                   <td class="text-right final-amount">${amt.toFixed(2)}</td>
-                  <td><button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button></td>
+                  <td>
+                    <label class="img-upload-btn" title="${isLangEN?"Upload photo":"上传图片"}">
+                      ${isLangEN?"Photo":"图"}
+                      <input type="file" accept="image/*" style="display:none;" onchange="uploadItemImg(${b.id},${i},this)" />
+                    </label>
+                    <button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button>
+                  </td>
                 </tr>`;
               }).join("")}
             </tbody>
@@ -694,7 +720,6 @@ function renderQuote() {
 }
 
 function renderRate() {
-  const unitLabel = { ft:isLangEN?"ft":"英尺", sqft:isLangEN?"sqft":"平方英尺", pcs:isLangEN?"pcs":"件" };
   document.getElementById("rateTable").innerHTML = `
     <table>
       <thead>
@@ -713,9 +738,7 @@ function renderRate() {
               onblur="r.name${isLangEN?'En':'Zh'}=this.value" /></td>
             <td>
               <select onchange="r.unitMode=this.value">
-                <option value="ft" ${r.unitMode==='ft'?'selected':''}>${unitLabel.ft}</option>
-                <option value="sqft" ${r.unitMode==='sqft'?'selected':''}>${unitLabel.sqft}</option>
-                <option value="pcs" ${r.unitMode==='pcs'?'selected':''}>${unitLabel.pcs}</option>
+                ${unitOptions(r.unitMode)}
               </select>
             </td>
             <td class="text-right"><input type="number" value="${r.price}" 
@@ -732,28 +755,17 @@ function renderRate() {
 
 function addRateRow() {
   const newId = rateData.length ? Math.max(...rateData.map(r => r.id)) + 1 : 1;
-  rateData.push({ 
-    id:newId, 
-    nameZh:"新项目", nameEn:"New Item", 
-    noteZh:"供应与安装", noteEn:"Supply & Install", 
-    unitMode:"ft", price:400 
-  });
+  rateData.push({ id:newId, nameZh:"新项目", nameEn:"New Item", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 });
   renderRate();
 }
 
-/* ========== 历史报价功能 ========== */
+/* ===== 历史报价 ===== */
 function saveHistoryStorage() {
   localStorage.setItem("nexsign_history", JSON.stringify(historyList));
 }
-
 function saveQuote() {
-  // 保存当前编辑数据
   localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
-  
-  // 计算总额
   const grand = calcAll();
-  
-  // 组装完整记录
   const record = {
     id: currentHistoryId || Date.now(),
     savedAt: new Date().toLocaleString('zh-CN', {hour12:false}),
@@ -775,17 +787,13 @@ function saveQuote() {
     cRemark: document.getElementById("cRemark").value,
     cemail: document.getElementById("cemail").value
   };
-  
-  // 更新或新增
   const idx = historyList.findIndex(h => h.id === record.id);
   if (idx >= 0) historyList[idx] = record;
   else historyList.unshift(record);
-  
   currentHistoryId = record.id;
   saveHistoryStorage();
   alert(isLangEN ? "Saved to History ✅" : "已保存到历史报价 ✅");
 }
-
 function renderHistory() {
   const container = document.getElementById("historyList");
   if (!historyList.length) {
@@ -814,12 +822,8 @@ function renderHistory() {
             <td>${h.client} ${h.phone?'<br><small style="color:#999;">'+h.phone+'</small>':''}</td>
             <td class="text-right" style="font-weight:700; color:#FF7A00;">${h.grandTotal}</td>
             <td>
-              <button class="btn btn-sm btn-b" onclick="loadHistory(${h.id})" style="margin-right:6px;">
-                ${isLangEN?"Load":"加载编辑"}
-              </button>
-              <button class="btn btn-sm btn-g" onclick="delHistory(${h.id})">
-                ${isLangEN?"Delete":"删除"}
-              </button>
+              <button class="btn btn-sm btn-b" onclick="loadHistory(${h.id})" style="margin-right:6px;">${isLangEN?"Load":"加载编辑"}</button>
+              <button class="btn btn-sm btn-g" onclick="delHistory(${h.id})">${isLangEN?"Delete":"删除"}</button>
             </td>
           </tr>
         `).join("")}
@@ -827,14 +831,12 @@ function renderHistory() {
     </table>
   `;
 }
-
 function loadHistory(id) {
   const h = historyList.find(x => x.id === id);
   if (!h) return;
   currentHistoryId = h.id;
   blocks = JSON.parse(JSON.stringify(h.blocks));
   blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
-  
   document.getElementById("cname").value = h.client === (isLangEN?"Unnamed":"未命名") ? "" : h.client;
   document.getElementById("cphone").value = h.phone || "";
   document.getElementById("projAddress").value = h.address || "";
@@ -850,13 +852,11 @@ function loadHistory(id) {
   document.getElementById("chkDesignFee").checked = h.chkDesignFee !== false;
   document.getElementById("qdate").value = h.qdate || new Date().toISOString().split('T')[0];
   document.getElementById("termsText").value = h.termsText || document.getElementById("termsText").value;
-  
   localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
   goPage("newquote");
   updatePrintMeta();
   alert(isLangEN ? "Loaded ✅" : "已加载，可继续编辑 ✅");
 }
-
 function delHistory(id) {
   if (!confirm(isLangEN ? "Delete this record?" : "确定删除这条历史记录？")) return;
   historyList = historyList.filter(h => h.id !== id);
@@ -866,13 +866,10 @@ function delHistory(id) {
 }
 
 function init() {
-  // 加载历史记录
   try {
     const h = localStorage.getItem("nexsign_history");
     if (h) historyList = JSON.parse(h);
   } catch(e) { historyList = []; }
-  
-  // 加载当前编辑
   try {
     const saved = localStorage.getItem("nexsign_blocks");
     if (saved) {
@@ -880,7 +877,6 @@ function init() {
       blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
     }
   } catch(e) { blocks = []; }
-  
   if (!blocks.length) addBlock();
   renderQuote();
   renderRate();
