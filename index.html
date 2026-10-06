@@ -4,8 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="NEXSIGN" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#FF7A00" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230A2351'/%3E%3Ctext x='96' y='132' font-size='110' font-family='Arial' font-weight='900' fill='%23FF7A00' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230A2351'/%3E%3Ctext x='96' y='132' font-size='110' font-family='Arial' font-weight='900' fill='%23FF7A00' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTkVYU0lHTiBRdW90YXRpb24gU3lzdGVtIiwic2hvcnRfbmFtZSI6Ik5FWFNJR04iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBBMjM1MSIsInRoZW1lX2NvbG9yIjoiI0ZGN0EwMCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgcng9JzM2JyBmaWxsPSclMjMwQTIzNTEnLyUzRSUzQ3RleHQgeD0nOTYnIHk9JzEzMicgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC13ZWlnaHQ9JzkwMCcgZmlsbD0nJTIzRkY3QTAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyUzRU4lM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6ImFueSIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==" />
   <title>NEXSIGN — Quotation System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
@@ -137,13 +142,21 @@
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
     .history-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .install-tip {
+      position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: #fff; padding: 10px 20px; border-radius: 30px;
+      font-size: 13px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+      cursor: pointer; display: none;
+    }
+    .install-tip.show { display: block; }
+    .install-tip span { color: var(--orange); font-weight: 700; }
 
     @media print {
       @page { size: A4; margin: 16mm 14mm; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       .top-nav, .lock-note, .add-block-area, .block-actions, .block-close,
       .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions,
-      .img-upload-btn, .del-img-btn { display: none !important; }
+      .img-upload-btn, .del-img-btn, .install-tip { display: none !important; }
       body { background: #fff; color: #1a1a1a; font-size: 11pt; line-height: 1.6; }
       .container { padding: 0; max-width: 100%; }
       .card { border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
@@ -469,12 +482,19 @@
     <div id="page-expense" class="page hidden"><div class="card"><h3><span data-zh>我的报销</span><span data-en>Expenses</span></h3><p style="margin-top:16px; color:#666;"><span data-zh>暂无记录</span><span data-en>No records</span></p></div></div>
   </div>
 </div>
+
+<!-- 安装App提示（电脑Chrome显示） -->
+<div class="install-tip" id="installTip" onclick="installApp()">
+  <span>📱 安装NEXSIGN App</span> — 点我添加到桌面
+</div>
+
 <script>
 const USER = "admin", PASS = "admin123";
 let blocks = [], blockIdCounter = 0;
 let isLangEN = false;
 let currentHistoryId = null;
 let historyList = [];
+let deferredPrompt = null;
 
 const defaultRates = [
   { id:1, nameZh:"Melamine E0 不保修", nameEn:"Melamine E0 — No Warranty", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 },
@@ -514,7 +534,28 @@ window.onload = function() {
     document.getElementById("mainPage").classList.remove("hidden");
     init();
   }
+  // 电脑Chrome显示安装提示
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!window.matchMedia('(display-mode: standalone)').matches) {
+      document.getElementById("installTip").classList.add("show");
+    }
+  });
+  window.addEventListener('appinstalled', () => {
+    document.getElementById("installTip").classList.remove("show");
+    deferredPrompt = null;
+  });
 };
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+  } else {
+    alert(isLangEN ? "iPhone: Share → Add to Home Screen\nAndroid Chrome: Menu → Install App" : "iPhone: 点底部分享 → 添加到主屏幕\n安卓Chrome: 右上角菜单 → 安装应用");
+  }
+}
 
 function toggleLang() {
   isLangEN = !isLangEN;
@@ -532,11 +573,9 @@ function goPage(page) {
   if (page === "history") renderHistory();
 }
 
-/* ===== 单位：ft / mm / sqft / m² / pcs ===== */
 function parseDimension(text, unitMode) {
   if (!text || !text.trim()) return 1;
   const s = String(text).toLowerCase().trim();
-  // 面积单位支持 3x4 乘法
   if (unitMode === "sqft" || unitMode === "sqmeter") {
     const m = s.match(/^([\d.]+)\s*[x×*]\s*([\d.]+)$/);
     if (m) return parseFloat(m[1]) * parseFloat(m[2]);
@@ -603,7 +642,6 @@ function upd(bid, idx, field, value) {
   calcAll();
 }
 
-/* ===== 图片上传 ===== */
 function compressImage(file, callback) {
   const reader = new FileReader();
   reader.onload = function(e) {
@@ -634,7 +672,6 @@ function delItemImg(bid, idx) {
   renderQuote();
 }
 
-/* ===== 单位选项（5种） ===== */
 function unitOptions(selected) {
   const opts = [
     {v:"ft", l:"ft"},
@@ -759,7 +796,6 @@ function addRateRow() {
   renderRate();
 }
 
-/* ===== 历史报价 ===== */
 function saveHistoryStorage() {
   localStorage.setItem("nexsign_history", JSON.stringify(historyList));
 }
