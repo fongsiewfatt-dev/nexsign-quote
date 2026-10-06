@@ -8,13 +8,14 @@
   <meta name="apple-mobile-web-app-title" content="NEXSIGN" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#FF7A00" />
+  <meta name="description" content="NEXSIGN 全屋定制报价系统" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230A2351'/%3E%3Ctext x='96' y='132' font-size='110' font-family='Arial' font-weight='900' fill='%23FF7A00' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230A2351'/%3E%3Ctext x='96' y='132' font-size='110' font-family='Arial' font-weight='900' fill='%23FF7A00' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTkVYU0lHTiBRdW90YXRpb24gU3lzdGVtIiwic2hvcnRfbmFtZSI6Ik5FWFNJR04iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBBMjM1MSIsInRoZW1lX2NvbG9yIjoiI0ZGN0EwMCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgcng9JzM2JyBmaWxsPSclMjMwQTIzNTEnLyUzRSUzQ3RleHQgeD0nOTYnIHk9JzEzMicgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC13ZWlnaHQ9JzkwMCcgZmlsbD0nJTIzRkY3QTAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyUzRU4lM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6ImFueSIsInR5cGUiOiJpbWFnZS9zdmcreG1sIn1dfQ==" />
+  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTkVYU0lHTiBRdW90YXRpb24gU3lzdGVtIiwic2hvcnRfbmFtZSI6Ik5FWFNJR04iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBBMjM1MSIsInRoZW1lX2NvbG9yIjoiI0ZGN0EwMCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgcng9JzM2JyBmaWxsPSclMjMwQTIzNTEnLyUzRSUzQ3RleHQgeD0nOTYnIHk9JzEzMicgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC13ZWlnaHQ9JzkwMCcgZmlsbD0nJTIzRkY3QTAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyUzRU4lM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=" />
   <title>NEXSIGN — Quotation System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --border: #e5e5e5; --dark: #2c2c2c; --row-odd: #fff; --row-even: #f9f6f0; }
+    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --border: #e5e5e5; }
     .hidden { display: none !important; }
     [data-en] { display: none; }
     [lang="zh"] [data-zh] { display: inline; }
@@ -27,63 +28,33 @@
     .logo-text span { color: var(--orange); }
     .logo-zh { font-size: 22px; font-weight: 700; color: var(--red); text-align: center; margin: 6px 0 24px; }
     input, button { font-size: 15px; }
-    input {
-      width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px;
-      background: #fff; color: #000; margin-bottom: 12px;
-    }
+    input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: #000; margin-bottom: 12px; }
     input:focus { outline: 2px solid var(--orange); border-color: var(--orange); }
-    textarea {
-      width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px;
-      background: #fff; color: #000; margin-bottom: 12px; resize: vertical;
-      min-height: 80px;
-    }
+    textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 4px; background: #fff; color: #000; margin-bottom: 12px; resize: vertical; min-height: 80px; }
     textarea:focus { outline: 2px solid var(--orange); border-color: var(--orange); }
     .btn-login { width: 100%; padding: 14px; background: var(--orange); border: none; border-radius: 8px; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 8px; }
     .error { color: var(--red); text-align: center; margin-top: 12px; display: none; }
     .error.show { display: block; }
     .tip { text-align: center; margin-top: 16px; font-size: 13px; color: #999; line-height: 1.6; }
-    .top-nav {
-      background: #fff; border-bottom: 1px solid var(--border);
-      padding: 0 16px; height: 56px; line-height: 56px;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      flex-wrap: wrap;
-    }
+    .top-nav { background: #fff; border-bottom: 1px solid var(--border); padding: 0 16px; height: 56px; line-height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.05); flex-wrap: wrap; }
     .nav-left { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-    .nav-tab {
-      padding: 0 14px; height: 56px; line-height: 56px; cursor: pointer;
-      font-size: 14px; color: #555; border-bottom: 3px solid transparent;
-      font-weight: 500;
-    }
+    .nav-tab { padding: 0 14px; height: 56px; line-height: 56px; cursor: pointer; font-size: 14px; color: #555; border-bottom: 3px solid transparent; font-weight: 500; }
     .nav-tab:hover { background: #fafafa; color: #333; }
-    .nav-tab.active {
-      background: #fff; border-bottom: 3px solid var(--orange);
-      color: var(--orange); font-weight: 700;
-    }
+    .nav-tab.active { background: #fff; border-bottom: 3px solid var(--orange); color: var(--orange); font-weight: 700; }
     .nav-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-    .lang-btn {
-      padding: 4px 12px; border: 1px solid #ddd; border-radius: 20px;
-      background: #fff; cursor: pointer; font-size: 13px; color: #555; transition: all 0.2s;
-    }
+    .lang-btn { padding: 4px 12px; border: 1px solid #ddd; border-radius: 20px; background: #fff; cursor: pointer; font-size: 13px; color: #555; }
     .lang-btn:hover { border-color: var(--orange); color: var(--orange); }
     .user-name { font-size: 14px; color: #333; }
     .nav-btn { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; background: #f5f5f5; color: #333; }
     .nav-btn:hover { background: #eee; }
     .btn-logout { background: var(--red); color: #fff; }
-    .lock-note {
-      width: 100%; padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid var(--border);
-      font-size: 13px; color: #888; text-align: right;
-    }
+    .lock-note { width: 100%; padding: 8px 16px; background: #f9fafb; border-bottom: 1px solid var(--border); font-size: 13px; color: #888; text-align: right; }
     .container { padding: 16px; max-width: 1400px; margin: 0 auto; }
     .card { background: #fff; border-radius: 8px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th { background: #f9fafb; padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; white-space: nowrap; color: #333; }
     td { padding: 4px 6px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-    td input, td select { 
-      padding: 6px 8px; border-radius: 4px; margin: 0; font-size: 14px; 
-      border: 1px solid #ddd; width: 100%; background: #fff;
-      min-width: 60px;
-    }
+    td input, td select { padding: 6px 8px; border-radius: 4px; margin: 0; font-size: 14px; border: 1px solid #ddd; width: 100%; background: #fff; min-width: 60px; }
     td input:focus, td select:focus { border-color: var(--orange); outline: 2px solid rgba(255,122,0,0.2); }
     .text-right { text-align: right; }
     .text-center { text-align: center; }
@@ -94,21 +65,14 @@
     .btn-sm { padding: 6px 12px; font-size: 13px; cursor: pointer; border-radius: 4px; }
     .btn-del { background: none; border: none; color: var(--red); cursor: pointer; font-size: 18px; padding: 0 6px; }
     .btn-del:hover { opacity: 0.7; }
-    .img-upload-btn {
-      display: inline-block; padding: 4px 8px; background: #f0f0f0; border: 1px solid #ddd;
-      border-radius: 4px; font-size: 12px; cursor: pointer; margin-right: 4px; color: #555;
-    }
+    .img-upload-btn { display: inline-block; padding: 4px 8px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer; margin-right: 4px; color: #555; }
     .img-upload-btn:hover { border-color: var(--orange); color: var(--orange); }
     .item-thumb { max-width: 80px; max-height: 60px; border-radius: 4px; border: 1px solid #ddd; margin-top: 4px; }
     .del-img-btn { font-size: 11px; color: #999; cursor: pointer; background: none; border: none; padding: 2px; }
     .del-img-btn:hover { color: var(--red); }
     .block-card { background: #fff; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border); overflow: hidden; }
     .block-header { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; background: #fafafa; }
-    .block-name { 
-      flex: 1; min-width: 150px; font-size: 15px; font-weight: 600; 
-      border: 1px solid transparent; background: transparent; 
-      padding: 4px 8px; border-radius: 4px; margin: 0;
-    }
+    .block-name { flex: 1; min-width: 150px; font-size: 15px; font-weight: 600; border: 1px solid transparent; background: transparent; padding: 4px 8px; border-radius: 4px; margin: 0; }
     .block-name:focus { border-color: var(--orange); background: #fff; outline: none; }
     .block-close { margin-left: auto; background: none; border: none; font-size: 18px; cursor: pointer; color: #999; }
     .block-close:hover { color: var(--red); }
@@ -130,10 +94,8 @@
     .input-wrap span { font-size: 14px; color: #555; }
     .summary-right { display: flex; flex-direction: column; gap: 8px; }
     .amount-row { display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
-    .amount-row.orange-text { color: var(--orange); font-weight: 600; }
     .amount-row.total { font-size: 18px; font-weight: 700; color: var(--orange); margin-top: 8px; padding-top: 10px; border-top: 1px solid #eee; }
     .amount-val { font-weight: 600; }
-    .amount-val.orange { color: var(--orange); }
     .terms-box { background: #fafafa; border-radius: 8px; padding: 16px; margin-top: 20px; border: 1px solid var(--border); }
     .terms-title { font-weight: 600; margin-bottom: 8px; }
     .terms-text { width: 100%; min-height: 120px; border: none; padding: 8px; font-size: 13px; line-height: 1.8; resize: vertical; background: transparent; }
@@ -142,21 +104,15 @@
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
     label { display: block; font-size: 13px; color: #666; margin-bottom: 4px; }
     .history-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
-    .install-tip {
-      position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-      background: var(--blue); color: #fff; padding: 10px 20px; border-radius: 30px;
-      font-size: 13px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,.2);
-      cursor: pointer; display: none;
-    }
+    .install-tip { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,.2); cursor: pointer; display: none; }
     .install-tip.show { display: block; }
     .install-tip span { color: var(--orange); font-weight: 700; }
+    .rate-del-btn { background: none; border: none; color: var(--red); cursor: pointer; font-size: 16px; padding: 4px 8px; }
 
     @media print {
       @page { size: A4; margin: 16mm 14mm; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .top-nav, .lock-note, .add-block-area, .block-actions, .block-close,
-      .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions,
-      .img-upload-btn, .del-img-btn, .install-tip { display: none !important; }
+      .top-nav, .lock-note, .add-block-area, .block-actions, .block-close, .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions, .img-upload-btn, .del-img-btn, .install-tip, .rate-del-btn { display: none !important; }
       body { background: #fff; color: #1a1a1a; font-size: 11pt; line-height: 1.6; }
       .container { padding: 0; max-width: 100%; }
       .card { border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
@@ -166,20 +122,20 @@
       .clearfix { clear: both; height: 0; }
       .print-company { font-size: 26pt; font-weight: 900; letter-spacing: 1px; color: var(--blue); line-height: 1.1; }
       .print-company span { color: var(--orange); }
-      .print-slogan { font-size: 10pt; color: #666; margin-top: 4px; letter-spacing: 0.5px; }
+      .print-slogan { font-size: 10pt; color: #666; margin-top: 4px; }
       .print-doc-title { font-size: 20pt; font-weight: 800; color: var(--orange); margin-top: 8px; letter-spacing: 2px; }
       .print-ref { font-size: 9.5pt; color: #555; margin-top: 6px; line-height: 1.6; }
       .print-ref b { color: var(--blue); }
       .print-meta-row { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 6px 16px; font-size: 9.5pt; padding: 10px 12px; background: #f8f9fb; border: 1px solid #e0e0e0; border-radius: 4px; margin-bottom: 18px; }
       .print-meta-row b { color: var(--blue); font-weight: 600; }
-      .block-card { border: none !important; box-shadow: none !important; margin: 0 0 18px 0 !important; padding: 0 !important; page-break-inside: avoid; }
+      .block-card { border: none !important; margin: 0 0 18px 0 !important; page-break-inside: avoid; }
       .block-header { background: var(--blue) !important; border: none !important; padding: 8px 12px !important; margin-top: 14px; }
       .block-header > span { display: none !important; }
       .block-name { color: #fff !important; font-size: 12pt !important; font-weight: 700 !important; padding: 0 !important; width: 100% !important; }
       .block-body { padding: 0 !important; overflow: visible !important; }
-      .block-body table { width: 100%; border-collapse: collapse; margin: 0; font-size: 9.5pt; }
+      .block-body table { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
       .block-body thead { display: table-header-group; }
-      .block-body th { background: #f0f2f5 !important; color: #1a1a1a !important; padding: 8px 6px !important; text-align: center; font-weight: 700; border: 1px solid #d0d0d0 !important; font-size: 9pt; }
+      .block-body th { background: #f0f2f5 !important; padding: 8px 6px !important; text-align: center; font-weight: 700; border: 1px solid #d0d0d0 !important; font-size: 9pt; }
       .block-body td { padding: 8px 6px !important; border: 1px solid #e0e0e0 !important; vertical-align: top; }
       .block-body tr:nth-child(even) td { background: #fafbfc !important; }
       .block-body td input, .block-body td select { font-size: 9.5pt !important; padding: 0 !important; width: 100% !important; min-width: 0 !important; }
@@ -195,7 +151,6 @@
       .amount-row.print-only-row { background: #fafbfc; }
       .amount-row.total { background: var(--orange) !important; color: #fff !important; font-size: 13pt !important; padding: 10px 14px !important; border: none !important; margin: 0 !important; }
       .amount-row.total .amount-val { color: #fff !important; }
-      .amount-val { font-weight: 600; }
       .terms-box { border: none !important; background: transparent !important; padding: 0 !important; margin: 25px 0 0 0 !important; page-break-inside: avoid; }
       .terms-title { font-size: 11pt; font-weight: 700; color: var(--blue); border-bottom: 2px solid var(--blue); padding-bottom: 4px; margin-bottom: 8px !important; }
       .terms-text { font-size: 9pt !important; line-height: 1.9 !important; padding: 0 !important; color: #333 !important; white-space: pre-wrap; }
@@ -208,7 +163,6 @@
       input, select, textarea { border: none !important; box-shadow: none !important; background: transparent !important; padding: 0 !important; outline: none !important; -webkit-appearance: none; font: inherit !important; color: inherit !important; }
       select { -webkit-appearance: none; appearance: none; }
     }
-    
     @media (max-width: 768px) {
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
@@ -224,49 +178,27 @@
     <div class="logo-zh" data-en>Custom Cabinet Quotation System</div>
     <input type="text" id="username" placeholder="账号 / Username" />
     <input type="password" id="password" placeholder="密码 / Password" />
-    <button class="btn-login" onclick="doLogin()">
-      <span data-zh>登录</span><span data-en>Login</span>
-    </button>
-    <div class="error" id="errorMsg">
-      <span data-zh>❌ 账号或密码错误</span><span data-en>❌ Invalid username or password</span>
-    </div>
-    <div class="tip">
-      <span data-zh>默认：admin / admin123</span><span data-en>Default: admin / admin123</span>
-    </div>
+    <button class="btn-login" onclick="doLogin()"><span data-zh>登录</span><span data-en>Login</span></button>
+    <div class="error" id="errorMsg"><span data-zh>❌ 账号或密码错误</span><span data-en>❌ Invalid username or password</span></div>
+    <div class="tip"><span data-zh>默认：admin / admin123</span><span data-en>Default: admin / admin123</span></div>
   </div>
 </div>
 <div id="mainPage" class="hidden">
   <nav class="top-nav">
     <div class="nav-left">
-      <div class="nav-tab active" data-page="newquote" onclick="goPage('newquote')">
-        <span data-zh>新建报价</span><span data-en>New Quote</span>
-      </div>
-      <div class="nav-tab" data-page="history" onclick="goPage('history')">
-        <span data-zh>历史报价</span><span data-en>History</span>
-      </div>
-      <div class="nav-tab" data-page="ratelib" onclick="goPage('ratelib')">
-        <span data-zh>费率库</span><span data-en>Price Library</span>
-      </div>
-      <div class="nav-tab" data-page="progress" onclick="goPage('progress')">
-        <span data-zh>项目进度</span><span data-en>Progress</span>
-      </div>
-      <div class="nav-tab" data-page="expense" onclick="goPage('expense')">
-        <span data-zh>我的报销</span><span data-en>Expenses</span>
-      </div>
+      <div class="nav-tab active" data-page="newquote" onclick="goPage('newquote')"><span data-zh>新建报价</span><span data-en>New Quote</span></div>
+      <div class="nav-tab" data-page="history" onclick="goPage('history')"><span data-zh>历史报价</span><span data-en>History</span></div>
+      <div class="nav-tab" data-page="ratelib" onclick="goPage('ratelib')"><span data-zh>费率库</span><span data-en>Price Library</span></div>
+      <div class="nav-tab" data-page="progress" onclick="goPage('progress')"><span data-zh>项目进度</span><span data-en>Progress</span></div>
+      <div class="nav-tab" data-page="expense" onclick="goPage('expense')"><span data-zh>我的报销</span><span data-en>Expenses</span></div>
     </div>
     <div class="nav-right">
       <button class="lang-btn" id="langToggle" onclick="toggleLang()">EN</button>
-      <span class="user-name">
-        <span data-zh>销售 · Jasper Fong</span><span data-en>Sales · Jasper Fong</span>
-      </span>
-      <button class="nav-btn btn-logout" onclick="doLogout()">
-        <span data-zh>退出</span><span data-en>Logout</span>
-      </button>
+      <span class="user-name"><span data-zh>销售 · Jasper Fong</span><span data-en>Sales · Jasper Fong</span></span>
+      <button class="nav-btn btn-logout" onclick="doLogout()"><span data-zh>退出</span><span data-en>Logout</span></button>
     </div>
   </nav>
-  <div class="lock-note" id="lockNote" style="display:none;">
-    <span data-zh>🔒 只读 — 仅管理员可修改费率库</span><span data-en>🔒 Read-only — Admin only</span>
-  </div>
+  <div class="lock-note" id="lockNote" style="display:none;"><span data-zh>🔒 只读 — 仅管理员可修改费率库</span><span data-en>🔒 Read-only — Admin only</span></div>
   <div class="container">
     <div class="print-header" style="display:none;">
       <div class="print-header-left">
@@ -277,14 +209,10 @@
       <div class="print-header-right">
         <div class="print-doc-title" data-zh>报 价 单</div>
         <div class="print-doc-title" data-en>QUOTATION</div>
-        <div class="print-ref">
-          <b data-zh>报价编号</b><b data-en>Ref No.</b>: <span id="printRefNo">—</span><br/>
-          <b data-zh>日期</b><b data-en>Date</b>: <span id="printDate"></span>
-        </div>
+        <div class="print-ref"><b data-zh>报价编号</b><b data-en>Ref No.</b>: <span id="printRefNo">—</span><br/><b data-zh>日期</b><b data-en>Date</b>: <span id="printDate"></span></div>
       </div>
       <div class="clearfix"></div>
     </div>
-    
     <div class="print-meta-row" style="display:none;">
       <span><b data-zh>客户</b><b data-en>Client</b>: <span id="pClient">—</span></span>
       <span><b data-zh>电话</b><b data-en>Phone</b>: <span id="pPhone">—</span></span>
@@ -296,112 +224,46 @@
 
     <div id="page-newquote" class="page">
       <div class="card">
-        <h3 style="margin-bottom:16px;">
-          <span data-zh>客户信息</span><span data-en>Client Information</span>
-        </h3>
+        <h3 style="margin-bottom:16px;"><span data-zh>客户信息</span><span data-en>Client Information</span></h3>
         <div class="grid-3">
-          <div>
-            <label><span data-zh>客户姓名</span><span data-en>Client Name</span></label>
-            <input type="text" id="cname" placeholder="客户姓名 / Client Name" oninput="updatePrintMeta()" />
-          </div>
-          <div>
-            <label><span data-zh>联系电话</span><span data-en>Phone Number</span></label>
-            <input type="tel" id="cphone" placeholder="012-345 6789" oninput="updatePrintMeta()" />
-          </div>
-          <div>
-            <label><span data-zh>电子邮箱</span><span data-en>Email</span></label>
-            <input type="email" id="cemail" placeholder="选填 / Optional" />
-          </div>
+          <div><label><span data-zh>客户姓名</span><span data-en>Client Name</span></label><input type="text" id="cname" placeholder="客户姓名 / Client Name" oninput="updatePrintMeta()" /></div>
+          <div><label><span data-zh>联系电话</span><span data-en>Phone Number</span></label><input type="tel" id="cphone" placeholder="012-345 6789" oninput="updatePrintMeta()" /></div>
+          <div><label><span data-zh>电子邮箱</span><span data-en>Email</span></label><input type="email" id="cemail" placeholder="选填 / Optional" /></div>
         </div>
         <div class="grid-2" style="margin-top:12px;">
-          <div>
-            <label><span data-zh>项目地址</span><span data-en>Project Address</span></label>
-            <textarea id="projAddress" placeholder="完整地址 / Full address" oninput="updatePrintMeta()"></textarea>
-          </div>
-          <div>
-            <label><span data-zh>备注信息</span><span data-en>Remarks</span></label>
-            <textarea id="cRemark" placeholder="特殊要求 / Special requirements"></textarea>
-          </div>
+          <div><label><span data-zh>项目地址</span><span data-en>Project Address</span></label><textarea id="projAddress" placeholder="完整地址 / Full address" oninput="updatePrintMeta()"></textarea></div>
+          <div><label><span data-zh>备注信息</span><span data-en>Remarks</span></label><textarea id="cRemark" placeholder="特殊要求 / Special requirements"></textarea></div>
         </div>
         <div class="grid-3" style="margin-top:12px;">
-          <div>
-            <label><span data-zh>报价日期</span><span data-en>Quote Date</span></label>
-            <input type="date" id="qdate" oninput="updatePrintMeta()" />
-          </div>
-          <div>
-            <label><span data-zh>负责人 / 销售</span><span data-en>Prepared By / Sales</span></label>
-            <input type="text" id="salesPerson" value="Jasper Fong" oninput="updatePrintMeta()" />
-          </div>
-          <div>
-            <label><span data-zh>设计师</span><span data-en>Designer</span></label>
-            <input type="text" id="designerName" placeholder="姓名 / Name" oninput="updatePrintMeta()" />
-          </div>
+          <div><label><span data-zh>报价日期</span><span data-en>Quote Date</span></label><input type="date" id="qdate" oninput="updatePrintMeta()" /></div>
+          <div><label><span data-zh>负责人 / 销售</span><span data-en>Prepared By / Sales</span></label><input type="text" id="salesPerson" value="Jasper Fong" oninput="updatePrintMeta()" /></div>
+          <div><label><span data-zh>设计师</span><span data-en>Designer</span></label><input type="text" id="designerName" placeholder="姓名 / Name" oninput="updatePrintMeta()" /></div>
         </div>
       </div>
       <div id="blocksContainer"></div>
-      <div class="add-block-area" onclick="addBlock()">
-        <span data-zh>+ 添加区块</span><span data-en>+ Add Section</span>
-      </div>
+      <div class="add-block-area" onclick="addBlock()"><span data-zh>+ 添加区块</span><span data-en>+ Add Section</span></div>
       <div class="summary-box">
         <div class="summary-grid">
           <div class="summary-left">
-            <div class="check-row">
-              <input type="checkbox" id="chkServiceFee" oninput="calcAll()" checked />
-              <label for="chkServiceFee"><span data-zh>综合服务费</span><span data-en>Service Fee</span> (10%)</label>
-            </div>
-            <div class="check-row">
-              <input type="checkbox" id="chkSST" oninput="calcAll()" checked />
-              <label for="chkSST"><span data-zh>SST消费税</span><span data-en>SST Tax</span></label>
-            </div>
-            <div class="input-wrap">
-              <span data-zh>税率</span><span data-en>Rate</span>
-              <input type="number" id="sstRate" value="6" oninput="calcAll()" />%
-            </div>
-            <div class="check-row">
-              <input type="checkbox" id="chkDesignFee" oninput="calcAll()" checked />
-              <label for="chkDesignFee"><span data-zh>设计费</span><span data-en>Design Fee</span></label>
-            </div>
-            <div class="input-wrap">
-              <span data-zh>单价 RM/sqft</span><span data-en>Rate RM/sqft</span>
-              <input type="number" id="designPrice" value="55" oninput="calcAll()" />
-            </div>
-            <div class="input-wrap">
-              <span data-zh>面积 sqft</span><span data-en>Area sqft</span>
-              <input type="number" id="designArea" value="" oninput="calcAll(); updatePrintMeta();" placeholder="填写面积" />
-            </div>
+            <div class="check-row"><input type="checkbox" id="chkServiceFee" oninput="calcAll()" checked /><label for="chkServiceFee"><span data-zh>综合服务费</span><span data-en>Service Fee</span> (10%)</label></div>
+            <div class="check-row"><input type="checkbox" id="chkSST" oninput="calcAll()" checked /><label for="chkSST"><span data-zh>SST消费税</span><span data-en>SST Tax</span></label></div>
+            <div class="input-wrap"><span data-zh>税率</span><span data-en>Rate</span><input type="number" id="sstRate" value="6" oninput="calcAll()" />%</div>
+            <div class="check-row"><input type="checkbox" id="chkDesignFee" oninput="calcAll()" checked /><label for="chkDesignFee"><span data-zh>设计费</span><span data-en>Design Fee</span></label></div>
+            <div class="input-wrap"><span data-zh>单价 RM/sqft</span><span data-en>Rate RM/sqft</span><input type="number" id="designPrice" value="55" oninput="calcAll()" /></div>
+            <div class="input-wrap"><span data-zh>面积 sqft</span><span data-en>Area sqft</span><input type="number" id="designArea" value="" oninput="calcAll(); updatePrintMeta();" placeholder="填写面积" /></div>
           </div>
           <div class="summary-right">
-            <div class="amount-row">
-              <span data-zh>直接费用</span><span data-en>Direct Cost</span>
-              <span class="amount-val">RM <span id="baseTotal">0.00</span></span>
-            </div>
-            <div class="amount-row">
-              <span data-zh>服务费(10%)</span><span data-en>Service Fee</span>
-              <span class="amount-val">RM <span id="serviceFeeAmt">0.00</span></span>
-            </div>
-            <div class="amount-row">
-              <span data-zh>小计</span><span data-en>Subtotal</span>
-              <span class="amount-val">RM <span id="subTotal">0.00</span></span>
-            </div>
-            <div class="amount-row print-only-row" style="display:none;">
-              <span data-zh>SST 消费税</span><span data-en>SST Tax</span>
-              <span class="amount-val">RM <span id="sstAmtPrint">0.00</span></span>
-            </div>
-            <div class="amount-row">
-              <span data-zh>设计费</span><span data-en>Design Fee</span>
-              <span class="amount-val">RM <span id="designFeeAmt">0.00</span></span>
-            </div>
-            <div class="amount-row total">
-              <span data-zh>总额 GRAND TOTAL</span><span data-en>GRAND TOTAL</span>
-              <span class="amount-val">RM <span id="grandTotal">0.00</span></span>
-            </div>
+            <div class="amount-row"><span data-zh>直接费用</span><span data-en>Direct Cost</span><span class="amount-val">RM <span id="baseTotal">0.00</span></span></div>
+            <div class="amount-row"><span data-zh>服务费(10%)</span><span data-en>Service Fee</span><span class="amount-val">RM <span id="serviceFeeAmt">0.00</span></span></div>
+            <div class="amount-row"><span data-zh>小计</span><span data-en>Subtotal</span><span class="amount-val">RM <span id="subTotal">0.00</span></span></div>
+            <div class="amount-row print-only-row" style="display:none;"><span data-zh>SST 消费税</span><span data-en>SST Tax</span><span class="amount-val">RM <span id="sstAmtPrint">0.00</span></span></div>
+            <div class="amount-row"><span data-zh>设计费</span><span data-en>Design Fee</span><span class="amount-val">RM <span id="designFeeAmt">0.00</span></span></div>
+            <div class="amount-row total"><span data-zh>总额 GRAND TOTAL</span><span data-en>GRAND TOTAL</span><span class="amount-val">RM <span id="grandTotal">0.00</span></span></div>
           </div>
         </div>
       </div>
       <div class="terms-box">
-        <div class="terms-title">
-          <span data-zh>付款与约定条款</span><span data-en>Terms & Conditions</span>
-        </div>
+        <div class="terms-title"><span data-zh>付款与约定条款</span><span data-en>Terms & Conditions</span></div>
         <textarea class="terms-text" id="termsText">1. 本报价并非最终报价单，一切以双方合约内的报价单为标准价格。
 2. 此报价不含物业管理处所收任何费用或押金，敬请甲方承担。
 3. 不含空调，不含空调主线，打孔。
@@ -412,68 +274,35 @@
 8. 此预算及备注作为合同附件，与合同具有同等法律效力。</textarea>
       </div>
       <div class="bottom-actions">
-        <button class="btn btn-o" onclick="saveQuote()">
-          <span data-zh>保存报价</span><span data-en>Save</span>
-        </button>
-        <button class="btn btn-b" onclick="window.print()">
-          <span data-zh>导出PDF</span><span data-en>PDF</span>
-        </button>
-        <button class="btn btn-g" onclick="if(confirm('确定清空？不可恢复！')){blocks=[];localStorage.removeItem('nexsign_blocks');currentHistoryId=null;addBlock();}">
-          <span data-zh>清空</span><span data-en>Clear</span>
-        </button>
+        <button class="btn btn-o" onclick="saveQuote()"><span data-zh>保存报价</span><span data-en>Save</span></button>
+        <button class="btn btn-b" onclick="window.print()"><span data-zh>导出PDF</span><span data-en>PDF</span></button>
+        <button class="btn btn-g" onclick="if(confirm('确定清空？不可恢复！')){blocks=[];localStorage.removeItem('nexsign_blocks');currentHistoryId=null;addBlock();}"><span data-zh>清空</span><span data-en>Clear</span></button>
       </div>
-      
       <div class="print-sign" style="display:none;">
-        <div class="print-sign-col">
-          <div class="print-sign-line"></div>
-          <div class="print-sign-label" data-zh>客户签名 / Client Signature</div>
-          <div class="print-sign-label" data-en>Client Signature</div>
-          <div class="print-sign-date" data-zh>日期：____________</div>
-          <div class="print-sign-date" data-en>Date: ____________</div>
-        </div>
-        <div class="print-sign-col">
-          <div class="print-sign-line"></div>
-          <div class="print-sign-label" data-zh>NEXSIGN 授权签名</div>
-          <div class="print-sign-label" data-en>Authorized Signature</div>
-          <div class="print-sign-date" data-zh>日期：____________</div>
-          <div class="print-sign-date" data-en>Date: ____________</div>
-        </div>
+        <div class="print-sign-col"><div class="print-sign-line"></div><div class="print-sign-label" data-zh>客户签名 / Client Signature</div><div class="print-sign-label" data-en>Client Signature</div><div class="print-sign-date" data-zh>日期：____________</div><div class="print-sign-date" data-en>Date: ____________</div></div>
+        <div class="print-sign-col"><div class="print-sign-line"></div><div class="print-sign-label" data-zh>NEXSIGN 授权签名</div><div class="print-sign-label" data-en>Authorized Signature</div><div class="print-sign-date" data-zh>日期：____________</div><div class="print-sign-date" data-en>Date: ____________</div></div>
       </div>
-      
-      <div class="print-footer" style="display:none;">
-        <span data-zh>感谢您选择 NEXSIGN · 本报价单有效期30天 · 如有疑问请联系销售</span>
-        <span data-en>Thank you for choosing NEXSIGN · This quotation is valid for 30 days</span>
-      </div>
+      <div class="print-footer" style="display:none;"><span data-zh>感谢您选择 NEXSIGN · 本报价单有效期30天 · 如有疑问请联系销售</span><span data-en>Thank you for choosing NEXSIGN · This quotation is valid for 30 days</span></div>
     </div>
-    
+
     <div id="page-history" class="page hidden">
       <div class="card">
-        <h3 style="margin-bottom:16px;">
-          <span data-zh>历史报价记录</span><span data-en>Quotation History</span>
-        </h3>
+        <h3 style="margin-bottom:16px;"><span data-zh>历史报价记录</span><span data-en>Quotation History</span></h3>
         <div id="historyList"></div>
         <div class="history-actions">
-          <button class="btn btn-o" onclick="goPage('newquote')">
-            <span data-zh>+ 新建报价</span><span data-en>+ New Quote</span>
-          </button>
-          <button class="btn btn-g" onclick="if(confirm('确定清空所有历史记录？不可恢复！')){historyList=[];saveHistoryStorage();renderHistory();}">
-            <span data-zh>清空历史</span><span data-en>Clear All</span>
-          </button>
+          <button class="btn btn-o" onclick="goPage('newquote')"><span data-zh>+ 新建报价</span><span data-en>+ New Quote</span></button>
+          <button class="btn btn-g" onclick="if(confirm('确定清空所有历史记录？不可恢复！')){historyList=[];saveHistoryStorage();renderHistory();}"><span data-zh>清空历史</span><span data-en>Clear All</span></button>
         </div>
       </div>
     </div>
-    
+
     <div id="page-ratelib" class="page hidden">
       <div class="card">
-        <h3 style="margin-bottom:16px;">
-          <span data-zh>费率库</span><span data-en>Price Library</span>
-        </h3>
+        <h3 style="margin-bottom:16px;"><span data-zh>费率库</span><span data-en>Price Library</span></h3>
         <div id="rateTable"></div>
         <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
           <button class="btn btn-o" onclick="addRateRow()">+ <span data-zh>添加项目</span><span data-en>Add Item</span></button>
-          <button class="btn btn-g" onclick="if(confirm('确定恢复默认？当前修改会被覆盖！')){rateData=[...defaultRates];renderRate();}">
-            <span data-zh>恢复默认</span><span data-en>Restore</span>
-          </button>
+          <button class="btn btn-g" onclick="if(confirm('确定恢复默认？当前修改会被覆盖！')){rateData=[...defaultRates];saveRates();renderRate();}"><span data-zh>恢复默认</span><span data-en>Restore</span></button>
           <button class="btn btn-b" onclick="goPage('newquote')">← <span data-zh>返回报价</span><span data-en>Back</span></button>
         </div>
       </div>
@@ -482,11 +311,7 @@
     <div id="page-expense" class="page hidden"><div class="card"><h3><span data-zh>我的报销</span><span data-en>Expenses</span></h3><p style="margin-top:16px; color:#666;"><span data-zh>暂无记录</span><span data-en>No records</span></p></div></div>
   </div>
 </div>
-
-<!-- 安装App提示（电脑Chrome显示） -->
-<div class="install-tip" id="installTip" onclick="installApp()">
-  <span>📱 安装NEXSIGN App</span> — 点我添加到桌面
-</div>
+<div class="install-tip" id="installTip" onclick="installApp()"><span>📱 安装NEXSIGN App</span> — 点我添加到桌面</div>
 
 <script>
 const USER = "admin", PASS = "admin123";
@@ -509,6 +334,17 @@ const defaultRates = [
 ];
 let rateData = [...defaultRates];
 
+/* ===== 费率库持久化（修复：加了/改了自动保存） ===== */
+function saveRates() { localStorage.setItem("nexsign_rates", JSON.stringify(rateData)); }
+function updRate(idx, field, value) {
+  if (rateData[idx]) { rateData[idx][field] = value; saveRates(); }
+}
+function delRateRow(idx) {
+  if (confirm(isLangEN?"Delete this item?":"确定删除这个费率项目？")) {
+    rateData.splice(idx, 1); saveRates(); renderRate();
+  }
+}
+
 function doLogin() {
   const u = document.getElementById("username").value.trim();
   const p = document.getElementById("password").value;
@@ -519,9 +355,7 @@ function doLogin() {
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("mainPage").classList.remove("hidden");
     init();
-  } else {
-    err.classList.add("show");
-  }
+  } else { err.classList.add("show"); }
 }
 function doLogout() { localStorage.removeItem("nexsign_auth"); location.reload(); }
 
@@ -534,27 +368,16 @@ window.onload = function() {
     document.getElementById("mainPage").classList.remove("hidden");
     init();
   }
-  // 电脑Chrome显示安装提示
   window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (!window.matchMedia('(display-mode: standalone)').matches) {
-      document.getElementById("installTip").classList.add("show");
-    }
+    e.preventDefault(); deferredPrompt = e;
+    if (!window.matchMedia('(display-mode: standalone)').matches) document.getElementById("installTip").classList.add("show");
   });
-  window.addEventListener('appinstalled', () => {
-    document.getElementById("installTip").classList.remove("show");
-    deferredPrompt = null;
-  });
+  window.addEventListener('appinstalled', () => { document.getElementById("installTip").classList.remove("show"); deferredPrompt = null; });
 };
 
 function installApp() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
-  } else {
-    alert(isLangEN ? "iPhone: Share → Add to Home Screen\nAndroid Chrome: Menu → Install App" : "iPhone: 点底部分享 → 添加到主屏幕\n安卓Chrome: 右上角菜单 → 安装应用");
-  }
+  if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => { deferredPrompt = null; }); }
+  else { alert(isLangEN ? "iPhone: Share → Add to Home Screen\nAndroid Chrome: Menu → Install App" : "iPhone: 点底部分享 → 添加到主屏幕\n安卓Chrome: 右上角菜单 → 安装应用"); }
 }
 
 function toggleLang() {
@@ -582,10 +405,7 @@ function parseDimension(text, unitMode) {
   }
   const v = parseFloat(s); return isNaN(v) ? 1 : v;
 }
-
-function calcAmount(qty, dim, unitMode, price) {
-  return (qty || 1) * parseDimension(dim, unitMode) * (price || 0);
-}
+function calcAmount(qty, dim, unitMode, price) { return (qty || 1) * parseDimension(dim, unitMode) * (price || 0); }
 
 function calcAll() {
   const baseSum = blocks.reduce((sum, b) => sum + b.items.reduce((s, r) => s + calcAmount(r.qty, r.dimension, r.unitMode, r.price), 0), 0);
@@ -626,11 +446,7 @@ function delItemRow(bid,idx) { blocks.find(b=>b.id===bid).items.splice(idx,1); r
 function selectRate(rid) {
   const r = rateData.find(x=>x.id===rid); if(!r)return;
   if(!blocks.length)addBlock();
-  blocks[blocks.length-1].items.push({
-    name: isLangEN ? r.nameEn : r.nameZh,
-    note: isLangEN ? r.noteEn : r.noteZh,
-    price: r.price, unitMode: r.unitMode, qty:1, dimension:"", img:""
-  });
+  blocks[blocks.length-1].items.push({ name: isLangEN ? r.nameEn : r.nameZh, note: isLangEN ? r.noteEn : r.noteZh, price: r.price, unitMode: r.unitMode, qty:1, dimension:"", img:"" });
   renderQuote(); goPage("newquote");
 }
 
@@ -660,26 +476,13 @@ function compressImage(file, callback) {
   reader.readAsDataURL(file);
 }
 function uploadItemImg(bid, idx, input) {
-  const file = input.files[0];
-  if (!file) return;
-  compressImage(file, function(base64) {
-    blocks.find(b=>b.id===bid).items[idx].img = base64;
-    renderQuote();
-  });
+  const file = input.files[0]; if (!file) return;
+  compressImage(file, function(base64) { blocks.find(b=>b.id===bid).items[idx].img = base64; renderQuote(); });
 }
-function delItemImg(bid, idx) {
-  blocks.find(b=>b.id===bid).items[idx].img = "";
-  renderQuote();
-}
+function delItemImg(bid, idx) { blocks.find(b=>b.id===bid).items[idx].img = ""; renderQuote(); }
 
 function unitOptions(selected) {
-  const opts = [
-    {v:"ft", l:"ft"},
-    {v:"mm", l:"mm"},
-    {v:"sqft", l:"sqft"},
-    {v:"sqmeter", l:"m²"},
-    {v:"pcs", l: isLangEN ? "pcs" : "件"}
-  ];
+  const opts = [ {v:"ft",l:"ft"}, {v:"mm",l:"mm"}, {v:"sqft",l:"sqft"}, {v:"sqmeter",l:"m²"}, {v:"pcs",l: isLangEN?"pcs":"件"} ];
   return opts.map(o => `<option value="${o.v}" ${selected===o.v?'selected':''}>${o.l}</option>`).join("");
 }
 
@@ -690,54 +493,26 @@ function renderQuote() {
       <div class="block-card">
         <div class="block-header">
           <span>${isLangEN?"Section Name":"区块名称"}</span>
-          <input type="text" class="block-name" value="${b.name}" 
-            onblur="upd(${b.id}, -1, 'name', this.value)" />
+          <input type="text" class="block-name" value="${b.name}" onblur="upd(${b.id}, -1, 'name', this.value)" />
           <button class="block-close" onclick="delBlock(${b.id})">×</button>
         </div>
         <div class="block-body">
           <table>
-            <thead><tr>
-              <th>#</th>
-              <th>${isLangEN?"Item Name / Photo":"项目名称 / 图片"}</th>
-              <th>${isLangEN?"Note":"说明"}</th>
-              <th>${isLangEN?"Unit":"单位"}</th>
-              <th>${isLangEN?"Price":"单价(RM)"}</th>
-              <th>${isLangEN?"Qty":"数量"}</th>
-              <th>${isLangEN?"Amount":"金额(RM)"}</th>
-              <th></th>
-            </tr></thead>
+            <thead><tr><th>#</th><th>${isLangEN?"Item Name / Photo":"项目名称 / 图片"}</th><th>${isLangEN?"Note":"说明"}</th><th>${isLangEN?"Unit":"单位"}</th><th>${isLangEN?"Price":"单价(RM)"}</th><th>${isLangEN?"Qty":"数量"}</th><th>${isLangEN?"Amount":"金额(RM)"}</th><th></th></tr></thead>
             <tbody>
               ${b.items.map((r,i)=>{
                 const amt = calcAmount(r.qty, r.dimension, r.unitMode, r.price);
                 return `<tr>
                   <td>${i+1}</td>
-                  <td>
-                    <input type="text" value="${r.name}" 
-                      onblur="upd(${b.id},${i},'name',this.value)" />
-                    ${r.img ? `<div>
-                      <img src="${r.img}" class="item-thumb" /><br/>
-                      <button class="del-img-btn" onclick="delItemImg(${b.id},${i})">${isLangEN?"Remove photo":"删除图片"}</button>
-                    </div>` : ''}
+                  <td><input type="text" value="${r.name}" onblur="upd(${b.id},${i},'name',this.value)" />
+                    ${r.img ? `<div><img src="${r.img}" class="item-thumb" /><br/><button class="del-img-btn" onclick="delItemImg(${b.id},${i})">${isLangEN?"Remove photo":"删除图片"}</button></div>` : ''}
                   </td>
-                  <td><input type="text" value="${r.note}" 
-                    onblur="upd(${b.id},${i},'note',this.value)" /></td>
-                  <td><select onchange="upd(${b.id},${i},'unitMode',this.value)">
-                    ${unitOptions(r.unitMode)}
-                  </select></td>
-                  <td><input type="number" value="${r.price}" 
-                    onblur="upd(${b.id},${i},'price',+this.value||0)" 
-                    style="width:90px; text-align:right;" /></td>
-                  <td><input type="number" value="${r.qty}" min="1" 
-                    onblur="upd(${b.id},${i},'qty',+this.value||1)" 
-                    style="width:60px; text-align:center;" /></td>
+                  <td><input type="text" value="${r.note}" onblur="upd(${b.id},${i},'note',this.value)" /></td>
+                  <td><select onchange="upd(${b.id},${i},'unitMode',this.value)">${unitOptions(r.unitMode)}</select></td>
+                  <td><input type="number" value="${r.price}" onblur="upd(${b.id},${i},'price',+this.value||0)" style="width:90px; text-align:right;" /></td>
+                  <td><input type="number" value="${r.qty}" min="1" onblur="upd(${b.id},${i},'qty',+this.value||1)" style="width:60px; text-align:center;" /></td>
                   <td class="text-right final-amount">${amt.toFixed(2)}</td>
-                  <td>
-                    <label class="img-upload-btn" title="${isLangEN?"Upload photo":"上传图片"}">
-                      ${isLangEN?"Photo":"图"}
-                      <input type="file" accept="image/*" style="display:none;" onchange="uploadItemImg(${b.id},${i},this)" />
-                    </label>
-                    <button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button>
-                  </td>
+                  <td><label class="img-upload-btn">${isLangEN?"Photo":"图"}<input type="file" accept="image/*" style="display:none;" onchange="uploadItemImg(${b.id},${i},this)" /></label><button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button></td>
                 </tr>`;
               }).join("")}
             </tbody>
@@ -750,55 +525,41 @@ function renderQuote() {
           </div>
           <div class="block-subtotal">${isLangEN?"Subtotal":"小计"}: RM ${subtotal.toFixed(2)}</div>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join("");
   calcAll();
 }
 
+/* ===== 费率库渲染（修复：用updRate正确保存） ===== */
 function renderRate() {
   document.getElementById("rateTable").innerHTML = `
     <table>
-      <thead>
-        <tr>
-          <th>${isLangEN?"Item Name":"项目名称"}</th>
-          <th>${isLangEN?"Unit":"单位"}</th>
-          <th class="text-right">${isLangEN?"Price":"单价"} (RM)</th>
-          <th>${isLangEN?"Note":"说明"}</th>
-          <th width="100">${isLangEN?"Action":"操作"}</th>
-        </tr>
-      </thead>
+      <thead><tr><th>${isLangEN?"Item Name":"项目名称"}</th><th>${isLangEN?"Unit":"单位"}</th><th class="text-right">${isLangEN?"Price":"单价"} (RM)</th><th>${isLangEN?"Note":"说明"}</th><th width="140">${isLangEN?"Action":"操作"}</th></tr></thead>
       <tbody>
-        ${rateData.map(r => `
+        ${rateData.map((r, i) => `
           <tr>
-            <td><input type="text" value="${isLangEN ? r.nameEn : r.nameZh}" 
-              onblur="r.name${isLangEN?'En':'Zh'}=this.value" /></td>
-            <td>
-              <select onchange="r.unitMode=this.value">
-                ${unitOptions(r.unitMode)}
-              </select>
+            <td><input type="text" value="${isLangEN ? r.nameEn : r.nameZh}" onblur="updRate(${i}, 'name${isLangEN?'En':'Zh'}', this.value)" /></td>
+            <td><select onchange="updRate(${i}, 'unitMode', this.value)">${unitOptions(r.unitMode)}</select></td>
+            <td class="text-right"><input type="number" value="${r.price}" onblur="updRate(${i}, 'price', +this.value||0)" style="width:90px; text-align:right;" /></td>
+            <td><input type="text" value="${isLangEN ? r.noteEn : r.noteZh}" onblur="updRate(${i}, 'note${isLangEN?'En':'Zh'}', this.value)" /></td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-o" onclick="selectRate(${r.id})" style="margin-right:4px;">${isLangEN?"Use":"选用"}</button>
+              <button class="rate-del-btn" onclick="delRateRow(${i})" title="删除">×</button>
             </td>
-            <td class="text-right"><input type="number" value="${r.price}" 
-              onblur="r.price=+this.value||0" style="width:90px; text-align:right;" /></td>
-            <td><input type="text" value="${isLangEN ? r.noteEn : r.noteZh}" 
-              onblur="r.note${isLangEN?'En':'Zh'}=this.value" /></td>
-            <td class="text-center"><button class="btn btn-sm btn-o" onclick="selectRate(${r.id})">${isLangEN?"Use":"选用"}</button></td>
           </tr>
         `).join("")}
       </tbody>
-    </table>
-  `;
+    </table>`;
 }
 
 function addRateRow() {
   const newId = rateData.length ? Math.max(...rateData.map(r => r.id)) + 1 : 1;
   rateData.push({ id:newId, nameZh:"新项目", nameEn:"New Item", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 });
+  saveRates();
   renderRate();
 }
 
-function saveHistoryStorage() {
-  localStorage.setItem("nexsign_history", JSON.stringify(historyList));
-}
+function saveHistoryStorage() { localStorage.setItem("nexsign_history", JSON.stringify(historyList)); }
 function saveQuote() {
   localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
   const grand = calcAll();
@@ -824,8 +585,7 @@ function saveQuote() {
     cemail: document.getElementById("cemail").value
   };
   const idx = historyList.findIndex(h => h.id === record.id);
-  if (idx >= 0) historyList[idx] = record;
-  else historyList.unshift(record);
+  if (idx >= 0) historyList[idx] = record; else historyList.unshift(record);
   currentHistoryId = record.id;
   saveHistoryStorage();
   alert(isLangEN ? "Saved to History ✅" : "已保存到历史报价 ✅");
@@ -833,43 +593,25 @@ function saveQuote() {
 function renderHistory() {
   const container = document.getElementById("historyList");
   if (!historyList.length) {
-    container.innerHTML = `<p style="margin-top:16px; color:#666;">
-      <span data-zh>暂无记录，保存报价后自动出现在这里</span>
-      <span data-en>No records yet. Saved quotes will appear here.</span>
-    </p>`;
+    container.innerHTML = `<p style="margin-top:16px; color:#666;"><span data-zh>暂无记录，保存报价后自动出现在这里</span><span data-en>No records yet. Saved quotes will appear here.</span></p>`;
     return;
   }
   container.innerHTML = `
     <table>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>${isLangEN?"Saved Time":"保存时间"}</th>
-          <th>${isLangEN?"Client":"客户"}</th>
-          <th class="text-right">${isLangEN?"Total":"总额(RM)"}</th>
-          <th width="200">${isLangEN?"Action":"操作"}</th>
-        </tr>
-      </thead>
+      <thead><tr><th>#</th><th>${isLangEN?"Saved Time":"保存时间"}</th><th>${isLangEN?"Client":"客户"}</th><th class="text-right">${isLangEN?"Total":"总额(RM)"}</th><th width="200">${isLangEN?"Action":"操作"}</th></tr></thead>
       <tbody>
         ${historyList.map((h, i) => `
           <tr>
-            <td>${i+1}</td>
-            <td>${h.savedAt}</td>
+            <td>${i+1}</td><td>${h.savedAt}</td>
             <td>${h.client} ${h.phone?'<br><small style="color:#999;">'+h.phone+'</small>':''}</td>
             <td class="text-right" style="font-weight:700; color:#FF7A00;">${h.grandTotal}</td>
-            <td>
-              <button class="btn btn-sm btn-b" onclick="loadHistory(${h.id})" style="margin-right:6px;">${isLangEN?"Load":"加载编辑"}</button>
-              <button class="btn btn-sm btn-g" onclick="delHistory(${h.id})">${isLangEN?"Delete":"删除"}</button>
-            </td>
-          </tr>
-        `).join("")}
+            <td><button class="btn btn-sm btn-b" onclick="loadHistory(${h.id})" style="margin-right:6px;">${isLangEN?"Load":"加载编辑"}</button><button class="btn btn-sm btn-g" onclick="delHistory(${h.id})">${isLangEN?"Delete":"删除"}</button></td>
+          </tr>`).join("")}
       </tbody>
-    </table>
-  `;
+    </table>`;
 }
 function loadHistory(id) {
-  const h = historyList.find(x => x.id === id);
-  if (!h) return;
+  const h = historyList.find(x => x.id === id); if (!h) return;
   currentHistoryId = h.id;
   blocks = JSON.parse(JSON.stringify(h.blocks));
   blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
@@ -889,34 +631,32 @@ function loadHistory(id) {
   document.getElementById("qdate").value = h.qdate || new Date().toISOString().split('T')[0];
   document.getElementById("termsText").value = h.termsText || document.getElementById("termsText").value;
   localStorage.setItem("nexsign_blocks", JSON.stringify(blocks));
-  goPage("newquote");
-  updatePrintMeta();
+  goPage("newquote"); updatePrintMeta();
   alert(isLangEN ? "Loaded ✅" : "已加载，可继续编辑 ✅");
 }
 function delHistory(id) {
   if (!confirm(isLangEN ? "Delete this record?" : "确定删除这条历史记录？")) return;
   historyList = historyList.filter(h => h.id !== id);
   if (currentHistoryId === id) currentHistoryId = null;
-  saveHistoryStorage();
-  renderHistory();
+  saveHistoryStorage(); renderHistory();
 }
 
 function init() {
+  // 加载费率库（修复：从本地加载，不是每次用默认）
+  try {
+    const r = localStorage.getItem("nexsign_rates");
+    if (r) rateData = JSON.parse(r);
+  } catch(e) { rateData = [...defaultRates]; }
   try {
     const h = localStorage.getItem("nexsign_history");
     if (h) historyList = JSON.parse(h);
   } catch(e) { historyList = []; }
   try {
     const saved = localStorage.getItem("nexsign_blocks");
-    if (saved) {
-      blocks = JSON.parse(saved);
-      blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0);
-    }
+    if (saved) { blocks = JSON.parse(saved); blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0); }
   } catch(e) { blocks = []; }
   if (!blocks.length) addBlock();
-  renderQuote();
-  renderRate();
-  updatePrintMeta();
+  renderQuote(); renderRate(); updatePrintMeta();
 }
 </script>
 </body>
