@@ -396,7 +396,11 @@ function parseDimension(text, unitMode) {
   }
   const v = parseFloat(s); return isNaN(v) ? 1 : v;
 }
-function calcAmount(qty, dim, unitMode, price) { return (qty || 1) * parseDimension(dim, unitMode) * (price || 0); }
+function calcAmount(qty, dim, unitMode, price) {
+  const q = (qty === "" || qty === null || isNaN(qty)) ? 1 : Number(qty);
+  const p = (price === "" || price === null || isNaN(price)) ? 0 : Number(price);
+  return q * parseDimension(dim, unitMode) * p;
+}
 
 function calcAll() {
   const baseSum = blocks.reduce((sum, b) => sum + b.items.reduce((s, r) => s + calcAmount(r.qty, r.dimension, r.unitMode, r.price), 0), 0);
@@ -441,12 +445,13 @@ function selectRate(rid) {
   renderQuote(); goPage("newquote");
 }
 
+/* ===== 修复金额BUG：更新后重渲染表格，金额/小计/总额全部刷新 ===== */
 function upd(bid, idx, field, value) {
   const block = blocks.find(b => b.id === bid);
   if (!block) return;
   if (idx === -1) block[field] = value;
   else if (block.items[idx]) block.items[idx][field] = value;
-  calcAll();
+  renderQuote();
 }
 
 function compressImage(file, callback) {
@@ -477,7 +482,6 @@ function unitOptions(selected) {
   return opts.map(o => `<option value="${o.v}" ${selected===o.v?'selected':''}>${o.l}</option>`).join("");
 }
 
-/* ===== 恢复完整列：# / 项目 / 说明 / 单位 / 单价 / 数量 / 尺寸 / 金额 / 操作 ===== */
 function renderQuote() {
   document.getElementById("blocksContainer").innerHTML = blocks.map((b, bi) => {
     const subtotal = b.items.reduce((sum, r) => sum + calcAmount(r.qty, r.dimension, r.unitMode, r.price), 0);
