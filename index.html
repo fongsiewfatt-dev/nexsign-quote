@@ -8,14 +8,13 @@
   <meta name="apple-mobile-web-app-title" content="NEXSIGN" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#FF7A00" />
-  <meta name="description" content="NEXSIGN 全屋定制报价系统" />
   <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230A2351'/%3E%3Ctext x='96' y='132' font-size='110' font-family='Arial' font-weight='900' fill='%23FF7A00' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230A2351'/%3E%3Ctext x='96' y='132' font-size='110' font-family='Arial' font-weight='900' fill='%23FF7A00' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E" />
   <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiTkVYU0lHTiBRdW90YXRpb24gU3lzdGVtIiwic2hvcnRfbmFtZSI6Ik5FWFNJR04iLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiIzBBMjM1MSIsInRoZW1lX2NvbG9yIjoiI0ZGN0EwMCIsImljb25zIjpbeyJzcmMiOiJkYXRhOmltYWdlL3N2Zyt4bWwsJTNDc3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDE5MiAxOTInJTNFJTNDcmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5Micgcng9JzM2JyBmaWxsPSclMjMwQTIzNTEnLyUzRSUzQ3RleHQgeD0nOTYnIHk9JzEzMicgZm9udC1zaXplPScxMTAnIGZvbnQtZmFtaWx5PSdBcmlhbCcgZm9udC13ZWlnaHQ9JzkwMCcgZmlsbD0nJTIzRkY3QTAwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyUzRU4lM0MvdGV4dCUzRSUzQy9zdmclM0UiLCJzaXplcyI6IjE5MngxOTIiLCJ0eXBlIjoiaW1hZ2Uvc3ZnK3htbCJ9XX0=" />
   <title>NEXSIGN — Quotation System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --gray: #666; --border: #e5e5e5; }
+    :root { --blue: #0A2351; --orange: #FF7A00; --red: #E6212A; --border: #e5e5e5; }
     .hidden { display: none !important; }
     [data-en] { display: none; }
     [lang="zh"] [data-zh] { display: inline; }
@@ -54,7 +53,7 @@
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th { background: #f9fafb; padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; white-space: nowrap; color: #333; }
     td { padding: 4px 6px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
-    td input, td select { padding: 6px 8px; border-radius: 4px; margin: 0; font-size: 14px; border: 1px solid #ddd; width: 100%; background: #fff; min-width: 60px; }
+    td input, td select { padding: 6px 8px; border-radius: 4px; margin: 0; font-size: 14px; border: 1px solid #ddd; width: 100%; background: #fff; min-width: 50px; }
     td input:focus, td select:focus { border-color: var(--orange); outline: 2px solid rgba(255,122,0,0.2); }
     .text-right { text-align: right; }
     .text-center { text-align: center; }
@@ -64,7 +63,6 @@
     .btn-g { background: #f0f0f0; color: #333; border: 1px solid #ddd; }
     .btn-sm { padding: 6px 12px; font-size: 13px; cursor: pointer; border-radius: 4px; }
     .btn-del { background: none; border: none; color: var(--red); cursor: pointer; font-size: 18px; padding: 0 6px; }
-    .btn-del:hover { opacity: 0.7; }
     .img-upload-btn { display: inline-block; padding: 4px 8px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; cursor: pointer; margin-right: 4px; color: #555; }
     .img-upload-btn:hover { border-color: var(--orange); color: var(--orange); }
     .item-thumb { max-width: 80px; max-height: 60px; border-radius: 4px; border: 1px solid #ddd; margin-top: 4px; }
@@ -108,14 +106,15 @@
     .install-tip.show { display: block; }
     .install-tip span { color: var(--orange); font-weight: 700; }
     .rate-del-btn { background: none; border: none; color: var(--red); cursor: pointer; font-size: 16px; padding: 4px 8px; }
+    .dim-hint { font-size: 10px; color: #999; display: block; margin-top: 2px; }
 
     @media print {
       @page { size: A4; margin: 16mm 14mm; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-      .top-nav, .lock-note, .add-block-area, .block-actions, .block-close, .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions, .img-upload-btn, .del-img-btn, .install-tip, .rate-del-btn { display: none !important; }
+      .top-nav, .lock-note, .add-block-area, .block-actions, .block-close, .bottom-actions, .btn-del, .no-print, .card > h3, .history-actions, .img-upload-btn, .del-img-btn, .install-tip, .rate-del-btn, .dim-hint { display: none !important; }
       body { background: #fff; color: #1a1a1a; font-size: 11pt; line-height: 1.6; }
       .container { padding: 0; max-width: 100%; }
-      .card { border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
+      .card { border: none !important; padding: 0 !important; margin: 0 !important; }
       .print-header { display: block !important; width: 100%; padding-bottom: 12px; border-bottom: 3px solid var(--blue); margin-bottom: 16px; }
       .print-header-left { float: left; width: 60%; }
       .print-header-right { float: right; width: 38%; text-align: right; }
@@ -166,7 +165,6 @@
     @media (max-width: 768px) {
       .grid-2, .grid-3 { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
-      td input, td select { min-width: 80px; }
     }
   </style>
 </head>
@@ -334,16 +332,9 @@ const defaultRates = [
 ];
 let rateData = [...defaultRates];
 
-/* ===== 费率库持久化（修复：加了/改了自动保存） ===== */
 function saveRates() { localStorage.setItem("nexsign_rates", JSON.stringify(rateData)); }
-function updRate(idx, field, value) {
-  if (rateData[idx]) { rateData[idx][field] = value; saveRates(); }
-}
-function delRateRow(idx) {
-  if (confirm(isLangEN?"Delete this item?":"确定删除这个费率项目？")) {
-    rateData.splice(idx, 1); saveRates(); renderRate();
-  }
-}
+function updRate(idx, field, value) { if (rateData[idx]) { rateData[idx][field] = value; saveRates(); } }
+function delRateRow(idx) { if (confirm(isLangEN?"Delete this item?":"确定删除这个费率项目？")) { rateData.splice(idx, 1); saveRates(); renderRate(); } }
 
 function doLogin() {
   const u = document.getElementById("username").value.trim();
@@ -486,6 +477,7 @@ function unitOptions(selected) {
   return opts.map(o => `<option value="${o.v}" ${selected===o.v?'selected':''}>${o.l}</option>`).join("");
 }
 
+/* ===== 恢复完整列：# / 项目 / 说明 / 单位 / 单价 / 数量 / 尺寸 / 金额 / 操作 ===== */
 function renderQuote() {
   document.getElementById("blocksContainer").innerHTML = blocks.map((b, bi) => {
     const subtotal = b.items.reduce((sum, r) => sum + calcAmount(r.qty, r.dimension, r.unitMode, r.price), 0);
@@ -498,7 +490,17 @@ function renderQuote() {
         </div>
         <div class="block-body">
           <table>
-            <thead><tr><th>#</th><th>${isLangEN?"Item Name / Photo":"项目名称 / 图片"}</th><th>${isLangEN?"Note":"说明"}</th><th>${isLangEN?"Unit":"单位"}</th><th>${isLangEN?"Price":"单价(RM)"}</th><th>${isLangEN?"Qty":"数量"}</th><th>${isLangEN?"Amount":"金额(RM)"}</th><th></th></tr></thead>
+            <thead><tr>
+              <th>#</th>
+              <th>${isLangEN?"Item Name / Photo":"项目名称 / 图片"}</th>
+              <th>${isLangEN?"Note":"说明"}</th>
+              <th>${isLangEN?"Unit":"单位"}</th>
+              <th>${isLangEN?"Price":"单价(RM)"}</th>
+              <th>${isLangEN?"Qty":"数量"}</th>
+              <th>${isLangEN?"Dimension":"尺寸(ft/m)"}</th>
+              <th>${isLangEN?"Amount":"金额(RM)"}</th>
+              <th></th>
+            </tr></thead>
             <tbody>
               ${b.items.map((r,i)=>{
                 const amt = calcAmount(r.qty, r.dimension, r.unitMode, r.price);
@@ -509,8 +511,11 @@ function renderQuote() {
                   </td>
                   <td><input type="text" value="${r.note}" onblur="upd(${b.id},${i},'note',this.value)" /></td>
                   <td><select onchange="upd(${b.id},${i},'unitMode',this.value)">${unitOptions(r.unitMode)}</select></td>
-                  <td><input type="number" value="${r.price}" onblur="upd(${b.id},${i},'price',+this.value||0)" style="width:90px; text-align:right;" /></td>
-                  <td><input type="number" value="${r.qty}" min="1" onblur="upd(${b.id},${i},'qty',+this.value||1)" style="width:60px; text-align:center;" /></td>
+                  <td><input type="number" value="${r.price}" onblur="upd(${b.id},${i},'price',+this.value||0)" style="width:80px; text-align:right;" /></td>
+                  <td><input type="number" value="${r.qty}" min="1" onblur="upd(${b.id},${i},'qty',+this.value||1)" style="width:55px; text-align:center;" /></td>
+                  <td><input type="text" value="${r.dimension}" placeholder="如 8 或 3x4" onblur="upd(${b.id},${i},'dimension',this.value)" style="width:80px;" />
+                    <span class="dim-hint">${isLangEN?"3x4=auto multiply":"3x4自动相乘"}</span>
+                  </td>
                   <td class="text-right final-amount">${amt.toFixed(2)}</td>
                   <td><label class="img-upload-btn">${isLangEN?"Photo":"图"}<input type="file" accept="image/*" style="display:none;" onchange="uploadItemImg(${b.id},${i},this)" /></label><button class="btn-del" onclick="delItemRow(${b.id},${i})">×</button></td>
                 </tr>`;
@@ -530,7 +535,6 @@ function renderQuote() {
   calcAll();
 }
 
-/* ===== 费率库渲染（修复：用updRate正确保存） ===== */
 function renderRate() {
   document.getElementById("rateTable").innerHTML = `
     <table>
@@ -555,8 +559,7 @@ function renderRate() {
 function addRateRow() {
   const newId = rateData.length ? Math.max(...rateData.map(r => r.id)) + 1 : 1;
   rateData.push({ id:newId, nameZh:"新项目", nameEn:"New Item", noteZh:"供应与安装", noteEn:"Supply & Install", unitMode:"ft", price:400 });
-  saveRates();
-  renderRate();
+  saveRates(); renderRate();
 }
 
 function saveHistoryStorage() { localStorage.setItem("nexsign_history", JSON.stringify(historyList)); }
@@ -642,19 +645,9 @@ function delHistory(id) {
 }
 
 function init() {
-  // 加载费率库（修复：从本地加载，不是每次用默认）
-  try {
-    const r = localStorage.getItem("nexsign_rates");
-    if (r) rateData = JSON.parse(r);
-  } catch(e) { rateData = [...defaultRates]; }
-  try {
-    const h = localStorage.getItem("nexsign_history");
-    if (h) historyList = JSON.parse(h);
-  } catch(e) { historyList = []; }
-  try {
-    const saved = localStorage.getItem("nexsign_blocks");
-    if (saved) { blocks = JSON.parse(saved); blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0); }
-  } catch(e) { blocks = []; }
+  try { const r = localStorage.getItem("nexsign_rates"); if (r) rateData = JSON.parse(r); } catch(e) { rateData = [...defaultRates]; }
+  try { const h = localStorage.getItem("nexsign_history"); if (h) historyList = JSON.parse(h); } catch(e) { historyList = []; }
+  try { const saved = localStorage.getItem("nexsign_blocks"); if (saved) { blocks = JSON.parse(saved); blockIdCounter = blocks.reduce((m, b) => Math.max(m, b.id), 0); } } catch(e) { blocks = []; }
   if (!blocks.length) addBlock();
   renderQuote(); renderRate(); updatePrintMeta();
 }
